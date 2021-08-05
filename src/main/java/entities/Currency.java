@@ -1,4 +1,4 @@
-package classes;
+package entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +14,6 @@ public class Currency {
     private char symbol;
     private String code;
 
-    Currency currency;
     public String makeUpCurrency(Currency currency) {
         return String.format("%s %s %c", currency.getCode(), currency.getCurrencyName(), currency.getSymbol());
     }

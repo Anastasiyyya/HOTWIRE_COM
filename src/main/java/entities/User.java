@@ -1,4 +1,5 @@
-package classes;
+package entities;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +10,10 @@ import lombok.extern.log4j.Log4j2;
 @Data
 @AllArgsConstructor
 @Builder
-public class FlightsList {
+public class User {
 
-    private Flight[] flights;
+    private String name;
+    private String surname;
+    private String email;
+    private String password;
 }

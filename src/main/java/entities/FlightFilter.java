@@ -1,11 +1,11 @@
-package classes;
+package entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 @Log4j2
 @Data
@@ -18,8 +18,8 @@ public class FlightFilter {
     private boolean baggageWeight;
 
     public void addPassengerToList(Passenger passenger) {
-        passengers = Arrays.copyOf(passengers, passengers.length + 1);
-        passengers[passengers.length - 1] = passenger;
+        ArrayList<Passenger> passengersList = new ArrayList<>();
+        passengersList.add(passenger);
         log.info("Passenger was added to list");
     }
 

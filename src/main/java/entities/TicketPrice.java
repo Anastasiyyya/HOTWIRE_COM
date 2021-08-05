@@ -1,4 +1,4 @@
-package classes;
+package entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +14,7 @@ public class TicketPrice {
     private Currency currency;
     private double sum;
 
-    public String getSum(){
+    public String makeUpSum(){
         return String.format("%c %f", currency.getSymbol(), sum);
     }
 }

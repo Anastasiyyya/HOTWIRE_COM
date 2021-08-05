@@ -1,4 +1,4 @@
-package classes;
+package entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,7 +27,7 @@ public class Flight {
     }
 
     public String getTicketPrice() {
-        return ticketPrice.getSum();
+        return ticketPrice.makeUpSum();
     }
 
     public String getAirportFrom() {

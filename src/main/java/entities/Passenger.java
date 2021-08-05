@@ -1,4 +1,4 @@
-package classes;
+package entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,13 +19,8 @@ public class Passenger {
     private LocalDate birthdayDate;
 
     public static int calculateAge(LocalDate birthDate, LocalDate currentDate) {
-        int years;
-        if ((birthDate != null) && (currentDate != null)) {
-            years = Period.between(birthDate, currentDate).getYears();
-            return years;
-        } else {
-            return 0;
-        }
+        int years = Period.between(birthDate, currentDate).getYears();
+        return years;
     }
 
     public boolean isPassengerAdult(int years) {

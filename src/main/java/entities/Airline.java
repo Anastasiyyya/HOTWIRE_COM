@@ -1,4 +1,4 @@
-package classes;
+package entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,8 @@ import lombok.extern.log4j.Log4j2;
 @Data
 @AllArgsConstructor
 @Builder
-public class Location {
+public class Airline {
 
-    private String country;
-    private String city;
-    private String region;
+    private String airlineName;
+    private String logoUrl;
 }
