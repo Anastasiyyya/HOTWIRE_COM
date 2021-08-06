@@ -24,15 +24,15 @@ public class Flight {
         return String.format("%s %s", airline.getLogoUrl(), airline.getAirlineName());
     }
 
-    public String getTicketPrice() {
+    public String makeUpTicketPrice() {
         return ticketPrice.makeUpSum();
     }
 
-    public String getAirportFrom() {
+    public String makeUpAirportFrom() {
         return  airportFrom.makeUpAirport();
     }
 
-    public String getAirportTo() {
+    public String makeUpAirportTo() {
         return  airportTo.makeUpAirport();
     }
 }
