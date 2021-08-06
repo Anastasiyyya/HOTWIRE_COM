@@ -33,10 +33,9 @@ public class TripDetailPage {
         return this;
     }
 
-    public double returnTotalPrice() throws InterruptedException {
-        //String addPrice1 = addPrice.replaceAll("\\s+"," ");
+    public double returnTotalPrice() {
         Pattern p = Pattern.compile("[^0-9]*([0-9]+(\\.[0-9]*)?)");
-        String addPrice = $$(TOTAL_PRICE_CSS).get(0).getText();
+        String addPrice = $$(TOTAL_PRICE_CSS).get(1).getText();
         Matcher m = p.matcher(addPrice);
         m.matches();
         String s = m.group(1);

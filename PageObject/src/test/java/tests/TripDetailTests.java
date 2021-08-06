@@ -41,11 +41,11 @@ public class TripDetailTests extends BaseTest{
         Assert.assertEquals(tripDetailPage.getDirectionTextXpathText(),"Minsk (MSQ)");
     }
 
-    /*    *//**
+     /**
      * This test checks if the total price is right
-     *//*
+     */
     @Test(description = "Checks total price")
-    public void checkTotalPrice() throws InterruptedException {
+    public void checkTotalPrice() {
         basePage.openPage()
                 .chooseOption("Flights")
                 .chooseDirection("Fly from","Minsk, Belarus (MSQ)")
@@ -71,5 +71,5 @@ public class TripDetailTests extends BaseTest{
         double price = totalPrice + additionallyPrice;
         switchTo().window(1);
         Assert.assertEquals(tripDetailPage.returnTotalPrice(), price);
-    }*/
+    }
 }
