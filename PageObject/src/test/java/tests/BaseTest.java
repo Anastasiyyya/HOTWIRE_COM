@@ -1,6 +1,7 @@
 package tests;
 
 import com.codeborne.selenide.Configuration;
+import constants.IPagesConstants;
 import dialogs.Dialog;
 import dialogs.SignInDialog;
 import dialogs.SignUpDialog;
@@ -13,21 +14,19 @@ import pages.*;
 import testConstants.ITestConstants;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
-public class BaseTest implements ITestConstants {
+public class BaseTest implements ITestConstants, IPagesConstants {
     BasePage basePage;
     Dialog dialog;
-    DropdownMenu dropdownMenu;
-    DatePicker datePicker;
-    FlightInfoForm flightInfoForm;
+    BasePageDatePicker basePageDatePicker;
     FlightsPage flightsPage;
     FlightsSearchPage flightsSearchPage;
-    GetDiscountModalPage getDiscountModalPage;
     HeaderPage headerPage;
     SignInDialog signInDialog;
     SignUpDialog signUpDialog;
     TripDetailPage tripDetailPage;
-    NavbarLeft navbarLeft;
     PassengersInput passengersInput;
+    BasePageForm basePageForm;
+    DropdownMenu dropdownMenu;
 
     /**
      * This method is executed before the test methods.
@@ -60,17 +59,13 @@ public class BaseTest implements ITestConstants {
     public void initPages(){
         basePage =  new BasePage();
         dialog = new Dialog();
-        dropdownMenu = new DropdownMenu();
-        flightInfoForm = new FlightInfoForm();
         flightsPage =  new FlightsPage();
-        flightsSearchPage =  new FlightsSearchPage();
-        getDiscountModalPage =  new GetDiscountModalPage();
         headerPage = new HeaderPage();
         signInDialog =  new SignUpDialog();
         signUpDialog =  new SignUpDialog();
         tripDetailPage =  new TripDetailPage();
-        navbarLeft = new NavbarLeft();
-        datePicker = new DatePicker();
-        passengersInput =  new PassengersInput();
+        basePageDatePicker = new BasePageDatePicker();
+        basePageForm = new BasePageForm();
+        dropdownMenu = new DropdownMenu();
     }
 }

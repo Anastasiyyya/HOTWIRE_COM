@@ -1,83 +1,55 @@
 package pages;
 
+import com.codeborne.selenide.SelenideElement;
 import elements.Checkbox;
 import elements.Dropdown;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.openqa.selenium.By;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.*;
+import static constants.IPagesConstants.*;
 
 @Data
 @AllArgsConstructor
-@Builder
-public class FlightsSearchPage extends BasePage{
+@NoArgsConstructor
+public class FlightsSearchPage extends BasePage {
 
-    public static final String SHOW_OPTIONS_BUTTON_XPATH = "//*[@id = 'flights-advanced-options-toggle']";
+    private SelenideElement selectThisFareButton = $x("//*[@id = 'basic-economy-tray-content-%s']//button");
+    private SelenideElement selectButton = $x("//*[@id='flightModuleList']//*[@class = 'grid-container standard-padding ']//button");
+    private SelenideElement showOptionsButton = $x("//*[@id = 'flights-advanced-options-toggle']");
+    private SelenideElement searchButton = $("#flight-wizard-search-button");
 
-    public static final String ADULT_COUNT_DROPDOWN_XPATH = "//*[@id = 'adult-count']";
-    public static final String ADULT_COUNT_DROPDOWN_MENU_XPATH = "//*[@id = 'adult-count']//option";
-
-    public static final String CHILDREN_COUNT_DROPDOWN_XPATH = "//*[@id = 'child-count']";
-    public static final String CHILDREN_COUNT_DROPDOWN_MENU_XPATH = "//*[@id = 'child-count']//option";
-
-    public static final String CHILD_AGES_DROPDOWN_XPATH = "//*[@name = 'child-ages']";
-    public static final String CHILD_AGES_DROPDOWN_MENU_XPATH = "//*[@id = 'child-age-%s']//option"; //order of child
-
-    public static final String AIRLINE_DROPDOWN_XPATH = "//*[@id = 'preferred-airline']";
-    public static final String AIRLINE_DROPDOWN_MENU_XPATH = "//*[@id = 'preferred-airline']//option";
-
-    public static final String SEATING_CLASS_DROPDOWN_XPATH = "//*[@id = 'seating-class']";
-    public static final String SEATING_CLASS_DROPDOWN_MENU_XPATH = "//*[@id = 'seating-class']//option";
-
-    public static final String NONSTOP_FLIGHT_CHECKBOX_XPATH = "//*[@id = 'nonstop-flights']";
-    public static final String REFUNDABLE_FLIGHT_CHECKBOX_XPATH = "//*[@id = 'refundable-flights']";
-
-    public static final String TRIP_TYPE_CHECKBOXES_XPATH = "//*[@value='%s']"; //ROUND_TRIP / ONE_WAY / MULTIPLE_DESTINATION /
-
-    public static final String FLIGHTS_LIST_SELECT_BUTTONS_XPATH = "//*[@id='flightModuleList']//*[@class = 'grid-container standard-padding ']//button";
-    public static final String SELECT_FARE_BUTTONS_XPATH = "//*[@id = 'basic-economy-tray-content-%s']//button"; //put flight order
-
-    public static final String ELEMENT_OF_LIST_XPATH = "//*[@id='flightModuleList']//*[@class = 'grid-container standard-padding ']";
-    //public static final String TEXT_OF_LIST_XPATH = "//*[@id='flightModuleList']//*[@class = 'primary-sub-content']";
-    public static final String RULES_BUTTON_XPATH = "//*[@data-content-ref='#basic-economy-tray-content-1']";
-
-    public static final String DETAILS_BUTTON_XPATH = "//*[@class='custom-col-r-margin link-style']";
-    public static final String TOTAL_PRICE_XPATH = "//*[@class='total-price-message']//strong";
-    public static final String ADDITIONAL_PRICE_XPATH = "//*[@class = 'primary-content   custom-primary-padding']//span";
-
-    public FlightsSearchPage clickButton(String button){
-        $(By.xpath(button)).click();
+    public FlightsSearchPage clickButton(SelenideElement button){
+        button.click();
         return this;
     }
 
     public FlightsSearchPage chooseAdultsCount(int count) {
-        new Dropdown().selectDropdownOption(ADULT_COUNT_DROPDOWN_XPATH, ADULT_COUNT_DROPDOWN_MENU_XPATH, count-1);
+        new Dropdown(ADULT_COUNT_DROPDOWN_XPATH, ADULT_COUNT_DROPDOWN_MENU_XPATH, count-1).selectDropdownOption();
         return this;
     }
 
     public FlightsSearchPage chooseChildrenCount(int count) {
-        new Dropdown().selectDropdownOption(CHILDREN_COUNT_DROPDOWN_XPATH, CHILDREN_COUNT_DROPDOWN_MENU_XPATH, count);
+        new Dropdown(CHILDREN_COUNT_DROPDOWN_XPATH, CHILDREN_COUNT_DROPDOWN_MENU_XPATH, count).selectDropdownOption();
         return this;
     }
 
     public FlightsSearchPage chooseChildAge(int childOrder, int childAge) {
-        new Dropdown().selectDropdownOption(CHILD_AGES_DROPDOWN_XPATH, String.format(CHILD_AGES_DROPDOWN_MENU_XPATH, childOrder), childAge);
+        new Dropdown(CHILD_AGES_DROPDOWN_XPATH, String.format(CHILD_AGES_DROPDOWN_MENU_XPATH, childOrder), childAge).selectDropdownOption();
         return this;
     }
 
     public FlightsSearchPage chooseAirline(int count) {
-        new Dropdown().selectDropdownOption(AIRLINE_DROPDOWN_XPATH, AIRLINE_DROPDOWN_MENU_XPATH, count);
+        new Dropdown(AIRLINE_DROPDOWN_XPATH, AIRLINE_DROPDOWN_MENU_XPATH, count).selectDropdownOption();
         return this;
     }
 
     public FlightsSearchPage chooseSeatingClass(int count) {
-        new Dropdown().selectDropdownOption(SEATING_CLASS_DROPDOWN_XPATH, SEATING_CLASS_DROPDOWN_MENU_XPATH, count-1);
+        new Dropdown(SEATING_CLASS_DROPDOWN_XPATH, SEATING_CLASS_DROPDOWN_MENU_XPATH, count-1).selectDropdownOption();
         return this;
     }
 
@@ -106,7 +78,7 @@ public class FlightsSearchPage extends BasePage{
         if($(By.xpath(String.format(RULES_BUTTON_XPATH,flightOrder))).isDisplayed()){
             clickSelectFlightButton(flightOrder);
             clickSelectFareButton(flightOrder);
-        }else {
+        } else {
             clickSelectFlightButton(flightOrder);
         }
         return this;
@@ -117,10 +89,15 @@ public class FlightsSearchPage extends BasePage{
         if($(By.xpath(String.format(RULES_BUTTON_XPATH,flightOrder))).isDisplayed()){
             clickSelectFlightButton(flightOrder);
             clickSelectFareButton(flightOrder);
-        }else {
+        } else {
             clickSelectFlightButton(flightOrder);
         }
         return new TripDetailPage();
+    }
+
+    public FlightsSearchPage clickSearchButton() {
+        $(searchButton).click();
+        return this;
     }
 
     public double checkTotalPrice(int flightOrder){

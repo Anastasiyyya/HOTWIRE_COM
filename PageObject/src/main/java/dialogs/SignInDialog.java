@@ -1,29 +1,16 @@
 package dialogs;
 
+import com.codeborne.selenide.SelenideElement;
 import pages.BasePage;
-
+import pages.HeaderPage;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 public class SignInDialog extends Dialog {
-    public static final String EMAIL_INPUT_CSS = "#email";
-    public static final String PASSWORD_INPUT_CSS = "#password";
-    public static final String SIGN_IN_BUTTON_CSS = ".sign-in";
-    public static final String SIGN_UP_BUTTON_CSS = ".sign-up";
-    //public static final String LOGIN_BUTTON_XPATH = "//*[@class='form-row']//span";
 
-    public static String getEmailInputCss() {
-        return EMAIL_INPUT_CSS;
-
-    }
-
-    public static String getPasswordInputCss() {
-        return PASSWORD_INPUT_CSS;
-    }
-
-    public static String getSignInInputCss() {
-        return SIGN_IN_BUTTON_CSS;
-    }
+    protected SelenideElement email = $("#email");
+    protected SelenideElement password = $("#password");
+    protected HeaderPage headerPage;
 
     /**
      * This method opens signIn dialog by URL.
@@ -31,15 +18,15 @@ public class SignInDialog extends Dialog {
      * @return the SignIn dialog
      */
     public SignInDialog openPage() {
-        open(BASE_URL);
+        open(BASE_PAGE_URL);
         return this;
     }
 
     public BasePage login(String email, String password) {
-        $(SIGN_IN_BUTTON_CSS).click();
-        $(EMAIL_INPUT_CSS).sendKeys(email);
-        $(PASSWORD_INPUT_CSS).sendKeys(password);
-        $(SIGN_BUTTON_CSS).click();
+        headerPage.getSignInButton().click();
+        this.email.sendKeys(email);
+        this.password.sendKeys(password);
+        signButton.click();
         return new BasePage();
     }
 }

@@ -14,9 +14,10 @@ public class AuthorizationTests extends BaseTest {
     public void loginTest() {
         signInDialog
                 .openPage()
-                .login(LOGIN, PASSWORD)
+                .login(LOGIN, PASSWORD);
+        headerPage
                 .waitForAccountButtonVisible();
-        Assert.assertEquals(basePage.getAccountButtonText(), "Hi, Anastasiya");
+        Assert.assertEquals(headerPage.getAccountButton().getText(), "Hi, Anastasiya");
     }
 
 
@@ -31,7 +32,7 @@ public class AuthorizationTests extends BaseTest {
         Thread.sleep(30000);
         signUpDialog
                 .createAnAccount(String.format("firstname_lastname%s@mail.ru",randomNumber),"qwerty123","firstName","lastName");
-        Assert.assertNotEquals(basePage.getAccountButtonText(), "Hi, firstName");
+        Assert.assertNotEquals(headerPage.getAccountButton().getText(), "Hi, firstName");
         Assert.assertTrue($("#rc-imageselect").isDisplayed());
     }
 }

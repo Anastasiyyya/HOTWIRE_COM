@@ -1,10 +1,34 @@
 package elements;
 
-public class DropdownMenu {
-    public static final String MY_TRIPS_BUTTON = "";
-    public static final String MT_ACCOUNT_BUTTON = "";
-    public static final String PREFERENCES_BUTTON = "";
-    public static final String CURRENCY_BUTTON = "//*[@id='currency']";
-    public static final String CURRENCY_CONTEINER = "//*[@id='currency--container']//li";
-    public static final String CURRENCY_CODE = "//*[@id='currency']//span";
+import com.codeborne.selenide.SelenideElement;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.openqa.selenium.By;
+import pages.HeaderPage;
+
+import static com.codeborne.selenide.Selenide.*;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class DropdownMenu extends HeaderPage {
+
+    private SelenideElement myTripsButton = $x("//*[contains(text(),'My trips')]");
+    private SelenideElement myAccountButton = $x("//*[contains(text(),'My account')]");
+    private SelenideElement myPreferencesButton = $x("//*[contains(text(),'Preferences')]");
+    private SelenideElement currencyButton = $x("//*[@id='currency']");
+    private SelenideElement currencyCode = $x("//*[@id='currency']//span");
+    private final static String CURRENCY_CONTAINER = "#currency--container li";
+
+    public void changeCurrency() {
+        currencyButton.click();
+        $$(CURRENCY_CONTAINER).get(4).click();
+    }
+
+    public String getCurrencyCode() {
+        return currencyCode.getText();
+    }
+
 }
+

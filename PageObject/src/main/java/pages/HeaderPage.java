@@ -1,19 +1,33 @@
 package pages;
 
-
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import elements.DropdownMenu;
-import org.openqa.selenium.By;
+import lombok.Data;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import java.time.Duration;
 
-public class HeaderPage extends DropdownMenu {
-    public void changeCurrency() {
-        $(By.xpath(CURRENCY_BUTTON)).click();
-        $$(By.xpath(CURRENCY_CONTEINER)).get(4).click();
+import static com.codeborne.selenide.Selenide.*;
+
+@Data
+public class HeaderPage extends BasePage{
+
+    protected SelenideElement signInButton = $(".sign-in");
+    protected SelenideElement signUpButton = $(".sign-up");
+    protected SelenideElement flightsButton = $x("//*[@class='nav nav-pills']//*[text()='Flights']");
+    protected SelenideElement accountButton = $("#dropdown-account-options");
+    protected DropdownMenu dropdownMenu;
+
+    public SelenideElement getAccountButton() {
+        return accountButton;
     }
 
-    public String changeCurrencyCode() {
-        return $(By.xpath(CURRENCY_CODE)).getText();
+    public void clickFlightButton() {
+        flightsButton.click();
+    }
+
+    public BasePage waitForAccountButtonVisible() {
+        accountButton.shouldBe(Condition.visible, Duration.ofSeconds(30));
+        return this;
     }
 }

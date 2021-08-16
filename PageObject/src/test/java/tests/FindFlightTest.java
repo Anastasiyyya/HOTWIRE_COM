@@ -11,18 +11,20 @@ public class FindFlightTest extends BaseTest {
      */
     @Test(description = "Find a round-trip flight")
     public void findARoundTripFlightTest() throws InterruptedException {
-        basePage.openPage()
-                .chooseOption("Flights")
+        basePage.openPage();
+        basePageForm
+                .chooseOptionFlights();
+        basePageForm
                 .chooseDirection("Fly from","Minsk, Belarus (MSQ)")
                 .chooseDirection("Fly to","Moscow, Russia (MOW)");
         Thread.sleep(5000);
-        datePicker
-                .chooseDepartingDate("2021","August", "15")
-                .clickChooseDateButton(1)
-                .chooseReturningDate("2021","December", "10");
+        basePageDatePicker
+                .chooseDate("2021","August", "15")
+                .clickChooseDateButton()
+                .chooseDate("2021","December", "10");
         passengersInput
                 .choosePassengersCount(2, "adults"); //max count - 5
-        basePage.clickFindAFlightButton();
+        basePageForm.clickFindAFlightButton();
         Assert.assertTrue($("#flightModuleList").isDisplayed());
     }
 
@@ -32,17 +34,18 @@ public class FindFlightTest extends BaseTest {
      */
     @Test(description = "Find a one-way flight")
     public void findAOneWayFlightTest() throws InterruptedException {
-        basePage.openPage()
-                .chooseOption("Flights")
+        basePage.openPage();
+        basePageForm
+                .chooseOptionFlights()
                 .chooseDirection("Fly from","Minsk, Belarus (MSQ)")
                 .chooseDirection("Fly to","Moscow, Russia (MOW)")
-                .chooseFlightType("One-way");
+                .selectOneWayTrip();
         Thread.sleep(5000);
-        datePicker
-                .chooseDepartingDate("2021","August", "15");
+        basePageDatePicker
+                .chooseDate("2021","August", "15");
         passengersInput
                 .choosePassengersCount(2, "adults");
-        basePage.clickFindAFlightButton();
+        basePageForm.clickFindAFlightButton();
         Assert.assertTrue($("#flightModuleList").isDisplayed());
     }
 }

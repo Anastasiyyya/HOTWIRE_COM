@@ -1,30 +1,35 @@
 package elements;
 
 import com.codeborne.selenide.Condition;
-
+import com.codeborne.selenide.SelenideElement;
 import java.time.Duration;
 import java.util.Objects;
 
-import static com.codeborne.selenide.Selenide.$;
+public abstract class PassengersInput {
 
-public class PassengersInput {
-
-    public static final String CHOOSE_PASSENGERS_COUNT_BUTTON_CSS = ".guest-picker";
-    public static final String INCREASE_PASSENGERS_COUNT_BUTTON_CSS = ".guest-fields__form-group--%s .quantity-selector__btn--increase"; //children or adults
-    public static final String DECREASE_PASSENGERS_COUNT_BUTTON_CSS = ".guest-fields__form-group--%s .quantity-selector__btn--decrease"; //children or adults
-    public static final String DONE_BUTTON = ".text-right button";
-    public static final String EXIST_PASSENGERS_COUNT_CSS = ".guest-fields__form-group--%s input"; //children or adults
+    protected SelenideElement passengersCountButton;
+    protected SelenideElement increaseAdultsButton;
+    protected SelenideElement decreaseAdultsButton;
+    protected SelenideElement increaseChildrenButton;
+    protected SelenideElement decreaseChildrenButton;
+    protected SelenideElement doneButton;
+    protected SelenideElement existAdultsCount;
+    protected SelenideElement existChildrenCount;
 
     public PassengersInput choosePassengersCount(int passengersCount, String passengerType) {
         waitUntilChooseButtonVisible();
-        $(CHOOSE_PASSENGERS_COUNT_BUTTON_CSS).click();
+       passengersCountButton.click();
         int count;
         do {
-            count = checkExistChildrenCount(passengerType);
+            count = checkExistPassengerCount(passengerType);
             if(count < passengersCount){
-                $(String.format(INCREASE_PASSENGERS_COUNT_BUTTON_CSS,passengerType)).click();
+                if(passengerType.equals("adults")){
+                    increaseAdultsButton.click();
+                } else {
+                    increaseChildrenButton.click();
+                }
             } else {
-                $(DONE_BUTTON).click();
+               doneButton.click();
                 break;
             }
         } while (true);
@@ -32,11 +37,14 @@ public class PassengersInput {
     }
 
     public PassengersInput waitUntilChooseButtonVisible() {
-        $(CHOOSE_PASSENGERS_COUNT_BUTTON_CSS).shouldBe(Condition.visible, Duration.ofSeconds(20));
+        passengersCountButton.shouldBe(Condition.visible, Duration.ofSeconds(20));
         return this;
     }
 
-    public int checkExistChildrenCount(String passengerType){
-        return Integer.parseInt(Objects.requireNonNull($(String.format(EXIST_PASSENGERS_COUNT_CSS, passengerType)).getAttribute("value")));
+    public int checkExistPassengerCount(String passengerType){
+        if(passengerType.equals("adults")){
+            return Integer.parseInt(Objects.requireNonNull(existAdultsCount.getAttribute("value")));
+        }
+        return Integer.parseInt(Objects.requireNonNull(existChildrenCount.getAttribute("value")));
     }
 }

@@ -1,26 +1,27 @@
 package pages;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
 import constants.IConstantsURL;
-import elements.Dropdown;
-import elements.FlightInfoForm;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.time.DateUtils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
-
-import java.time.Duration;
 import java.util.Date;
-
-import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
-public class BasePage extends FlightInfoForm implements IConstantsURL {
-    public static final String ACCOUNT_BUTTON_CSS = "#dropdown-account-options";
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class BasePage implements IConstantsURL {
+
+    public BasePageForm basePageForm;
 
     public BasePage openPage() {
-        open(BASE_URL);
+        open(BASE_PAGE_URL);
         WebDriverRunner.getWebDriver().manage().deleteCookieNamed("ak_bmsc");
         WebDriverRunner.getWebDriver().manage().addCookie(new Cookie("ak_bmsc",
                 "5949BB4D1CE164DBFF9FA3CE76ECB53C~000000000000000000000000000000~YAAQX/" +
@@ -36,44 +37,9 @@ public class BasePage extends FlightInfoForm implements IConstantsURL {
         return this;
     }
 
-    public BasePage waitForAccountButtonVisible() {
-        $(ACCOUNT_BUTTON_CSS).shouldBe(Condition.visible, Duration.ofSeconds(30));
-        return this;
-    }
-
-    public String getAccountButtonText() {
-        return $(ACCOUNT_BUTTON_CSS).getText();
-    }
-
-    public void selectOption(String option) {
-
-    }
-
-    public BasePage chooseOption(String option) {
-        $(By.xpath(String.format(FAREFINDER_OPTIONS_XPATH,option))).click();
-        return this;
-    }
-
-    public BasePage chooseDirection(String direction, String countryName) {
-        waitForAPageLoaded();
-        new Dropdown().selectInputDropdownOption(direction,countryName);
-        return this;
-    }
-
-    public BasePage waitForAPageLoaded() {
+    public BasePage waitForPageLoaded() {
         Configuration.timeout = 10000;
         return this;
     }
-
-    public FlightsSearchPage clickFindAFlightButton() {
-        $(By.xpath(FIND_A_FLIGHT_BUTTON_XPATH)).click();
-        return new FlightsSearchPage();
-    }
-
-    public FlightsSearchPage chooseFlightType(String type) {
-        $(By.xpath(String.format(TYPE_TRIP_BUTTON_XPATH,type))).click();
-        return new FlightsSearchPage();
-    }
-
 }
 

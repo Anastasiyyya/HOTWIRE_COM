@@ -16,7 +16,7 @@ public class Flight {
     private String flightType;
     private TicketPrice ticketPrice;
     private DateTimeFormatter departingDateAndTime;
-    private DateTimeFormatter returningDate;
+    private DateTimeFormatter arrivalDate;
     private Airport airportFrom;
     private Airport airportTo;
 

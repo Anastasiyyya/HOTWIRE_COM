@@ -2,5 +2,6 @@ package constants;
 
 public interface IConstantsURL {
 
-    String BASE_URL = "https://www.hotwire.com/";
+    String BASE_PAGE_URL = "https://www.hotwire.com/";
+    String FLIGHTS_PAGE_URL = "https://www.hotwire.com/";
 }

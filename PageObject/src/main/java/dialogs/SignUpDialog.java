@@ -1,23 +1,22 @@
 package dialogs;
 
+import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.time.DateUtils;
 import org.openqa.selenium.Cookie;
 import java.util.Date;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
+@NoArgsConstructor
 public class SignUpDialog extends SignInDialog {
 
-    public SignUpDialog() {
-        super();
-    }
-
-    public static final String FIRST_NAME_CSS = "#firstName";
-    public static final String LAST_NAME_CSS = "#lastName";
+    protected SelenideElement firstName =  $("#firstName");
+    protected SelenideElement lastName =  $("#lastName");
 
     public SignUpDialog openPage() {
-        open(BASE_URL);
+        open(BASE_PAGE_URL);
         WebDriverRunner.getWebDriver().manage().deleteCookieNamed("ak_bmsc");
         WebDriverRunner.getWebDriver().manage().addCookie(new Cookie("ak_bmsc",
                 "5949BB4D1CE164DBFF9FA3CE76ECB53C~000000000000000000000000000000~YAAQX/" +
@@ -32,12 +31,12 @@ public class SignUpDialog extends SignInDialog {
     }
 
     public SignUpDialog createAnAccount(String email, String password, String firstName, String lastName) {
-        $(SIGN_UP_BUTTON_CSS).click();
-        $(EMAIL_INPUT_CSS).sendKeys(email);
-        $(PASSWORD_INPUT_CSS).sendKeys(password);
-        $(FIRST_NAME_CSS).sendKeys(firstName);
-        $(LAST_NAME_CSS).sendKeys(lastName);
-        $(SIGN_BUTTON_CSS).click();
+        headerPage.getSignUpButton().click();
+        super.email.sendKeys(email);
+        super.password.sendKeys(password);
+        this.firstName.sendKeys(firstName);
+        this.lastName.sendKeys(lastName);
+        signButton.click();
         return this;
     }
 }
