@@ -19,19 +19,15 @@ public class FindFlightTest extends BaseTest {
                 .chooseDirection("Fly to","Moscow, Russia (MOW)");
         Thread.sleep(5000);
         basePageDatePicker
-                .chooseDate("2021","August", "15")
+                .chooseDate("2021","August", "20")
                 .clickChooseDateButton()
                 .chooseDate("2021","December", "10");
-        passengersInput
+        basePassengerInput
                 .choosePassengersCount(2, "adults"); //max count - 5
         basePageForm.clickFindAFlightButton();
         Assert.assertTrue($("#flightModuleList").isDisplayed());
     }
 
-    /**
-     *
-     * @throws InterruptedException
-     */
     @Test(description = "Find a one-way flight")
     public void findAOneWayFlightTest() throws InterruptedException {
         basePage.openPage();
@@ -43,7 +39,7 @@ public class FindFlightTest extends BaseTest {
         Thread.sleep(5000);
         basePageDatePicker
                 .chooseDate("2021","August", "15");
-        passengersInput
+        basePassengerInput
                 .choosePassengersCount(2, "adults");
         basePageForm.clickFindAFlightButton();
         Assert.assertTrue($("#flightModuleList").isDisplayed());

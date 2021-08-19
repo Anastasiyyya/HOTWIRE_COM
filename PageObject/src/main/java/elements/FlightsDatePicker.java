@@ -5,16 +5,13 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class FlightsDatePicker extends DatePicker {
 
-    private SelenideElement button;
-    private SelenideElement nextButton;
-    private SelenideElement backButton;
-    private SelenideElement doneButton;
+    private final SelenideElement doneButton;
 
     public FlightsDatePicker() {
+        this.doneButton  = $x("//*[@data-stid='apply-date-picker']");
         super.button = $x("//*[@id='d1-btn']");
         super.nextButton = $x("//*[@data-stid='date-picker-paging'][2]");
         super.backButton = $x("//*[@data-stid='date-picker-paging'][1]");
-        this.doneButton  = $x("//*[@data-stid='apply-date-picker']");
     }
 
     @Override

@@ -1,18 +1,8 @@
 package elements;
 
-import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.$;
 
 public class BasePassengerInput extends PassengersInput {
-
-    public SelenideElement passengersCountButton;
-    public SelenideElement increaseAdultsButton;
-    public SelenideElement decreaseAdultsButton;
-    public SelenideElement increaseChildrenButton;
-    public SelenideElement decreaseChildrenButton ;
-    public SelenideElement doneButton;
-    public SelenideElement existAdultsCount;
-    public SelenideElement existChildrenCount;
 
     public BasePassengerInput() {
         super.passengersCountButton = $(".guest-picker");

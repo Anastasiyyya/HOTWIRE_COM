@@ -2,7 +2,6 @@ package pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import elements.DropdownMenu;
 import lombok.Data;
 
 import java.time.Duration;
@@ -16,7 +15,6 @@ public class HeaderPage extends BasePage{
     protected SelenideElement signUpButton = $(".sign-up");
     protected SelenideElement flightsButton = $x("//*[@class='nav nav-pills']//*[text()='Flights']");
     protected SelenideElement accountButton = $("#dropdown-account-options");
-    protected DropdownMenu dropdownMenu;
 
     public SelenideElement getAccountButton() {
         return accountButton;

@@ -1,18 +1,8 @@
 package elements;
 
-import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.$;
 
 public class FlightsPagePassengerInput extends PassengersInput {
-
-    protected SelenideElement passengersCountButton;
-    protected SelenideElement increaseAdultsButton;
-    protected SelenideElement decreaseAdultsButton;
-    protected SelenideElement increaseChildrenButton;
-    protected SelenideElement decreaseChildrenButton;
-    protected SelenideElement doneButton;
-    protected SelenideElement existAdultsCount;
-    protected SelenideElement existChildrenCount;
 
     public FlightsPagePassengerInput() {
         super.passengersCountButton = $("[data-testid=\"travelers-field-trigger\"]");

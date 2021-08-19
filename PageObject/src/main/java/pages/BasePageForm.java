@@ -13,12 +13,7 @@ import static com.codeborne.selenide.Selenide.$x;
 @AllArgsConstructor
 public class BasePageForm extends InfoForm {
 
-    private SelenideElement flyFromField;
-    private SelenideElement flyToField;
-    private SelenideElement findAFlightButton;
-    private SelenideElement roundTripButton;
-    private SelenideElement oneWayTripButton;
-    private SelenideElement fareFinderFlights;
+     private SelenideElement fareFinderFlights;
 
      public BasePageForm() {
         this.fareFinderFlights = $x("//*[@class='farefinder-options']//*[text()='Flights']");

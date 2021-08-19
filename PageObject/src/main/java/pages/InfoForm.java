@@ -5,6 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import elements.DatePicker;
 import elements.Dropdown;
 import elements.PassengersInput;
+import entities.Flight;
 import lombok.*;
 
 @Data
@@ -26,6 +27,15 @@ public abstract class InfoForm {
 
     public BasePage waitForPageLoaded() {
         Configuration.timeout = 10000;
+        return new BasePage();
+    }
+
+    public BasePage chooseFlightType(String flightType){
+        if(flightType.equals("Round-trip")){
+            roundTripButton.click();
+        } else {
+            oneWayTripButton.click();
+        }
         return new BasePage();
     }
 

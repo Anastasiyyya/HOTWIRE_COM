@@ -14,8 +14,8 @@ import java.time.Period;
 @Builder
 public class Passenger {
 
-    private String passengerName;
-    private String passengerSurname;
+    //private String passengerName;
+    //private String passengerSurname;
     private LocalDate birthdayDate;
 
     public static int calculateAge(LocalDate birthDate, LocalDate currentDate) {

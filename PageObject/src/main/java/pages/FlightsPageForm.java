@@ -1,14 +1,9 @@
 package pages;
 
-import com.codeborne.selenide.SelenideElement;
 import elements.*;
 import static com.codeborne.selenide.Selenide.$;
 
 public class FlightsPageForm extends InfoForm {
-
-    private SelenideElement leavingFromField;
-    private SelenideElement flyToField;
-    private SelenideElement findAFlightButton;
 
     public FlightsPageForm() {
         super.leavingFromField  = $("[aria-label='Leaving from']");

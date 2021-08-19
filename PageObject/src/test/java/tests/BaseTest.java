@@ -24,7 +24,7 @@ public class BaseTest implements ITestConstants, IPagesConstants {
     SignInDialog signInDialog;
     SignUpDialog signUpDialog;
     TripDetailPage tripDetailPage;
-    PassengersInput passengersInput;
+    BasePassengerInput basePassengerInput;
     BasePageForm basePageForm;
     DropdownMenu dropdownMenu;
 
@@ -67,5 +67,6 @@ public class BaseTest implements ITestConstants, IPagesConstants {
         basePageDatePicker = new BasePageDatePicker();
         basePageForm = new BasePageForm();
         dropdownMenu = new DropdownMenu();
+        basePassengerInput = new BasePassengerInput();
     }
 }

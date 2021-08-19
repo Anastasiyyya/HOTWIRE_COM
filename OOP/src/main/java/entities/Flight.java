@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
-import java.time.format.DateTimeFormatter;
 
 @Log4j2
 @Data
@@ -15,8 +14,14 @@ public class Flight {
     private Airline airline;
     private String flightType;
     private TicketPrice ticketPrice;
-    private DateTimeFormatter departingDateAndTime;
-    private DateTimeFormatter arrivalDate;
+    //private DateTimeFormatter departingDateAndTime;
+    //private DateTimeFormatter arrivalDate;
+    private String departingYear; //+
+    private String departingMonth;//+
+    private String departingDay;//+
+    private String returningYear;//+
+    private String returningMonth;//+
+    private String returningDay;//+
     private Airport airportFrom;
     private Airport airportTo;
 

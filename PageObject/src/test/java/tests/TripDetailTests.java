@@ -1,5 +1,6 @@
 package tests;
 
+import entities.Flight;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.FlightsSearchPage;
@@ -12,18 +13,20 @@ public class TripDetailTests extends BaseTest{
      *This test checks if the correct direction is displayed on the trie detail information page
      */
     @Test(description = "Check the correct direction")
-    public void checkingTheCorrectDirection() throws InterruptedException {
+    public void checkingTheCorrectDirection(Flight flight) throws InterruptedException {
+        flight.setFlightType("Round-trip");
+
         basePage.openPage();
         basePageForm
                 .chooseOptionFlights()
                 .chooseDirection("Fly from","Minsk, Belarus (MSQ)")
                 .chooseDirection("Fly to","Moscow, Russia (MOW)")
-                .selectRoundTrip();
+                .chooseFlightType(flight.getFlightType());
         Thread.sleep(5000);
         basePageDatePicker
                 .chooseDate("2021","August", "15")
                 .chooseDate("2021","December", "8");
-        passengersInput
+        basePassengerInput
                 .choosePassengersCount(2, "adults");
         basePageForm.clickFindAFlightButton();
         flightsSearchPage

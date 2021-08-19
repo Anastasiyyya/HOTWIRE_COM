@@ -27,7 +27,7 @@ public class Dropdown {
 
 
     public void selectInputDropdownOption(String direction, String countryName) {
-        new Input().writeTextInDropdownField(direction,countryName);
+        new Input(direction).writeTextInDropdownField(countryName);
         Selenide.Wait().withTimeout(Duration.ofSeconds(10));
         $$(DROPDOWN_MENU_CSS).get(0).click();
     }

@@ -9,11 +9,6 @@ import static com.codeborne.selenide.Selenide.$x;
 @Data
 public class BasePageDatePicker extends DatePicker {
 
-    private SelenideElement button;
-    private SelenideElement nextButton;
-    private SelenideElement backButton;
-    private SelenideElement resetButton;
-
     public BasePageDatePicker() {
         super.button = $("[data-bdd = 'farefinder-flight-startdate-input']");
         super.nextButton = $x("//*[contains(text(),'Next month')]/parent::button");

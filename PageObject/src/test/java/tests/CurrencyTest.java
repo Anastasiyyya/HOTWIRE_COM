@@ -11,7 +11,7 @@ public class CurrencyTest extends BaseTest {
     @Test(description = "Checks")
     public void changeCurrency(){
         basePage.openPage();
-        dropdownMenu.changeCurrency();
+        dropdownMenu.changeCurrency("CAD");
         Assert.assertEquals(dropdownMenu.getCurrencyCode(),"CAD");
     }
 }
