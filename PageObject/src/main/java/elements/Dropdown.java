@@ -25,7 +25,6 @@ public class Dropdown {
         this.option = option;
     }
 
-
     public void selectInputDropdownOption(String direction, String countryName) {
         new Input(direction).writeTextInDropdownField(countryName);
         Selenide.Wait().withTimeout(Duration.ofSeconds(10));

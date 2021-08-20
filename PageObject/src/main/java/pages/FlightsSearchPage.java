@@ -4,10 +4,9 @@ import com.codeborne.selenide.SelenideElement;
 import elements.Checkbox;
 import elements.Dropdown;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.openqa.selenium.By;
+import org.openqa.selenium.By;;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import static com.codeborne.selenide.Selenide.*;
@@ -22,6 +21,10 @@ public class FlightsSearchPage extends BasePage {
     private SelenideElement selectButton = $x("//*[@id='flightModuleList']//*[@class = 'grid-container standard-padding ']//button");
     private SelenideElement showOptionsButton = $x("//*[@id = 'flights-advanced-options-toggle']");
     private SelenideElement searchButton = $("#flight-wizard-search-button");
+    private SelenideElement airportFrom = $x("//*[@data-test-id='flight-info']//span[2]");
+    private SelenideElement airportTo = $x("//*[@data-test-id='flight-info']//span[4]");
+    private SelenideElement flightType = $x("//*[@data-test-id='price-msg-route-type']");
+
 
     public FlightsSearchPage clickButton(SelenideElement button){
         button.click();
@@ -118,5 +121,4 @@ public class FlightsSearchPage extends BasePage {
         String s = m.group(1);
         return Double.parseDouble(s);
     }
-
 }

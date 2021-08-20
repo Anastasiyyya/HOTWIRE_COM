@@ -5,7 +5,6 @@ import com.codeborne.selenide.SelenideElement;
 import elements.DatePicker;
 import elements.Dropdown;
 import elements.PassengersInput;
-import entities.Flight;
 import lombok.*;
 
 @Data
@@ -25,37 +24,34 @@ public abstract class InfoForm {
         this.dropdown = new Dropdown();
     }
 
-    public BasePage waitForPageLoaded() {
+    public InfoForm waitForPageLoaded() {
         Configuration.timeout = 10000;
-        return new BasePage();
+        return this;
     }
 
-    public BasePage chooseFlightType(String flightType){
+    public InfoForm chooseFlightType(String flightType){
         if(flightType.equals("Round-trip")){
             roundTripButton.click();
         } else {
             oneWayTripButton.click();
         }
-        return new BasePage();
+        return this;
     }
 
-    public BasePage selectRoundTrip() {
-        roundTripButton.click();
-        return new BasePage();
-    }
-
-    public BasePage selectOneWayTrip() {
-        oneWayTripButton.click();
-        return new BasePage();
-    }
-    public BasePageForm chooseDirection(String direction, String countryName) {
+    public InfoForm chooseDirectionFrom(String countryName) {
         waitForPageLoaded();
-        dropdown.selectInputDropdownOption(direction,countryName);
-        return new BasePageForm();
+        dropdown.selectInputDropdownOption("Fly from",countryName);
+        return this;
     }
 
-    public BasePage clickFindAFlightButton() {
+    public InfoForm chooseDirectionTo(String countryName) {
+        waitForPageLoaded();
+        dropdown.selectInputDropdownOption("Fly to",countryName);
+        return this;
+    }
+
+    public FlightsSearchPage clickFindAFlightButton() {
         findAFlightButton.click();
-        return new BasePage();
+        return new FlightsSearchPage();
     }
 }

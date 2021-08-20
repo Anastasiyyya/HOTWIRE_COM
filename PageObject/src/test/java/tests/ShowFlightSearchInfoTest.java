@@ -4,10 +4,10 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import static com.codeborne.selenide.Selenide.switchTo;
 
-public class ShowFlightInfoTest extends BaseTest {
+public class ShowFlightSearchInfoTest extends BaseTest {
+
     /**
      * This test checks if the TripDetailPage opened and the button 'ContinueBooking' displayed
-     * @throws InterruptedException
      */
     @Test(description = "Shows flight's info")
     public void findAFlightTest() throws InterruptedException {
@@ -15,8 +15,8 @@ public class ShowFlightInfoTest extends BaseTest {
         basePage.openPage();
         basePageForm
                 .chooseOptionFlights()
-                .chooseDirection("Fly from","Minsk, Belarus (MSQ)")
-                .chooseDirection("Fly to","Moscow, Russia (MOW)");
+                .chooseDirectionFrom("Minsk, Belarus (MSQ)")
+                .chooseDirectionTo("Moscow, Russia (MOW)");
         Thread.sleep(5000);
         basePageDatePicker
                 .clickChooseDateButton()

@@ -4,9 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.openqa.selenium.By;
 import pages.HeaderPage;
-
 import static com.codeborne.selenide.Selenide.*;
 
 @Data
@@ -19,6 +17,7 @@ public class DropdownMenu extends HeaderPage {
     private SelenideElement myPreferencesButton = $x("//*[contains(text(),'Preferences')]");
     private SelenideElement currencyButton = $x("//*[@id='currency']");
     private SelenideElement currencyCode = $x("//*[@id='currency']//span");
+
     private final static String CURRENCY_CONTAINER = "//*[contains(text(),'%s')]";
 
     public void changeCurrency(String currency) {
@@ -29,6 +28,5 @@ public class DropdownMenu extends HeaderPage {
     public String getCurrencyCode() {
         return currencyCode.getText();
     }
-
 }
 

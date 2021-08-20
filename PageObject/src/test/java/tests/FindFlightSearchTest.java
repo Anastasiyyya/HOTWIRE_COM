@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import static com.codeborne.selenide.Selenide.$;
 
-public class FindFlightTest extends BaseTest {
+public class FindFlightSearchTest extends BaseTest {
 
     /**
      * This test checks if is it possible to find a flight showing the list of flights
@@ -15,15 +15,15 @@ public class FindFlightTest extends BaseTest {
         basePageForm
                 .chooseOptionFlights();
         basePageForm
-                .chooseDirection("Fly from","Minsk, Belarus (MSQ)")
-                .chooseDirection("Fly to","Moscow, Russia (MOW)");
+                .chooseDirectionFrom("Minsk, Belarus (MSQ)")
+                .chooseDirectionTo("Moscow, Russia (MOW)");
         Thread.sleep(5000);
         basePageDatePicker
-                .chooseDate("2021","August", "20")
+                .chooseDate("2021","August", "15")
                 .clickChooseDateButton()
                 .chooseDate("2021","December", "10");
         basePassengerInput
-                .choosePassengersCount(2, "adults"); //max count - 5
+                .choosePassengersCount(2, "adults");
         basePageForm.clickFindAFlightButton();
         Assert.assertTrue($("#flightModuleList").isDisplayed());
     }
@@ -33,9 +33,9 @@ public class FindFlightTest extends BaseTest {
         basePage.openPage();
         basePageForm
                 .chooseOptionFlights()
-                .chooseDirection("Fly from","Minsk, Belarus (MSQ)")
-                .chooseDirection("Fly to","Moscow, Russia (MOW)")
-                .selectOneWayTrip();
+                .chooseDirectionFrom("Minsk, Belarus (MSQ)")
+                .chooseDirectionTo("Moscow, Russia (MOW)")
+                .chooseFlightType("One-way");
         Thread.sleep(5000);
         basePageDatePicker
                 .chooseDate("2021","August", "15");

@@ -16,15 +16,11 @@ public class HeaderPage extends BasePage{
     protected SelenideElement flightsButton = $x("//*[@class='nav nav-pills']//*[text()='Flights']");
     protected SelenideElement accountButton = $("#dropdown-account-options");
 
-    public SelenideElement getAccountButton() {
-        return accountButton;
-    }
-
     public void clickFlightButton() {
         flightsButton.click();
     }
 
-    public BasePage waitForAccountButtonVisible() {
+    public HeaderPage waitForAccountButtonVisible() {
         accountButton.shouldBe(Condition.visible, Duration.ofSeconds(30));
         return this;
     }

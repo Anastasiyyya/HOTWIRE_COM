@@ -14,15 +14,15 @@ import static com.codeborne.selenide.Selenide.$;
 @Builder
 public class Checkbox {
 
-    protected SelenideElement checkbox;
+    private SelenideElement checkbox;
 
     private boolean isCheckBoxSelected(){
         return checkbox.isSelected();
     }
 
-    public void turnOnCheckbox(SelenideElement checkbox){
+    public void turnOnCheckbox(){
         if(!isCheckBoxSelected()){
-            checkbox.click();
+            this.checkbox.click();
         }
     }
 

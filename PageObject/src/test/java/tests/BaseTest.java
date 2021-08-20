@@ -2,9 +2,6 @@ package tests;
 
 import com.codeborne.selenide.Configuration;
 import constants.IPagesConstants;
-import dialogs.Dialog;
-import dialogs.SignInDialog;
-import dialogs.SignUpDialog;
 import elements.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -15,14 +12,12 @@ import testConstants.ITestConstants;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class BaseTest implements ITestConstants, IPagesConstants {
+
     BasePage basePage;
-    Dialog dialog;
     BasePageDatePicker basePageDatePicker;
     FlightsPage flightsPage;
     FlightsSearchPage flightsSearchPage;
     HeaderPage headerPage;
-    SignInDialog signInDialog;
-    SignUpDialog signUpDialog;
     TripDetailPage tripDetailPage;
     BasePassengerInput basePassengerInput;
     BasePageForm basePageForm;
@@ -58,11 +53,8 @@ public class BaseTest implements ITestConstants, IPagesConstants {
      */
     public void initPages(){
         basePage =  new BasePage();
-        dialog = new Dialog();
         flightsPage =  new FlightsPage();
         headerPage = new HeaderPage();
-        signInDialog =  new SignUpDialog();
-        signUpDialog =  new SignUpDialog();
         tripDetailPage =  new TripDetailPage();
         basePageDatePicker = new BasePageDatePicker();
         basePageForm = new BasePageForm();

@@ -3,9 +3,7 @@ package tests;
 import entities.Flight;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.FlightsSearchPage;
 import static com.codeborne.selenide.Selenide.switchTo;
-import static constants.IPagesConstants.NONSTOP_FLIGHT_CHECKBOX_XPATH;
 
 public class TripDetailTests extends BaseTest{
 
@@ -13,16 +11,15 @@ public class TripDetailTests extends BaseTest{
      *This test checks if the correct direction is displayed on the trie detail information page
      */
     @Test(description = "Check the correct direction")
-    public void checkingTheCorrectDirection(Flight flight) throws InterruptedException {
+    public void checkingTheCorrectDirection(Flight flight) {
         flight.setFlightType("Round-trip");
 
         basePage.openPage();
         basePageForm
                 .chooseOptionFlights()
-                .chooseDirection("Fly from","Minsk, Belarus (MSQ)")
-                .chooseDirection("Fly to","Moscow, Russia (MOW)")
+                .chooseDirectionFrom("Minsk, Belarus (MSQ)")
+                .chooseDirectionTo("Moscow, Russia (MOW)")
                 .chooseFlightType(flight.getFlightType());
-        Thread.sleep(5000);
         basePageDatePicker
                 .chooseDate("2021","August", "15")
                 .chooseDate("2021","December", "8");
@@ -50,12 +47,12 @@ public class TripDetailTests extends BaseTest{
      * This test checks if the total price is right
      */
     @Test(description = "Checks total price")
-    public void checkTotalPrice() throws InterruptedException {
+    public void checkTotalPrice() {
         basePage.openPage();
         basePageForm
                 .chooseOptionFlights()
-                .chooseDirection("Fly from","Minsk, Belarus (MSQ)")
-                .chooseDirection("Fly to","Moscow, Russia (MOW)");
+                .chooseDirectionFrom("Minsk, Belarus (MSQ)")
+                .chooseDirectionTo("Moscow, Russia (MOW)");
         basePageDatePicker
                 .chooseDate("2021","September", "8")
                 .clickChooseDateButton()

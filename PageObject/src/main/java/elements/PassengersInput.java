@@ -21,7 +21,7 @@ public abstract class PassengersInput {
        passengersCountButton.click();
         int count;
         do {
-            count = checkExistPassengerCount(passengerType);
+            count = checkExistPassengersCount(passengerType);
             if(count < passengersCount){
                 if(passengerType.equals("adults")){
                     increaseAdultsButton.click();
@@ -41,8 +41,8 @@ public abstract class PassengersInput {
         return this;
     }
 
-    public int checkExistPassengerCount(String passengerType){
-        if(passengerType.equals("adults")){
+    public int checkExistPassengersCount(String passengerType){
+        if(passengerType.equals("adults")) {
             return Integer.parseInt(Objects.requireNonNull(existAdultsCount.getAttribute("value")));
         }
         return Integer.parseInt(Objects.requireNonNull(existChildrenCount.getAttribute("value")));
