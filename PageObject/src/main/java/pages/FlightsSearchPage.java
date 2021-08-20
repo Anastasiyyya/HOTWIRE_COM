@@ -24,7 +24,8 @@ public class FlightsSearchPage extends BasePage {
     private SelenideElement airportFrom = $x("//*[@data-test-id='flight-info']//span[2]");
     private SelenideElement airportTo = $x("//*[@data-test-id='flight-info']//span[4]");
     private SelenideElement flightType = $x("//*[@data-test-id='price-msg-route-type']");
-
+    private SelenideElement sortDropdown = $("#sortDropdown");
+    private SelenideElement sortFilterClearButton = $(".sort-filter-clear-button");
 
     public FlightsSearchPage clickButton(SelenideElement button){
         button.click();
