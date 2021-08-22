@@ -30,7 +30,7 @@ public interface IPagesConstants {
     String SELECT_FARE_BUTTONS_XPATH = "//*[@id = 'basic-economy-tray-content-%s']//button"; //put flight order
 
     String ELEMENT_OF_LIST_XPATH = "//*[@id='flightModuleList']//*[@class = 'grid-container standard-padding ']";
-    String RULES_BUTTON_XPATH = "//*[@data-content-ref='#basic-economy-tray-content-1']";
+    String RULES_BUTTON_XPATH = "//*[@data-content-ref='#basic-economy-tray-content-%s']";
 
     String DETAILS_BUTTON_XPATH = "//*[@class='custom-col-r-margin link-style']";
     String TOTAL_PRICE_XPATH = "//*[@class='total-price-message']//strong";

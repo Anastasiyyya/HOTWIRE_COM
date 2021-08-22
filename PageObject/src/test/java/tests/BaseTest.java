@@ -8,10 +8,9 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import pages.*;
-import testConstants.ITestConstants;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
-public class BaseTest implements ITestConstants, IPagesConstants {
+public class BaseTest implements IPagesConstants {
 
     BasePage basePage;
     BasePageDatePicker basePageDatePicker;

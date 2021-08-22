@@ -27,7 +27,7 @@ public class TripDetailTests extends BaseTest{
                 .choosePassengersCount(2, "adults");
         basePageForm.clickFindAFlightButton();
         flightsSearchPage
-                .clickButton(flightsSearchPage.getShowOptionsButton())
+                .clickShowOptionsButton()
                 .chooseAdultsCount(2)
                 .chooseChildrenCount(2)
                 .chooseChildAge(1,15)
@@ -59,7 +59,7 @@ public class TripDetailTests extends BaseTest{
                 .chooseDate("2021","December", "8");
         basePageForm.clickFindAFlightButton();
         flightsSearchPage
-                .clickButton(flightsSearchPage.getShowOptionsButton())
+                .clickShowOptionsButton()
                 .chooseAdultsCount(2)
                 .chooseChildrenCount(2)
                 .chooseChildAge(1,15)

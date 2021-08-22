@@ -24,7 +24,7 @@ public class ShowFlightSearchInfoTest extends BaseTest {
                 .chooseDate("2021","October", "20");
         basePageForm.clickFindAFlightButton();
         flightsSearchPage
-                .clickButton(flightsSearchPage.getShowOptionsButton())
+                .clickShowOptionsButton()
                 .chooseAdultsCount(2)
                 .chooseChildrenCount(2)
                 .chooseChildAge(1,15)

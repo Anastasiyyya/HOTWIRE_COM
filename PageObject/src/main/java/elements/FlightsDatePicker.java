@@ -13,18 +13,4 @@ public class FlightsDatePicker extends DatePicker {
         super.nextButton = $x("//*[@data-stid='date-picker-paging'][2]");
         super.backButton = $x("//*[@data-stid='date-picker-paging'][1]");
     }
-
-    @Override
-    public FlightsDatePicker chooseDate(String year, String month, String day) {
-        clickChooseDateButton();
-        while(true) {
-            if ($x(String.format(DATE,month,day,year)).exists()) {
-                $x(String.format(DATE,month,day,year)).click();
-                break;
-            } else {
-                nextButton.click();
-            }
-        }
-        return this;
-    }
 }

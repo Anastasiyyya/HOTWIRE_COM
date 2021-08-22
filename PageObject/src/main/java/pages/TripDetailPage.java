@@ -4,8 +4,6 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import java.time.Duration;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import static com.codeborne.selenide.Selenide.*;
 
 public class TripDetailPage {
@@ -52,12 +50,9 @@ public class TripDetailPage {
     }
 
     public double returnTotalPrice() {
-        Pattern p = Pattern.compile("[^0-9]*([0-9]+(\\.[0-9]*)?)");
-        String addPrice = totalPrice.get(1).getText();
-        Matcher m = p.matcher(addPrice);
-        m.matches();
-        String s = m.group(1);
-        return Double.parseDouble(s);
+        String total = totalPrice.get(1).getText();
+        String totalWithoutDollar = total.replace("$", "");
+        return Double.parseDouble(totalWithoutDollar);
     }
 
     public FlightsSearchPage clickChangeFlights() {

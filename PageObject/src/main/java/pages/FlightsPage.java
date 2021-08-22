@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FlightsPage extends HeaderPage {
+public class FlightsPage {
 
     private FlightsPageForm flightsPageForm;
 

@@ -7,15 +7,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.openqa.selenium.By;;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import static com.codeborne.selenide.Selenide.*;
 import static constants.IPagesConstants.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FlightsSearchPage extends BasePage {
+public class FlightsSearchPage {
 
     private SelenideElement selectThisFareButton = $x("//*[@id = 'basic-economy-tray-content-%s']//button");
     private SelenideElement selectButton = $x("//*[@id='flightModuleList']//*[@class = 'grid-container standard-padding ']//button");
@@ -27,8 +25,8 @@ public class FlightsSearchPage extends BasePage {
     private SelenideElement sortDropdown = $("#sortDropdown");
     private SelenideElement sortFilterClearButton = $(".sort-filter-clear-button");
 
-    public FlightsSearchPage clickButton(SelenideElement button){
-        button.click();
+    public FlightsSearchPage clickShowOptionsButton(){
+        showOptionsButton.click();
         return this;
     }
 
@@ -79,7 +77,7 @@ public class FlightsSearchPage extends BasePage {
 
     public FlightsSearchPage chooseDepartingFlight(int flightOrder){
 
-        if($(By.xpath(String.format(RULES_BUTTON_XPATH,flightOrder))).isDisplayed()){
+        if($x(String.format(RULES_BUTTON_XPATH,flightOrder)).isDisplayed()){
             clickSelectFlightButton(flightOrder);
             clickSelectFareButton(flightOrder);
         } else {
@@ -90,7 +88,7 @@ public class FlightsSearchPage extends BasePage {
 
     public TripDetailPage chooseReturningFlight(int flightOrder){
 
-        if($(By.xpath(String.format(RULES_BUTTON_XPATH,flightOrder))).isDisplayed()){
+        if($x(String.format(RULES_BUTTON_XPATH,flightOrder)).isDisplayed()){
             clickSelectFlightButton(flightOrder);
             clickSelectFareButton(flightOrder);
         } else {
@@ -107,19 +105,13 @@ public class FlightsSearchPage extends BasePage {
     public double checkTotalPrice(int flightOrder){
         $$(By.xpath(DETAILS_BUTTON_XPATH)).get(flightOrder).click();
         String price = $(By.xpath(TOTAL_PRICE_XPATH)).getText();
-        Pattern p = Pattern.compile("[^0-9]*([0-9]+(\\.[0-9]*)?)");
-        Matcher m = p.matcher(price);
-        m.matches();
-        String s = m.group(1);
-        return Double.parseDouble(s);
+        String priceWithoutDollar = price.replace("$", "");
+        return Double.parseDouble(priceWithoutDollar);
     }
 
     public double checkAdditionallyPrice(int flightOrder){
         String addPrice = $$(By.xpath(ADDITIONAL_PRICE_XPATH)).get(flightOrder).getText();
-        Pattern p = Pattern.compile("[^0-9]*([0-9]+(\\.[0-9]*)?)");
-        Matcher m = p.matcher(addPrice);
-        m.matches();
-        String s = m.group(1);
-        return Double.parseDouble(s);
+        String addPriceWithoutDollar = addPrice.replace("$", "");
+        return Double.parseDouble(addPriceWithoutDollar);
     }
 }

@@ -30,18 +30,4 @@ public class BasePageForm extends InfoForm {
         fareFinderFlights.click();
         return this;
     }
-
-    @Override
-    public BasePageForm chooseDirectionFrom(String countryName) {
-        waitForPageLoaded();
-        dropdown.selectInputDropdownOption("Fly from",countryName);
-        return this;
-    }
-
-    @Override
-    public BasePageForm chooseDirectionTo(String countryName) {
-        waitForPageLoaded();
-        dropdown.selectInputDropdownOption("Fly to",countryName);
-        return this;
-    }
 }

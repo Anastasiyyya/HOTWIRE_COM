@@ -4,13 +4,12 @@ import com.codeborne.selenide.SelenideElement;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pages.HeaderPage;
 import static com.codeborne.selenide.Selenide.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DropdownMenu extends HeaderPage {
+public class DropdownMenu {
 
     private SelenideElement myTripsButton = $x("//*[contains(text(),'My trips')]");
     private SelenideElement myAccountButton = $x("//*[contains(text(),'My account')]");

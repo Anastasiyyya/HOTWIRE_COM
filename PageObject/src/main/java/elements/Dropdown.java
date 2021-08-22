@@ -1,6 +1,7 @@
 package elements;
 
 import com.codeborne.selenide.Selenide;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,17 +14,12 @@ import static constants.IPagesConstants.DROPDOWN_MENU_CSS;
 @Data
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Dropdown {
 
     private String dropdownName;
     private String dropdownMenuPath;
-    private int option;
-
-    public Dropdown(String dropdownName, String dropdownMenuPath, int option) {
-        this.dropdownName = dropdownName;
-        this.dropdownMenuPath = dropdownMenuPath;
-        this.option = option;
-    }
+    private int numberInList;
 
     public void selectInputDropdownOption(String direction, String countryName) {
         new Input(direction).writeTextInDropdownField(countryName);
@@ -33,6 +29,6 @@ public class Dropdown {
 
     public void selectDropdownOption() {
         $(By.xpath(dropdownName)).click();
-        $$(By.xpath(dropdownMenuPath)).get(option).click();
+        $$(By.xpath(dropdownMenuPath)).get(numberInList).click();
     }
 }
