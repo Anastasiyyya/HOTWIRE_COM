@@ -19,9 +19,8 @@ public class FindFlightSearchTest extends BaseTest {
                 .chooseDirectionTo("Moscow, Russia (MOW)");
         Thread.sleep(5000);
         basePageDatePicker
-                .chooseDate("2021","August", "15")
-                .clickChooseDateButton()
-                .chooseDate("2021","December", "10");
+                .chooseDate("2021","August", "15",
+                        "2021","December", "10");
         basePassengerInput
                 .choosePassengersCount(2, "adults");
         basePageForm.clickFindAFlightButton();
@@ -38,7 +37,7 @@ public class FindFlightSearchTest extends BaseTest {
                 .chooseFlightType("One-way");
         Thread.sleep(5000);
         basePageDatePicker
-                .chooseDate("2021","August", "15");
+                .chooseOneWayTripDate("2021","August", "15");
         basePassengerInput
                 .choosePassengersCount(2, "adults");
         basePageForm.clickFindAFlightButton();

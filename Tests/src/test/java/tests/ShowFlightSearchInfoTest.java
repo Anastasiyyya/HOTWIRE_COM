@@ -19,9 +19,8 @@ public class ShowFlightSearchInfoTest extends BaseTest {
                 .chooseDirectionTo("Moscow, Russia (MOW)");
         Thread.sleep(5000);
         basePageDatePicker
-                .clickChooseDateButton()
-                .chooseDate("2021","September", "8")
-                .chooseDate("2021","October", "20");
+                .chooseDate("2021","September", "8",
+                        "2021","October", "20");
         basePageForm.clickFindAFlightButton();
         flightsSearchPage
                 .clickShowOptionsButton()

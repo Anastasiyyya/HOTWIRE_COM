@@ -1,5 +1,7 @@
 package pages;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
 import elements.Checkbox;
 import elements.Dropdown;
@@ -7,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.openqa.selenium.By;;
+import java.time.Duration;
+
 import static com.codeborne.selenide.Selenide.*;
 import static constants.IPagesConstants.*;
 
@@ -113,5 +117,10 @@ public class FlightsSearchPage {
         String addPrice = $$(By.xpath(ADDITIONAL_PRICE_XPATH)).get(flightOrder).getText();
         String addPriceWithoutDollar = addPrice.replace("$", "");
         return Double.parseDouble(addPriceWithoutDollar);
+    }
+
+    public FlightsSearchPage waitFlightsLoaded() {
+        $("#bCol").shouldBe(Condition.visible, Duration.ofSeconds(10));
+        return this;
     }
 }

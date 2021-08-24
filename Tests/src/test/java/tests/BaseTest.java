@@ -8,6 +8,8 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import pages.*;
+import steps.FindFlightSteps;
+
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class BaseTest implements IPagesConstants {
@@ -21,6 +23,7 @@ public class BaseTest implements IPagesConstants {
     BasePassengerInput basePassengerInput;
     BasePageForm basePageForm;
     DropdownMenu dropdownMenu;
+    FindFlightSteps findFlightSteps;
 
     /**
      * This method is executed before the test methods.
@@ -42,10 +45,10 @@ public class BaseTest implements IPagesConstants {
     /**
      * This method executed after test methods and closes browser.
      */
-    @AfterMethod
+    /*@AfterMethod
     public void closeBrowser(){
         getWebDriver().quit();
-    }
+    }*/
 
     /**
      * This method inits pages for our project
@@ -59,5 +62,6 @@ public class BaseTest implements IPagesConstants {
         basePageForm = new BasePageForm();
         dropdownMenu = new DropdownMenu();
         basePassengerInput = new BasePassengerInput();
+        findFlightSteps = new FindFlightSteps();
     }
 }

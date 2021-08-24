@@ -18,12 +18,12 @@ public abstract class PassengersInput {
 
     public PassengersInput choosePassengersCount(int passengersCount, String passengerType) {
         waitUntilChooseButtonVisible();
-       passengersCountButton.click();
+        passengersCountButton.click();
         int count;
         do {
             count = checkExistPassengersCount(passengerType);
             if(count < passengersCount){
-                if(passengerType.equals("adults")){
+                if (passengerType.equals("adults")){
                     increaseAdultsButton.click();
                 } else {
                     increaseChildrenButton.click();
@@ -33,6 +33,7 @@ public abstract class PassengersInput {
                 break;
             }
         } while (true);
+        waitUntilChooseButtonVisible();
         return this;
     }
 
@@ -41,8 +42,13 @@ public abstract class PassengersInput {
         return this;
     }
 
+    public PassengersInput clickPassengerCountButton() {
+        passengersCountButton.click();
+        return this;
+    }
+
     public int checkExistPassengersCount(String passengerType){
-        if(passengerType.equals("adults")) {
+        if (passengerType.equals("adults")) {
             return Integer.parseInt(Objects.requireNonNull(existAdultsCount.getAttribute("value")));
         }
         return Integer.parseInt(Objects.requireNonNull(existChildrenCount.getAttribute("value")));

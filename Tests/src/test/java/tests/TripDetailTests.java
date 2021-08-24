@@ -21,8 +21,8 @@ public class TripDetailTests extends BaseTest{
                 .chooseDirectionTo("Moscow, Russia (MOW)")
                 .chooseFlightType(flight.getFlightType());
         basePageDatePicker
-                .chooseDate("2021","August", "15")
-                .chooseDate("2021","December", "8");
+                .chooseDate("2021","August", "15",
+                        "2021","December", "8");
         basePassengerInput
                 .choosePassengersCount(2, "adults");
         basePageForm.clickFindAFlightButton();
@@ -54,9 +54,8 @@ public class TripDetailTests extends BaseTest{
                 .chooseDirectionFrom("Minsk, Belarus (MSQ)")
                 .chooseDirectionTo("Moscow, Russia (MOW)");
         basePageDatePicker
-                .chooseDate("2021","September", "8")
-                .clickChooseDateButton()
-                .chooseDate("2021","December", "8");
+                .chooseDate("2021","September", "8",
+                        "2021","December", "8");
         basePageForm.clickFindAFlightButton();
         flightsSearchPage
                 .clickShowOptionsButton()
