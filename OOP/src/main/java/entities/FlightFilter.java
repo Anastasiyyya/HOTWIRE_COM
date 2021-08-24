@@ -14,7 +14,7 @@ public class FlightFilter {
 
     private List<Passenger> passengers;
     private Flight flight;
-    private boolean baggageWeight;
+    //private boolean baggageWeight;
 
     public void addPassengerToList(Passenger passenger) {
         passengers.add(passenger);

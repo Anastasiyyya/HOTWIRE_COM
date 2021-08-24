@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
-
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -14,9 +13,11 @@ import java.time.Period;
 @Builder
 public class Passenger {
 
-    private String passengerName;
-    private String passengerSurname;
     private LocalDate birthdayDate;
+    private String adultPassenger = "adults";
+    private String childPassenger = "children";
+    private int adultPassengersCount;
+    private int childrenPassengersCount;
 
     public static int calculateAge(LocalDate birthDate, LocalDate currentDate) {
         int years = Period.between(birthDate, currentDate).getYears();

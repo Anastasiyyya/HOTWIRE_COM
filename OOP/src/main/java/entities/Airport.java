@@ -16,7 +16,7 @@ public class Airport {
     private Location location;
 
     public String makeUpLocation() {
-        return String.format("%s %s %s", location.getCountry(), location.getRegion(), location.getCity());
+        return String.format("%s, %s (%s)", location.getCity(), location.getCountry(), airportCode);
     }
 
     public String makeUpAirport() {
