@@ -1,32 +1,52 @@
 package pages;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import elements.Checkbox;
 import elements.Dropdown;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.openqa.selenium.By;;
+import java.time.Duration;
+import java.util.Locale;
+
 import static com.codeborne.selenide.Selenide.*;
 import static constants.IPagesConstants.*;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class FlightsSearchPage {
 
     private SelenideElement selectThisFareButton = $x("//*[@id = 'basic-economy-tray-content-%s']//button");
     private SelenideElement selectButton = $x("//*[@id='flightModuleList']//*[@class = 'grid-container standard-padding ']//button");
     private SelenideElement showOptionsButton = $x("//*[@id = 'flights-advanced-options-toggle']");
+    private ElementsCollection flightDetailButton = $$x("//*[@class=' flightDetailsToggle']/button");
     private SelenideElement searchButton = $("#flight-wizard-search-button");
-    private SelenideElement airportFrom = $x("//*[@data-test-id='flight-info']//span[2]");
-    private SelenideElement airportTo = $x("//*[@data-test-id='flight-info']//span[4]");
     private SelenideElement flightType = $x("//*[@data-test-id='price-msg-route-type']");
     private SelenideElement sortDropdown = $("#sortDropdown");
     private SelenideElement sortFilterClearButton = $(".sort-filter-clear-button");
+    private SelenideElement nonStopFlightCheckboxXpath = $x("//*[@id = 'nonstop-flights']");
+    private FlightForms flightForms;
+    private TripDetailPage tripDetailPage;
+
+    public FlightsSearchPage() {
+        this.flightForms = new FlightForms();
+        this.tripDetailPage = new TripDetailPage();
+    }
 
     public FlightsSearchPage clickShowOptionsButton(){
         showOptionsButton.click();
+        return this;
+    }
+
+    public FlightsSearchPage clickDetailsButton(int orderInList){
+        $$x(DETAILS_BUTTON_XPATH).get(orderInList).click();
+        return this;
+    }
+
+    public FlightsSearchPage clickFlightDetailAndBaggageFeesButton(int orderInList){
+        flightDetailButton.get(orderInList).click();
         return this;
     }
 
@@ -35,9 +55,17 @@ public class FlightsSearchPage {
         return this;
     }
 
-    public FlightsSearchPage chooseChildrenCount(int count) {
+    public FlightsSearchPage chooseChildrenCountAndAge(int count) {
         new Dropdown(CHILDREN_COUNT_DROPDOWN_XPATH, CHILDREN_COUNT_DROPDOWN_MENU_XPATH, count).selectDropdownOption();
+        for (int i = 1; i <= count; i++) {
+            int childAge = generateRandomAge();
+            new Dropdown(CHILD_AGES_DROPDOWN_XPATH, String.format(CHILD_AGES_DROPDOWN_MENU_XPATH, i), childAge).selectDropdownOption();
+        }
         return this;
+    }
+
+    public int generateRandomAge() {
+        return (int) (Math.random() * 17);
     }
 
     public FlightsSearchPage chooseChildAge(int childOrder, int childAge) {
@@ -45,23 +73,33 @@ public class FlightsSearchPage {
         return this;
     }
 
-    public FlightsSearchPage chooseAirline(int count) {
+    public FlightsSearchPage chooseAirlineByOrderInList(int count) {
         new Dropdown(AIRLINE_DROPDOWN_XPATH, AIRLINE_DROPDOWN_MENU_XPATH, count).selectDropdownOption();
         return this;
     }
 
-    public FlightsSearchPage chooseSeatingClass(int count) {
+    public FlightsSearchPage chooseAirlineByName(String airline) {
+        new Dropdown(AIRLINE_DROPDOWN_XPATH, String.format(AIRLINE_DROPDOWN_OPTION_XPATH,airline)).findDropdownOptionAndSelect();
+        return this;
+    }
+
+    public FlightsSearchPage chooseSeatingClassByOrderInList(int count) {
         new Dropdown(SEATING_CLASS_DROPDOWN_XPATH, SEATING_CLASS_DROPDOWN_MENU_XPATH, count-1).selectDropdownOption();
         return this;
     }
 
-    public FlightsSearchPage selectCheckbox(String checkboxName) {
-        new Checkbox().findCheckboxAndSelect(checkboxName);
+    public FlightsSearchPage chooseSeatingClassByName(String seatingClassName) {
+        new Dropdown(SEATING_CLASS_DROPDOWN_XPATH, String.format(SEATING_CLASS_DROPDOWN_OPTION_XPATH,seatingClassName)).findDropdownOptionAndSelect();
+        return this;
+    }
+
+    public FlightsSearchPage selectNonStopCheckbox() {
+        new Checkbox(nonStopFlightCheckboxXpath).turnOnCheckbox();
         return this;
     }
 
     public FlightsSearchPage selectTripType(String tripType) {
-        new Checkbox().findCheckboxAndSelect(String.format(TRIP_TYPE_CHECKBOXES_XPATH,tripType));
+        new Checkbox().findCheckboxAndSelect(String.format(TRIP_TYPE_CHECKBOXES_XPATH,tripType.replace("-","_").toUpperCase(Locale.ROOT)));
         return this;
     }
 
@@ -113,5 +151,10 @@ public class FlightsSearchPage {
         String addPrice = $$(By.xpath(ADDITIONAL_PRICE_XPATH)).get(flightOrder).getText();
         String addPriceWithoutDollar = addPrice.replace("$", "");
         return Double.parseDouble(addPriceWithoutDollar);
+    }
+
+    public FlightsSearchPage waitFlightsLoaded() {
+        $("#bCol").shouldBe(Condition.visible, Duration.ofSeconds(10));
+        return this;
     }
 }

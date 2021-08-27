@@ -1,7 +1,10 @@
 package elements;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import lombok.SneakyThrows;
+
 import java.time.Duration;
 import java.util.Objects;
 
@@ -18,12 +21,13 @@ public abstract class PassengersInput {
 
     public PassengersInput choosePassengersCount(int passengersCount, String passengerType) {
         waitUntilChooseButtonVisible();
-       passengersCountButton.click();
+        passengersCountButton.click();
         int count;
         do {
+            Selenide.Wait().withTimeout(Duration.ofSeconds(10));
             count = checkExistPassengersCount(passengerType);
             if(count < passengersCount){
-                if(passengerType.equals("adults")){
+                if (passengerType.equals("adults")){
                     increaseAdultsButton.click();
                 } else {
                     increaseChildrenButton.click();
@@ -33,6 +37,7 @@ public abstract class PassengersInput {
                 break;
             }
         } while (true);
+        waitUntilChooseButtonVisible();
         return this;
     }
 
@@ -41,8 +46,13 @@ public abstract class PassengersInput {
         return this;
     }
 
+    public PassengersInput clickPassengerCountButton() {
+        passengersCountButton.click();
+        return this;
+    }
+
     public int checkExistPassengersCount(String passengerType){
-        if(passengerType.equals("adults")) {
+        if (passengerType.equals("adults")) {
             return Integer.parseInt(Objects.requireNonNull(existAdultsCount.getAttribute("value")));
         }
         return Integer.parseInt(Objects.requireNonNull(existChildrenCount.getAttribute("value")));

@@ -13,8 +13,9 @@ import java.util.List;
 public class FlightFilter {
 
     private List<Passenger> passengers;
-    private Flight flight;
-    //private boolean baggageWeight;
+    private FlightSearch flightSearch;
+    private Airline airline;
+
 
     public void addPassengerToList(Passenger passenger) {
         passengers.add(passenger);

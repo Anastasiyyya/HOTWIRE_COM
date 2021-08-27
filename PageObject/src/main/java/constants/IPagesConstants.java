@@ -13,15 +13,17 @@ public interface IPagesConstants {
     String CHILDREN_COUNT_DROPDOWN_MENU_XPATH = "//*[@id = 'child-count']//option";
 
     String CHILD_AGES_DROPDOWN_XPATH = "//*[@name = 'child-ages']";
-    String CHILD_AGES_DROPDOWN_MENU_XPATH = "//*[@id = 'child-age-%s']//option"; //order of child
+    String CHILD_AGES_DROPDOWN_MENU_XPATH = "//*[@id = 'child-age-%s']//option";
 
     String AIRLINE_DROPDOWN_XPATH = "//*[@id = 'preferred-airline']";
     String AIRLINE_DROPDOWN_MENU_XPATH = "//*[@id = 'preferred-airline']//option";
+    String AIRLINE_DROPDOWN_OPTION_XPATH = "//*[@id = 'preferred-airline']//option[contains(text(),'%s')]";
 
     String SEATING_CLASS_DROPDOWN_XPATH = "//*[@id = 'seating-class']";
     String SEATING_CLASS_DROPDOWN_MENU_XPATH = "//*[@id = 'seating-class']//option";
+    String SEATING_CLASS_DROPDOWN_OPTION_XPATH = "//*[@id = 'seating-class']//option[contains(text(),'%s')]";
 
-    String NONSTOP_FLIGHT_CHECKBOX_XPATH = "//*[@id = 'nonstop-flights']";
+
     String REFUNDABLE_FLIGHT_CHECKBOX_XPATH = "//*[@id = 'refundable-flights']";
 
     String TRIP_TYPE_CHECKBOXES_XPATH = "//*[@value='%s']"; //ROUND_TRIP / ONE_WAY / MULTIPLE_DESTINATION /

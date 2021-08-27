@@ -3,6 +3,7 @@ package entities;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import java.time.LocalDate;
 import java.time.Period;
@@ -11,11 +12,12 @@ import java.time.Period;
 @Data
 @AllArgsConstructor
 @Builder
+@NoArgsConstructor
 public class Passenger {
 
+    @Builder.Default private String adultPassenger = "adults";
+    @Builder.Default private String childPassenger = "children";
     private LocalDate birthdayDate;
-    private String adultPassenger = "adults";
-    private String childPassenger = "children";
     private int adultPassengersCount;
     private int childrenPassengersCount;
 

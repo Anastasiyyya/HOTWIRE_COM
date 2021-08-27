@@ -13,4 +13,5 @@ public class Airline {
 
     private String airlineName;
     private String logoUrl;
+    private String seatingClass;
 }

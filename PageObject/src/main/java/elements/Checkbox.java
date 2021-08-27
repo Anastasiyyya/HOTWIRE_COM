@@ -10,13 +10,15 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class Checkbox {
 
-    private String label;
     private SelenideElement checkbox;
+
+    public Checkbox(SelenideElement checkbox) {
+        this.checkbox = checkbox;
+    }
 
     public static final String CHECKBOX_FILTER_XPATH = "//*[@id='sort-filter-drawer']//*[contains(text(),'%s (')]/ancestor::*[@class='check filter-option']//input";
 
@@ -34,7 +36,7 @@ public class Checkbox {
         $(By.xpath(checkboxName)).click();
     }
 
-    public void selectCheckboxFromFilter(){
+    public void selectCheckboxFromFilter(String label){
         $x(String.format(CHECKBOX_FILTER_XPATH,label)).click();
     }
 }

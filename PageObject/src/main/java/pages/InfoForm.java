@@ -1,11 +1,15 @@
 package pages;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import elements.BasePageDatePicker;
 import elements.DatePicker;
 import elements.Dropdown;
 import elements.PassengersInput;
 import lombok.*;
+
+import java.time.Duration;
 
 @Data
 @AllArgsConstructor
@@ -19,13 +23,14 @@ public abstract class InfoForm {
     protected DatePicker datepicker;
     protected Dropdown dropdown;
     protected PassengersInput passengersInput;
+    protected BasePageDatePicker basePageDatePicker;
 
     public InfoForm() {
         this.dropdown = new Dropdown();
     }
 
     public InfoForm waitForPageLoaded() {
-        Configuration.timeout = 10000;
+        Selenide.Wait().withTimeout(Duration.ofSeconds(10));
         return this;
     }
 
