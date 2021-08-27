@@ -12,7 +12,7 @@
         <module>OOP</module>
         <module>PageObject</module>
         <module>Steps</module>
-        <module>untitled</module>
+        <module>Tests</module>
     </modules>
 
     <properties>
