@@ -14,6 +14,8 @@ public class FlightFilter {
 
     private List<Passenger> passengers;
     private FlightSearch flightSearch;
+    private Airline airline;
+
 
     public void addPassengerToList(Passenger passenger) {
         passengers.add(passenger);

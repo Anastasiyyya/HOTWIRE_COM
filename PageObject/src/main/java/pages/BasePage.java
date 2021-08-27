@@ -1,24 +1,31 @@
 package pages;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import constants.IConstantsURL;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.time.DateUtils;
 import org.openqa.selenium.Cookie;
+
+import java.time.Duration;
 import java.util.Date;
 import static com.codeborne.selenide.Selenide.open;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 public class BasePage implements IConstantsURL {
 
     public BasePageForm basePageForm;
+    public FlightsSearchPage flightsSearchPage;
+
+    public BasePage() {
+        this.basePageForm = new BasePageForm();
+        this.flightsSearchPage = new FlightsSearchPage();
+    }
 
     public BasePage openPage() {
         open(BASE_PAGE_URL);
@@ -38,7 +45,7 @@ public class BasePage implements IConstantsURL {
     }
 
     public BasePage waitForPageLoaded() {
-        Configuration.timeout = 10000;
+        Selenide.Wait().withTimeout(Duration.ofSeconds(10));
         return this;
     }
 }

@@ -1,7 +1,10 @@
 package elements;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import lombok.SneakyThrows;
+
 import java.time.Duration;
 import java.util.Objects;
 
@@ -21,6 +24,7 @@ public abstract class PassengersInput {
         passengersCountButton.click();
         int count;
         do {
+            Selenide.Wait().withTimeout(Duration.ofSeconds(10));
             count = checkExistPassengersCount(passengerType);
             if(count < passengersCount){
                 if (passengerType.equals("adults")){

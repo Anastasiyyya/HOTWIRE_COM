@@ -18,8 +18,8 @@ public abstract class DatePicker {
 
     public static final String DATE = "//*[@aria-label='%s %s, %s']";
 
-    public DatePicker chooseDate(String departingYear, String departingMonth, String departingDay,
-                                 String returningYear, String returningMonth, String returningDay) {
+    public DatePicker chooseRoundTripDates(String departingYear, String departingMonth, String departingDay,
+                                           String returningYear, String returningMonth, String returningDay) {
         clickChooseDateButton();
         while(true) {
             if ($x(String.format(DATE,departingMonth,departingDay,departingYear)).exists()) {

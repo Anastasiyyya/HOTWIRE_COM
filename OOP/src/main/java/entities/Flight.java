@@ -13,4 +13,5 @@ public class Flight {
     private String airportTo;
     private String flightType;
     private String flightPrice;
+    private String airline;
 }

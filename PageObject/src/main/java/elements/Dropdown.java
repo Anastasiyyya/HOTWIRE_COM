@@ -21,6 +21,11 @@ public class Dropdown {
     private String dropdownMenuPath;
     private int numberInList;
 
+    public Dropdown(String dropdownName, String dropdownMenuPath) {
+        this.dropdownName = dropdownName;
+        this.dropdownMenuPath = dropdownMenuPath;
+    }
+
     public void selectInputDropdownOption(String direction, String countryName) {
         new Input(direction).writeTextInDropdownField(countryName);
         Selenide.Wait().withTimeout(Duration.ofSeconds(10));
@@ -30,5 +35,10 @@ public class Dropdown {
     public void selectDropdownOption() {
         $(By.xpath(dropdownName)).click();
         $$(By.xpath(dropdownMenuPath)).get(numberInList).click();
+    }
+
+    public void findDropdownOptionAndSelect() {
+        $(By.xpath(dropdownName)).click();
+        $(By.xpath(dropdownMenuPath)).click();
     }
 }
