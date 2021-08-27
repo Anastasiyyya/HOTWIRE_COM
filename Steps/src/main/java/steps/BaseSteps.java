@@ -10,7 +10,6 @@ public class BaseSteps {
 
     BasePage basePage = new BasePage();
 
-
     /**
      * This method add all flights exists on the 'Flight Search' page to flight list
      * @return flightList
