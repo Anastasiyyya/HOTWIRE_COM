@@ -44,8 +44,6 @@ public class FlightDataTests extends BaseTest {
                 .passenger(childPassenger)
                 .build();
         findFlightSteps.findOneWayTripFlight(flightSearch);
-        Assert.assertEquals(findFlightSteps.getChildrenCount(flightSearch)
-                + findFlightSteps.getAdultsCount(flightSearch), findFlightSteps.getGeneralPassengersCount(flightSearch));
         Assert.assertTrue(findFlightSteps.assertTripType());
         Assert.assertTrue(findFlightSteps.assertFlyFromTo());
     }

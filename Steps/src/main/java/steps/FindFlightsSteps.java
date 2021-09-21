@@ -54,9 +54,14 @@ public class FindFlightsSteps extends BaseSteps {
         basePage.getBasePageForm().getDatepicker()
                 .chooseOneWayTripDate(flightSearch.getDepartingYear(), flightSearch.getDepartingMonth(), flightSearch.getDepartingDay());
         basePage.getBasePageForm().getPassengersInput()
+                .clickPassengerCountButton();
+        int childrenPassengerCount = basePage.getBasePageForm().getPassengersInput().checkExistPassengersCount(flightSearch.getPassenger().getChildPassenger());
+        int adultPassengerCount = basePage.getBasePageForm().getPassengersInput().checkExistPassengersCount(flightSearch.getPassenger().getAdultPassenger());
+        basePage.getBasePageForm().getPassengersInput()
                 .choosePassengersCount(flightSearch.getPassenger().getChildrenPassengersCount(), flightSearch.getPassenger().getChildPassenger());
         basePage.basePageForm.clickFindAFlightButton()
                 .waitFlightsLoaded();
+        assertPassengers(adultPassengerCount, childrenPassengerCount);
         System.out.println(makeUpFlightsList().toString());
         return makeUpFlightsList();
     }
@@ -79,10 +84,14 @@ public class FindFlightsSteps extends BaseSteps {
     }
 
     public boolean assertionForSearchingResults(String result){
+        boolean bool = true;
         for (int i = 0; i < makeUpSearchingResultsList().size(); i++) {
-            makeUpSearchingResultsList().get(i).contains(result);
+            if (makeUpSearchingResultsList().get(i).contains(result)) {
+                bool = true;
+            }
+            else bool = false;
         }
-        return true;
+        return bool;
     }
 
     public boolean assertTripType(){
@@ -109,15 +118,15 @@ public class FindFlightsSteps extends BaseSteps {
         return result;
     }
 
-    public int getChildrenCount(FlightSearch flightSearch) {
-        return basePage.getBasePageForm().getPassengersInput().checkExistPassengersCount(flightSearch.getPassenger().getChildPassenger());
-    }
 
-    public int getAdultsCount(FlightSearch flightSearch) {
-        return basePage.getBasePageForm().getPassengersInput().checkExistPassengersCount(flightSearch.getPassenger().getAdultPassenger());
-    }
-
-    public int getGeneralPassengersCount(FlightSearch flightSearch) {
-        return basePage.getFlightsSearchPage().checkGeneralPassengersCount();
+    public boolean assertPassengers(int adultsCount, int childrenCount) {
+        boolean result = true;
+        int generalCount = basePage.getFlightsSearchPage().checkGeneralPassengersCount();
+        if (generalCount == adultsCount + childrenCount) {
+            result = true;
+        } else {
+            result = false;
+        }
+        return result;
     }
 }
