@@ -62,7 +62,6 @@ public class FindFlightsSteps extends BaseSteps {
         basePage.basePageForm.clickFindAFlightButton()
                 .waitFlightsLoaded();
         assertPassengers(adultPassengerCount, childrenPassengerCount);
-        System.out.println(makeUpFlightsList().toString());
         return makeUpFlightsList();
     }
 
@@ -120,7 +119,7 @@ public class FindFlightsSteps extends BaseSteps {
 
 
     public boolean assertPassengers(int adultsCount, int childrenCount) {
-        boolean result = true;
+        boolean result;
         int generalCount = basePage.getFlightsSearchPage().checkGeneralPassengersCount();
         if (generalCount == adultsCount + childrenCount) {
             result = true;

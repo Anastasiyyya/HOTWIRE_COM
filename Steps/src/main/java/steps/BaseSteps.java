@@ -16,21 +16,16 @@ public class BaseSteps {
      */
     public List<Flight> makeUpFlightsList() {
         List<Flight> flightList = new ArrayList<>();
-        try {
-            System.out.println(basePage.getFlightsSearchPage().getFlightForms().getFlights().size());
-            for (int i = 0; i < basePage.getFlightsSearchPage().getFlightForms().getFlights().size(); i++) {
-                basePage.getFlightsSearchPage().clickDetailsButton(i);
-                flightList.add(Flight.builder()
-                        .flightType(basePage.getFlightsSearchPage().getFlightForms().getFlightType().get(i).getText())
-                        .airportFrom(basePage.getFlightsSearchPage().getFlightForms().getAirportFrom().get(i).getText())
-                        .airportTo(basePage.getFlightsSearchPage().getFlightForms().getAirportTo().get(i).getText())
-                        .flightPrice(basePage.getFlightsSearchPage().getFlightForms().getFlightPrice().get(i).getText())
-                        .airline(basePage.getFlightsSearchPage().getFlightForms().getAirlineName().get(i).getText())
-                        .build());
+        for (int i = 0; i < basePage.getFlightsSearchPage().getFlightForms().getFlights().size(); i++) {
+            basePage.getFlightsSearchPage().clickDetailsButton(i);
+            flightList.add(Flight.builder()
+                    .flightType(basePage.getFlightsSearchPage().getFlightForms().getFlightType().get(i).getText())
+                    .airportFrom(basePage.getFlightsSearchPage().getFlightForms().getAirportFrom().get(i).getText())
+                    .airportTo(basePage.getFlightsSearchPage().getFlightForms().getAirportTo().get(i).getText())
+                    .flightPrice(basePage.getFlightsSearchPage().getFlightForms().getFlightPrice().get(i).getText())
+                    .airline(basePage.getFlightsSearchPage().getFlightForms().getAirlineName().get(i).getText())
+                    .build());
             }
-        }catch (IndexOutOfBoundsException e){
-            System.out.println("Exception");
-        }
         return flightList;
     }
 
