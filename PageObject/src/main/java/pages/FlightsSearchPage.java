@@ -10,6 +10,7 @@ import lombok.Data;
 import org.openqa.selenium.By;;
 import java.time.Duration;
 import java.util.Locale;
+import java.util.Objects;
 
 import static com.codeborne.selenide.Selenide.*;
 import static constants.IPagesConstants.*;
@@ -27,6 +28,7 @@ public class FlightsSearchPage {
     private SelenideElement sortDropdown = $("#sortDropdown");
     private SelenideElement sortFilterClearButton = $(".sort-filter-clear-button");
     private SelenideElement nonStopFlightCheckboxXpath = $x("//*[@id = 'nonstop-flights']");
+    private SelenideElement generalPassengersCountXpath = $x("//*[@id='advanced-options-container']//p/span");
     private FlightForms flightForms;
     private TripDetailPage tripDetailPage;
 
@@ -156,5 +158,9 @@ public class FlightsSearchPage {
     public FlightsSearchPage waitFlightsLoaded() {
         $("#bCol").shouldBe(Condition.visible, Duration.ofSeconds(10));
         return this;
+    }
+
+    public int checkGeneralPassengersCount(){
+        return Integer.parseInt(Objects.requireNonNull(generalPassengersCountXpath.getText().split(" ")[0]));
     }
 }

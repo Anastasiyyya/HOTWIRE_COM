@@ -18,7 +18,7 @@ public class FlightForms {
     private ElementsCollection flightsDetail = $$(".flex-content");
     private ElementsCollection airportFromOnDetailPage = $$x("//*[@class='nobullet']//*[@class='odPair']/div[2]");
     private ElementsCollection airportToOnDetailPage = $$x("//*[@class='nobullet']//*[@class='odPair']/div[4]");
-    private ElementsCollection airlineName = $$(".airlineName");
+    private ElementsCollection airlineName = $$("[data-test-id='airline-name']");
     private ElementsCollection airlineLogoUrl = $$(".image img");
     private ElementsCollection seatingClass = $$(".cabinClass");
 }

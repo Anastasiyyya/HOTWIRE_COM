@@ -4,7 +4,7 @@ public interface IPagesConstants {
 
     String FROM_TO_FIELD_XPATH = "//*[contains(text(),'%s')]/ancestor::*[@class='location-typeahead']//input";
 
-    String DROPDOWN_MENU_CSS = ".dropdown-menu";
+    String DROPDOWN_MENU_CSS = ".dropdown-menu li";
 
     String ADULT_COUNT_DROPDOWN_XPATH = "//*[@id = 'adult-count']";
     String ADULT_COUNT_DROPDOWN_MENU_XPATH = "//*[@id = 'adult-count']//option";

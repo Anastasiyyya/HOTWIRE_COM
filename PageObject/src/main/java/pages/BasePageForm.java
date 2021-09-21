@@ -1,12 +1,14 @@
 package pages;
 
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import elements.BasePageDatePicker;
 import elements.BasePassengerInput;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import static com.codeborne.selenide.Selenide.$x;
+
+import static com.codeborne.selenide.Selenide.*;
 
 @Data
 @Builder
@@ -14,6 +16,7 @@ import static com.codeborne.selenide.Selenide.$x;
 public class BasePageForm extends InfoForm {
 
      private SelenideElement fareFinderFlights;
+     private ElementsCollection searchingResults = $$(".dropdown-menu li a");
 
      public BasePageForm() {
         this.fareFinderFlights = $x("//*[@class='farefinder-options']//*[text()='Flights']");
