@@ -40,7 +40,7 @@ public abstract class PassengersInput {
     }
 
     public PassengersInput waitUntilChooseButtonVisible() {
-        passengersCountButton.shouldBe(Condition.visible, Duration.ofSeconds(20));
+        passengersCountButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
         return this;
     }
 
