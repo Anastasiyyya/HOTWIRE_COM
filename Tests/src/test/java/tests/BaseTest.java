@@ -3,6 +3,7 @@ package tests;
 import com.codeborne.selenide.Configuration;
 import constants.IPagesConstants;
 import elements.*;
+import objects.Objects;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterMethod;
@@ -23,6 +24,7 @@ public class BaseTest implements IPagesConstants {
     BasePageForm basePageForm;
     DropdownMenu dropdownMenu;
     FindFlightsSteps findFlightSteps;
+    Objects objects;
 
     /**
      * This method is executed before the test methods.
@@ -62,5 +64,6 @@ public class BaseTest implements IPagesConstants {
         dropdownMenu = new DropdownMenu();
         basePassengerInput = new BasePassengerInput();
         findFlightSteps = new FindFlightsSteps();
+        objects = new Objects();
     }
 }
