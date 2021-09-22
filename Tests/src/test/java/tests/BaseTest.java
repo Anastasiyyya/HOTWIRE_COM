@@ -3,13 +3,14 @@ package tests;
 import com.codeborne.selenide.Configuration;
 import constants.IPagesConstants;
 import elements.*;
-import objects.Objects;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import pages.*;
 import steps.FindFlightsSteps;
+import tests.objects.Objects;
+
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class BaseTest implements IPagesConstants {

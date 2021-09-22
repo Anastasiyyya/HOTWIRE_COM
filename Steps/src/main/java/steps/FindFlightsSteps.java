@@ -57,6 +57,7 @@ public class FindFlightsSteps extends BaseSteps {
         basePage.getBasePageForm().getPassengersInput()
                 .choosePassengersCount(flightSearch.getPassenger().getChildrenPassengersCount(), flightSearch.getPassenger().getChildPassenger());
         basePage.getBasePageForm().getPassengersInput()
+                .waitUntilChooseButtonVisible()
                 .clickPassengerCountButton();
         int adultPassengerCount = basePage.getBasePageForm().getPassengersInput().checkExistPassengersCount(flightSearch.getPassenger().getAdultPassenger());
         int childrenPassengerCount = basePage.getBasePageForm().getPassengersInput().checkExistPassengersCount(flightSearch.getPassenger().getChildPassenger());

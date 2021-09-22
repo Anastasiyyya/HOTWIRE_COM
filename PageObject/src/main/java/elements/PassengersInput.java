@@ -49,6 +49,11 @@ public abstract class PassengersInput {
         return this;
     }
 
+    public PassengersInput clickDoneButton() {
+        doneButton.click();
+        return this;
+    }
+
     public int checkExistPassengersCount(String passengerType){
         if (passengerType.equals("adults")) {
             return Integer.parseInt(Objects.requireNonNull(existAdultsCount.getAttribute("value")));

@@ -2,9 +2,7 @@ package tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import static objects.Objects.flightSearch;
-import static objects.Objects.location;
+import tests.objects.Objects;
 
 public class FlightDataTests extends BaseTest {
 
@@ -16,7 +14,7 @@ public class FlightDataTests extends BaseTest {
      */
     @Test(description = "Checks that the input field works correctly")
     public void checkInputResults() {
-        findFlightSteps.findSearchingResultsList(location);
+        findFlightSteps.findSearchingResultsList(Objects.location);
     }
 
     /**
@@ -26,7 +24,7 @@ public class FlightDataTests extends BaseTest {
      */
     @Test(description = "Checks that the input field works correctly")
     public void checkEnteredData(){
-        findFlightSteps.findOneWayTripFlight(flightSearch);
+        findFlightSteps.findOneWayTripFlight(Objects.flightSearch);
         Assert.assertTrue(findFlightSteps.assertTripType());
         Assert.assertTrue(findFlightSteps.assertFlyFromTo());
     }

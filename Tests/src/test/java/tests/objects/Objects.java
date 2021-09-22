@@ -1,9 +1,11 @@
-package objects;
+package tests.objects;
 
 import entities.FlightSearch;
 import entities.Location;
 import entities.Passenger;
+import lombok.Data;
 
+@Data
 public class Objects {
 
     public static final Passenger childPassenger = Passenger.builder()
