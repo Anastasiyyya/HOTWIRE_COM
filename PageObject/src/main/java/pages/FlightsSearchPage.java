@@ -167,7 +167,6 @@ public class FlightsSearchPage {
 
     public FlightsSearchPage selectFilter(String checkboxName) {
         new Checkbox().selectCheckboxFromFilter(checkboxName);
-        Selenide.Wait().withTimeout(Duration.ofSeconds(10));
         return this;
     }
 }

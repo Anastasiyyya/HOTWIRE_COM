@@ -23,7 +23,7 @@ public abstract class PassengersInput {
         int count;
         do {
             Selenide.Wait().withTimeout(Duration.ofSeconds(10));
-            count = checkExistPassengersCount(passengerType);
+            count = receiveExistPassengersCountFromPage(passengerType);
             if (count < passengersCount){
                 if (passengerType.equals("adults")){
                     increaseAdultsButton.click();
@@ -31,7 +31,6 @@ public abstract class PassengersInput {
                     increaseChildrenButton.click();
                 }
             } else {
-               doneButton.click();
                 break;
             }
         } while (true);
@@ -44,21 +43,15 @@ public abstract class PassengersInput {
         return this;
     }
 
-    public PassengersInput clickPassengerCountButton() {
-        passengersCountButton.click();
-        return this;
-    }
-
     public PassengersInput clickDoneButton() {
         doneButton.click();
         return this;
     }
 
-    public int checkExistPassengersCount(String passengerType){
+    public int receiveExistPassengersCountFromPage(String passengerType){
         if (passengerType.equals("adults")) {
             return Integer.parseInt(Objects.requireNonNull(existAdultsCount.getAttribute("value")));
         }
         return Integer.parseInt(Objects.requireNonNull(existChildrenCount.getAttribute("value")));
     }
-
 }

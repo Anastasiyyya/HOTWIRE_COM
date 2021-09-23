@@ -53,7 +53,7 @@ public class BaseSteps {
     public List<String> makeUpSearchingResultsList() {
         List<String> resultsList = new ArrayList<>();
         for (int i = 0; i < basePage.getBasePageForm().getSearchingResults().size(); i++){
-            resultsList.add(basePage.getBasePageForm().getSearchingResults().get(i).toString());
+            resultsList.add(basePage.getBasePageForm().getSearchingResults().get(i).getText());
         }
         return resultsList;
     }
