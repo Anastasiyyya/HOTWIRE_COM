@@ -1,11 +1,9 @@
 package pages;
 
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import elements.*;
 import lombok.*;
-
 import java.time.Duration;
 
 @Data
@@ -40,17 +38,9 @@ public abstract class InfoForm {
         return this;
     }
 
-    public InfoForm chooseDirectionFrom(String countryName) {
-        waitForPageLoaded();
-        dropdown.selectInputDropdownOption("Fly from",countryName);
-        return this;
-    }
+    public abstract InfoForm chooseDirectionFrom(String countryName);
 
-    public InfoForm chooseDirectionTo(String countryName) {
-        waitForPageLoaded();
-        dropdown.selectInputDropdownOption("Fly to",countryName);
-        return this;
-    }
+    public abstract InfoForm chooseDirectionTo(String countryName);
 
     public FlightsSearchPage clickFindAFlightButton() {
         findAFlightButton.click();

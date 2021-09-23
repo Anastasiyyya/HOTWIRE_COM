@@ -3,7 +3,6 @@ package pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.conditions.Visible;
 import elements.BasePageDatePicker;
 import elements.BasePassengerInput;
 import lombok.AllArgsConstructor;
@@ -34,6 +33,20 @@ public class BasePageForm extends InfoForm {
 
     public BasePageForm chooseOptionFlights() {
         fareFinderFlights.click();
+        return this;
+    }
+
+    @Override
+    public InfoForm chooseDirectionFrom(String countryName) {
+        waitForPageLoaded();
+        dropdown.selectInputDropdownOptionFromBasePage("Fly from",countryName);
+        return this;
+    }
+
+    @Override
+    public InfoForm chooseDirectionTo(String countryName) {
+        waitForPageLoaded();
+        dropdown.selectInputDropdownOptionFromBasePage("Fly to",countryName);
         return this;
     }
 

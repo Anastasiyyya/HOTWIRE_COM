@@ -9,7 +9,7 @@ import java.util.List;
 public class FindFlightsSteps extends BaseSteps {
 
     /**
-     * This step finds a flight
+     * This step finds a flight using Base page form
      * @param flightSearch
      * @return List<Flight>
      */
@@ -32,6 +32,31 @@ public class FindFlightsSteps extends BaseSteps {
         basePage.basePageForm.clickFindAFlightButton()
                 .waitFlightsLoaded();
 
+        return makeUpFlightsList();
+    }
+
+    /**
+     * This step finds a flight using Flight page form
+     * @param flightSearch
+     * @return List<Flight>
+     */
+    public List<Flight> findRoundTripFlightFromFlightPage(FlightSearch flightSearch) {
+
+        basePage.openPage()
+                .waitForPageLoaded();
+        basePage.getHeaderPage().clickFlightButton();
+        basePage.getFlightsPageForm()
+                .chooseDirectionFrom(flightSearch.getAirportFrom().getCity())
+                .chooseDirectionTo(flightSearch.getAirportTo().getCity());
+        basePage.getFlightsPageForm().getDatepicker()
+                .chooseRoundTripDates(flightSearch.getDepartingYear(), flightSearch.getDepartingMonth(), flightSearch.getDepartingDay(),
+                        flightSearch.getReturningYear(), flightSearch.getReturningMonth(), flightSearch.getReturningDay());
+       /* basePage.getBasePageForm().getPassengersInput()
+                .choosePassengersCount(flightSearch.getPassenger().getAdultPassengersCount(), flightSearch.getPassenger().getAdultPassenger())
+                .waitUntilChooseButtonVisible()
+                .choosePassengersCount(flightSearch.getPassenger().getChildrenPassengersCount(), flightSearch.getPassenger().getChildPassenger());
+        basePage.basePageForm.clickFindAFlightButton()
+                .waitFlightsLoaded();*/
         return makeUpFlightsList();
     }
 

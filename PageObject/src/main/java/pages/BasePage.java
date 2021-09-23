@@ -19,10 +19,14 @@ import static com.codeborne.selenide.Selenide.open;
 public class BasePage implements IConstantsURL {
 
     public BasePageForm basePageForm;
+    public HeaderPage headerPage;
+    public FlightsPageForm flightsPageForm;
     public FlightsSearchPage flightsSearchPage;
 
     public BasePage() {
         this.basePageForm = new BasePageForm();
+        this.headerPage =  new HeaderPage();
+        this.flightsPageForm = new FlightsPageForm();
         this.flightsSearchPage = new FlightsSearchPage();
     }
 

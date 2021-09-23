@@ -32,4 +32,15 @@ public class FlightDataTests extends BaseTest {
         Assert.assertTrue(findFlightSteps.isPassengersCountCorrect(passengersCount));
         Assert.assertTrue(findFlightSteps.isTripTypeOneWay());
     }
+
+    /**
+     * AS-2 according to the test-cases specification
+     * https://docs.google.com/document/d/1nCM4rGxKGTkTgmzOHvTp39juojYjvtuo7xIoABjV2fo/edit?usp=sharing
+     * This test checks that the entered data is displayed on the 'Flight Search' page correctly.
+     */
+    @Test(description = "Checks that the input field works correctly")
+    public void checkEnteredData2(){
+        findFlightSteps.findRoundTripFlightFromFlightPage(Objects.flightSearch);
+
+    }
 }

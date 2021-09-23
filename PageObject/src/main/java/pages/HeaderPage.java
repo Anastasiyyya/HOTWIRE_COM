@@ -7,7 +7,7 @@ import java.time.Duration;
 import static com.codeborne.selenide.Selenide.*;
 
 @Data
-public class HeaderPage extends BasePage{
+public class HeaderPage {
 
     protected SelenideElement signInButton = $(".sign-in");
     protected SelenideElement signUpButton = $(".sign-up");
