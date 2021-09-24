@@ -4,7 +4,9 @@ public interface IPagesConstants {
 
     String FROM_TO_FIELD_XPATH = "//*[contains(text(),'%s')]/ancestor::*[@class='location-typeahead']//input";
 
-    String DROPDOWN_MENU_CSS = ".dropdown-menu li";
+    String DROPDOWN_MENU_BASE_PAGE_CSS = ".dropdown-menu li";
+    String DROPDOWN_MENU_OPTIONS_FLIGHTS_PAGE_XPATH = "//*[contains(@class,'uitk-typeahead-results')]//li";
+    String DROPDOWN_MENU_FLIGHTS_PAGE_CSS = ".uitk-typeahead-results";
 
     String ADULT_COUNT_DROPDOWN_XPATH = "//*[@id = 'adult-count']";
     String ADULT_COUNT_DROPDOWN_MENU_XPATH = "//*[@id = 'adult-count']//option";

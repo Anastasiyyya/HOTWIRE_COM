@@ -1,15 +1,16 @@
 package elements;
 
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.openqa.selenium.By;
 import java.time.Duration;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
-import static constants.IPagesConstants.DROPDOWN_MENU_CSS;
+
+import static com.codeborne.selenide.Selenide.*;
+import static constants.IPagesConstants.*;
 
 @Data
 @Builder
@@ -26,10 +27,20 @@ public class Dropdown {
         this.dropdownMenuPath = dropdownMenuPath;
     }
 
-    public void selectInputDropdownOption(String direction, String countryName) {
+    public void selectInputDropdownOptionFromBasePage(String direction, String countryName) {
         new Input(direction).writeTextInDropdownField(countryName);
         Selenide.Wait().withTimeout(Duration.ofSeconds(10));
-        $$(DROPDOWN_MENU_CSS).get(0).click();
+        $$(DROPDOWN_MENU_BASE_PAGE_CSS).get(0).click();
+    }
+
+    public void selectInputDropdownOptionFromFlightsPage(SelenideElement direction, String countryName) {
+        direction.sendKeys(countryName);
+        $$x(DROPDOWN_MENU_OPTIONS_FLIGHTS_PAGE_XPATH).get(0).click();
+    }
+
+    public void selectFlyToDropdownOptionFromFlightsPage(SelenideElement direction, String countryName) {
+        direction.sendKeys(countryName);
+        $$x(DROPDOWN_MENU_OPTIONS_FLIGHTS_PAGE_XPATH).get(1).click();
     }
 
     public void selectDropdownOption() {
