@@ -25,8 +25,8 @@ public class FlightDataTests extends BaseTest {
      */
     @Test(description = "Checks that the input field works correctly")
     public void checkEnteredData(){
-        findFlightSteps.fillOneWayTripFlightWithData(Objects.flightSearch);
-        int passengersCount = findFlightSteps.receiveGeneralPassengersCountFromBasePage(Objects.flightSearch);
+        findFlightSteps.fillOneWayTripFlightWithData(Objects.flightSearchOneWay);
+        int passengersCount = findFlightSteps.receiveGeneralPassengersCountFromBasePage(Objects.flightSearchOneWay);
         findFlightSteps.goToFlightSearchPageAndSelectFilter();
         Assert.assertTrue(findFlightSteps.isFlyFromToDirectionCorrect());
         Assert.assertTrue(findFlightSteps.isPassengersCountCorrect(passengersCount));
@@ -40,7 +40,7 @@ public class FlightDataTests extends BaseTest {
      */
     @Test(description = "Checks that the input field works correctly")
     public void checkEnteredData2(){
-        findFlightSteps.findRoundTripFlightFromFlightPage(Objects.flightSearch);
+        findFlightSteps.findRoundTripFlightFromFlightPage(Objects.flightSearchRoundTrip);
 
     }
 }

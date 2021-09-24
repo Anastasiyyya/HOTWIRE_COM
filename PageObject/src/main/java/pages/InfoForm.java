@@ -19,6 +19,7 @@ public abstract class InfoForm {
     protected Dropdown dropdown;
     protected PassengersInput passengersInput;
     protected BasePageDatePicker basePageDatePicker;
+    protected FlightsDatePicker flightsDatePicker;
 
     public InfoForm() {
         this.dropdown = new Dropdown();

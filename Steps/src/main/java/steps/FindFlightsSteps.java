@@ -51,12 +51,11 @@ public class FindFlightsSteps extends BaseSteps {
         basePage.getFlightsPageForm().getDatepicker()
                 .chooseRoundTripDates(flightSearch.getDepartingYear(), flightSearch.getDepartingMonth(), flightSearch.getDepartingDay(),
                         flightSearch.getReturningYear(), flightSearch.getReturningMonth(), flightSearch.getReturningDay());
-       /* basePage.getBasePageForm().getPassengersInput()
-                .choosePassengersCount(flightSearch.getPassenger().getAdultPassengersCount(), flightSearch.getPassenger().getAdultPassenger())
-                .waitUntilChooseButtonVisible()
+        basePage.getFlightsPageForm().getDatepicker().getDoneButton().click();
+        basePage.getFlightsPageForm().getPassengersInput()
                 .choosePassengersCount(flightSearch.getPassenger().getChildrenPassengersCount(), flightSearch.getPassenger().getChildPassenger());
-        basePage.basePageForm.clickFindAFlightButton()
-                .waitFlightsLoaded();*/
+        basePage.getFlightsPageForm().clickFindAFlightButton()
+                .waitFlightsLoaded();
         return makeUpFlightsList();
     }
 
