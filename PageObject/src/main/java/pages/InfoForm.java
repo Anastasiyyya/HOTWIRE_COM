@@ -3,10 +3,7 @@ package pages;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import elements.BasePageDatePicker;
-import elements.DatePicker;
-import elements.Dropdown;
-import elements.PassengersInput;
+import elements.*;
 import lombok.*;
 
 import java.time.Duration;
@@ -58,5 +55,10 @@ public abstract class InfoForm {
     public FlightsSearchPage clickFindAFlightButton() {
         findAFlightButton.click();
         return new FlightsSearchPage();
+    }
+
+    public InfoForm writeDirection(String direction, String countryName) {
+        new Input(direction).writeTextInDropdownField(countryName);
+        return this;
     }
 }

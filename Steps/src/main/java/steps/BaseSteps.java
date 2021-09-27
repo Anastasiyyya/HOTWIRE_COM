@@ -16,15 +16,16 @@ public class BaseSteps {
      */
     public List<Flight> makeUpFlightsList() {
         List<Flight> flightList = new ArrayList<>();
-        for(int i = 0; i < basePage.getFlightsSearchPage().getFlightForms().getFlights().size(); i++){
+        for (int i = 0; i < basePage.getFlightsSearchPage().getFlightForms().getFlights().size(); i++) {
             basePage.getFlightsSearchPage().clickDetailsButton(i);
             flightList.add(Flight.builder()
                     .flightType(basePage.getFlightsSearchPage().getFlightForms().getFlightType().get(i).getText())
                     .airportFrom(basePage.getFlightsSearchPage().getFlightForms().getAirportFrom().get(i).getText())
                     .airportTo(basePage.getFlightsSearchPage().getFlightForms().getAirportTo().get(i).getText())
                     .flightPrice(basePage.getFlightsSearchPage().getFlightForms().getFlightPrice().get(i).getText())
+                    .airline(basePage.getFlightsSearchPage().getFlightForms().getAirlineName().get(i).getText())
                     .build());
-        }
+            }
         return flightList;
     }
 
@@ -48,4 +49,13 @@ public class BaseSteps {
         }
         return flightList;
     }
+
+    public List<String> makeUpSearchingResultsList() {
+        List<String> resultsList = new ArrayList<>();
+        for (int i = 0; i < basePage.getBasePageForm().getSearchingResults().size(); i++){
+            resultsList.add(basePage.getBasePageForm().getSearchingResults().get(i).getText());
+        }
+        return resultsList;
+    }
+
 }

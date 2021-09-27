@@ -9,6 +9,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import pages.*;
 import steps.FindFlightsSteps;
+import tests.objects.Objects;
+
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class BaseTest implements IPagesConstants {
@@ -23,6 +25,7 @@ public class BaseTest implements IPagesConstants {
     BasePageForm basePageForm;
     DropdownMenu dropdownMenu;
     FindFlightsSteps findFlightSteps;
+    Objects objects;
 
     /**
      * This method is executed before the test methods.
@@ -62,5 +65,6 @@ public class BaseTest implements IPagesConstants {
         dropdownMenu = new DropdownMenu();
         basePassengerInput = new BasePassengerInput();
         findFlightSteps = new FindFlightsSteps();
+        objects = new Objects();
     }
 }

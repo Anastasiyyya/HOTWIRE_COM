@@ -1,12 +1,16 @@
 package pages;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.conditions.Visible;
 import elements.BasePageDatePicker;
 import elements.BasePassengerInput;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import static com.codeborne.selenide.Selenide.$x;
+
+import static com.codeborne.selenide.Selenide.*;
 
 @Data
 @Builder
@@ -14,6 +18,8 @@ import static com.codeborne.selenide.Selenide.$x;
 public class BasePageForm extends InfoForm {
 
      private SelenideElement fareFinderFlights;
+     private ElementsCollection searchingResults = $$(".dropdown-menu li a");
+     private SelenideElement searchingResultsMenu = $(".dropdown-menu");
 
      public BasePageForm() {
         this.fareFinderFlights = $x("//*[@class='farefinder-options']//*[text()='Flights']");
@@ -29,5 +35,9 @@ public class BasePageForm extends InfoForm {
     public BasePageForm chooseOptionFlights() {
         fareFinderFlights.click();
         return this;
+    }
+
+    public void waitForSearchingResultsVisible() {
+         searchingResultsMenu.shouldBe(Condition.visible);
     }
 }

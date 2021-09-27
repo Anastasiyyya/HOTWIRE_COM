@@ -22,6 +22,6 @@ public class FlightSearch {
 
     private Passenger passenger;
 
-    private Airport airportFrom;
-    private Airport airportTo;
+    private String airportFrom;
+    private String airportTo;
 }

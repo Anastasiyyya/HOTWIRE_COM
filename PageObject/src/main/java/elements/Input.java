@@ -13,6 +13,6 @@ public class Input {
     }
 
     public void writeTextInDropdownField(String text) {
-        $(By.xpath(String.format(FROM_TO_FIELD_XPATH,this.label))).sendKeys(text);
+        $(By.xpath(String.format(FROM_TO_FIELD_XPATH,this.label))).append(text);
     }
 }

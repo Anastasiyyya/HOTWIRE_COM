@@ -20,4 +20,8 @@ public class Airport {
     public String makeUpLocation() {
         return String.format("%s, %s (%s)", location.getCity(), location.getCountry(), airportCode);
     }
+
+    public String makeUpLocationWithCountry() {
+        return String.format("%s, %s", location.getCity(), location.getCountry());
+    }
 }
