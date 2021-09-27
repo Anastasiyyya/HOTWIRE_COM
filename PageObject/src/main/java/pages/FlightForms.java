@@ -1,6 +1,7 @@
 package pages;
 
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.SelenideElement;
 import lombok.Data;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -13,6 +14,7 @@ public class FlightForms {
     private ElementsCollection airportTo = $$x("//*[@data-test-id='flight-info']//span[4]");
     private ElementsCollection flightType = $$x("//*[@data-test-id='price-msg-route-type']");
     private ElementsCollection flightPrice = $$x("//*[@class='total-price-message']//strong");
+    private ElementsCollection nonstop = $$(".number-stops");
 
     //elements for trip detail page
     private ElementsCollection flightsDetail = $$(".flex-content");

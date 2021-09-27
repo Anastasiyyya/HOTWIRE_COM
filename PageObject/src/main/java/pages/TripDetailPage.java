@@ -3,15 +3,24 @@ package pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.time.Duration;
 import static com.codeborne.selenide.Selenide.*;
 
+@Data
+@Getter
+@NoArgsConstructor
 public class TripDetailPage {
 
     private final SelenideElement returningDate = $x("//*[@class = 'flex-card flex-tile details OD0']//*[@class='departureDate type-500']");
     private final SelenideElement departingDate = $x("//*[@class = 'flex-card flex-tile details OD1']//*[@class='departureDate type-500']");
-    private final SelenideElement leavingFrom = $x("//*[@class='flex-card flex-tile details OD0']//*[@class='odPair']/div[2]");
-    private final SelenideElement goingTo = $x("//*[@class='flex-card flex-tile details OD0']//*[@class='odPair']/div[4]");
+    private final ElementsCollection leavingFrom = $$x("//*[@class='flex-card flex-tile details OD0']//*[@class='odPair']/div[2]");
+    private final ElementsCollection goingTo = $$x("//*[@class='flex-card flex-tile details OD0']//*[@class='odPair']/div[4]");
+    private ElementsCollection flights = $$(".flightSummaryContainer .flex-card");
     private final SelenideElement continueBookingButton = $("#bookButton");
     private final SelenideElement reviewYourFlight = $("#fisHeader > h1");
     private final ElementsCollection totalPrice = $$(".packagePriceList .packagePriceTotal");
@@ -23,10 +32,6 @@ public class TripDetailPage {
 
     public String getHeaderText() {
         return reviewYourFlight.getText();
-    }
-
-    public String getDirectionText() {
-        return directionText.get(1).getText();
     }
 
     public boolean isButtonContinueBookingDisplayed() {

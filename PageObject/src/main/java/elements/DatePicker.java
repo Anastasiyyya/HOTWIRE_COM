@@ -60,6 +60,19 @@ public abstract class DatePicker {
         return this;
     }
 
+    public DatePicker chooseOneWayTripDateForFlightSearchPage(String departingYear, String departingMonth, String departingDay) {
+        clickChooseDateButton();
+        while(true) {
+            if ($x(String.format(DATE_BASE_PAGE,departingMonth,departingDay,departingYear)).exists()) {
+                $x(String.format(DATE_BASE_PAGE,departingMonth,departingDay,departingYear)).click();
+                break;
+            } else {
+                nextButton.click();
+            }
+        }
+        return this;
+    }
+
     public DatePicker clickChooseDateButton(){
         button.click();
         return this;

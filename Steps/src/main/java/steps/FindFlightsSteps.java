@@ -1,8 +1,11 @@
 package steps;
 
+import com.codeborne.selenide.Selenide;
+import elements.Checkbox;
 import entities.Flight;
 import entities.FlightSearch;
-import entities.Location;
+import pages.FlightsSearchPage;
+import pages.TripDetailPage;
 
 import java.util.List;
 
@@ -13,26 +16,46 @@ public class FindFlightsSteps extends BaseSteps {
      * @param flightSearch
      * @return List<Flight>
      */
-    public List<Flight> findRoundTripFlight(FlightSearch flightSearch) {
+    public FindFlightsSteps findRoundTripFlightFromBasePage(FlightSearch flightSearch) {
 
         basePage.openPage()
                 .waitForPageLoaded();
         basePage.getBasePageForm()
                 .chooseOptionFlights()
                 .chooseFlightType(flightSearch.getFlightType())
-                .chooseDirectionFrom(flightSearch.getAirportFrom().getCity())
-                .chooseDirectionTo(flightSearch.getAirportTo().getCity());
+                .chooseDirectionFrom(flightSearch.getAirportFrom())
+                .chooseDirectionTo(flightSearch.getAirportTo());
         basePage.getBasePageForm().getDatepicker()
                 .chooseRoundTripDates(flightSearch.getDepartingYear(), flightSearch.getDepartingMonth(), flightSearch.getDepartingDay(),
                         flightSearch.getReturningYear(), flightSearch.getReturningMonth(), flightSearch.getReturningDay());
         basePage.getBasePageForm().getPassengersInput()
-                .choosePassengersCount(flightSearch.getPassenger().getAdultPassengersCount(), flightSearch.getPassenger().getAdultPassenger())
-                .waitUntilChooseButtonVisible()
                 .choosePassengersCount(flightSearch.getPassenger().getChildrenPassengersCount(), flightSearch.getPassenger().getChildPassenger());
-        basePage.basePageForm.clickFindAFlightButton()
-                .waitFlightsLoaded();
+        return this;
+    }
 
-        return makeUpFlightsList();
+
+    public FlightsSearchPage sortFlightsByAirlineAndSelectFromToFlights() {
+        basePage.getBasePageForm().getPassengersInput()
+                .clickDoneButton();
+        basePage.getBasePageForm()
+                .clickFindAFlightButton()
+                .waitFlightsLoaded();
+        basePage.getFlightsSearchPage()
+                .chooseDepartingFlight(1);
+             //   .chooseReturningFlight(1);
+        return new FlightsSearchPage();
+    }
+
+    public boolean isDirectionCorrect(String directionFrom, String directionTo) {
+        for (int i = 0; i < basePage.getFlightsSearchPage().getTripDetailPage().getFlights().size(); i++) {
+            if (!basePage.getFlightsSearchPage().getTripDetailPage().getLeavingFrom().get(i).getText().equals(directionFrom)
+            || !basePage.getFlightsSearchPage().getTripDetailPage().getGoingTo().get(i).getText().equals(directionTo)) {
+                System.out.println(basePage.getFlightsSearchPage().getTripDetailPage().getLeavingFrom().get(i).getText());
+                System.out.println(basePage.getFlightsSearchPage().getTripDetailPage().getGoingTo().get(i).getText());
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -45,9 +68,8 @@ public class FindFlightsSteps extends BaseSteps {
         basePage.openPage()
                 .waitForPageLoaded();
         basePage.getHeaderPage().clickFlightButton();
-        basePage.getFlightsPageForm()
-                .chooseDirectionFrom(flightSearch.getAirportFrom().getCity())
-                .chooseDirectionTo(flightSearch.getAirportTo().getCity());
+        basePage.getFlightsPageForm().chooseDirectionFrom(flightSearch.getAirportFrom());
+        basePage.getFlightsPageForm().chooseDirectionTo(flightSearch.getAirportTo());
         basePage.getFlightsPageForm().getDatepicker()
                 .chooseRoundTripDates(flightSearch.getDepartingYear(), flightSearch.getDepartingMonth(), flightSearch.getDepartingDay(),
                         flightSearch.getReturningYear(), flightSearch.getReturningMonth(), flightSearch.getReturningDay());
@@ -71,8 +93,8 @@ public class FindFlightsSteps extends BaseSteps {
         basePage.getBasePageForm()
                 .chooseOptionFlights()
                 .chooseFlightType(flightSearch.getFlightType())
-                .chooseDirectionFrom(flightSearch.getAirportFrom().getCity())
-                .chooseDirectionTo(flightSearch.getAirportTo().getCity());
+                .chooseDirectionFrom(flightSearch.getAirportFrom())
+                .chooseDirectionTo(flightSearch.getAirportTo());
         basePage.getBasePageForm().getDatepicker()
                 .chooseOneWayTripDate(flightSearch.getDepartingYear(), flightSearch.getDepartingMonth(), flightSearch.getDepartingDay());
         basePage.getBasePageForm().getPassengersInput()
@@ -89,11 +111,29 @@ public class FindFlightsSteps extends BaseSteps {
         return generalCountFromBasePage;
     }
 
-    public FindFlightsSteps goToFlightSearchPageAndSelectFilter() {
+    public FindFlightsSteps goToFlightSearchPageAndSelectFilterNonstop() {
         basePage.getBasePageForm()
                 .clickFindAFlightButton()
                 .waitFlightsLoaded();
         basePage.getFlightsSearchPage().selectFilter("Nonstop");
+        return this;
+    }
+
+    public FindFlightsSteps goToFlightSearchPageAndSelectSearchingOptions(FlightSearch flightSearch) {
+        basePage.getBasePageForm().getPassengersInput()
+                .clickDoneButton();
+        basePage.getBasePageForm()
+                .clickFindAFlightButton()
+                .waitFlightsLoaded();
+        basePage.getFlightsSearchPage()
+                .selectRadioButtonOneWay()
+                .clickShowOptionsButton()
+                .chooseAdultsCount(flightSearch.getPassenger().getAdultPassengersCount())
+                .chooseChildrenCountAndAge(flightSearch.getPassenger().getChildrenPassengersCount())
+                .chooseAirlineByName(flightSearch.getAirlineName())
+                .chooseSeatingClassByName(flightSearch.getSeatingClass())
+                .selectNonStopCheckbox()
+                .clickSearchButton();
         return this;
     }
 
@@ -131,6 +171,15 @@ public class FindFlightsSteps extends BaseSteps {
         return true;
     }
 
+    public boolean isTripNonstop() {
+        for (int i = 0; i < basePage.getFlightsSearchPage().getFlightForms().getFlights().size(); i++) {
+            if (!basePage.getFlightsSearchPage().getFlightForms().getNonstop().get(i).getText().trim().equals("(Nonstop)")) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public boolean isFlyFromToDirectionCorrect(){
         for (int i = 0; i < basePage.getFlightsSearchPage().getFlightForms().getFlights().size(); i++) {
             String direction = basePage.getFlightsSearchPage().getFlightForms().getAirportFrom().get(i).getText() + " " +
@@ -142,6 +191,14 @@ public class FindFlightsSteps extends BaseSteps {
         return true;
     }
 
+    public boolean isAirlineCorrect(String airlineName) {
+        for (int i = 0; i < basePage.getFlightsSearchPage().getFlightForms().getFlights().size(); i++) {
+            if (!basePage.getFlightsSearchPage().getFlightForms().getAirlineName().get(i).getText().trim().equals(airlineName)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     public boolean isPassengersCountCorrect(int generalCountFromBasePage) {
         boolean result;

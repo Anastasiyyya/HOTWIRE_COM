@@ -20,7 +20,6 @@ public class FlightsPageForm extends InfoForm {
     public InfoForm chooseDirectionFrom(String countryName) {
         waitForPageLoaded();
         dropdown.selectInputDropdownOptionFromFlightsPage(leavingFromField,countryName);
-        $(leavingFromField).shouldBe(Condition.attribute("aria-label",countryName));
         return this;
     }
 

@@ -33,4 +33,10 @@ public class Passenger {
     public String makeUpPassengerFullName(String passengerName, String passengerSurname) {
         return passengerName + " " + passengerSurname;
     }
+
+    public void list(int passengersCount){
+        for (int i = 0; i < passengersCount; i++) {
+
+        }
+    }
 }

@@ -2,10 +2,10 @@ package pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import elements.Checkbox;
 import elements.Dropdown;
+import elements.RadioButton;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.openqa.selenium.By;;
@@ -30,6 +30,7 @@ public class FlightsSearchPage {
     private SelenideElement sortFilterClearButton = $(".sort-filter-clear-button");
     private SelenideElement nonStopFlightCheckboxXpath = $x("//*[@id = 'nonstop-flights']");
     private SelenideElement generalPassengersCountXpath = $x("//*[@id='advanced-options-container']//p/span");
+    private SelenideElement oneWayRadioButton = $("id='oneway-flight'");
     private FlightForms flightForms;
     private TripDetailPage tripDetailPage;
 
@@ -47,6 +48,7 @@ public class FlightsSearchPage {
         $$x(DETAILS_BUTTON_XPATH).get(orderInList).click();
         return this;
     }
+
 
     public FlightsSearchPage clickFlightDetailAndBaggageFeesButton(int orderInList){
         flightDetailButton.get(orderInList).click();
@@ -169,4 +171,10 @@ public class FlightsSearchPage {
         new Checkbox().selectCheckboxFromFilter(checkboxName);
         return this;
     }
+
+    public FlightsSearchPage selectRadioButtonOneWay() {
+        new RadioButton("One Way").findRadioButtonAndSelect();
+        return this;
+    }
+
 }
