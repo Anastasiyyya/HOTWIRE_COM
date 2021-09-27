@@ -100,53 +100,46 @@ public class FindFlightsSteps extends BaseSteps {
     /**
      * This gets finds flights searching results list
      */
-    public FindFlightsSteps findSearchingResultsList(Location location) {
+    public FindFlightsSteps findSearchingResultsList(String location) {
         basePage.openPage()
                 .waitForPageLoaded();
         basePage.getBasePageForm()
                 .chooseOptionFlights()
                 .getOneWayTripButton().click();
         basePage.getBasePageForm()
-                .writeDirection("Fly from", location.getCity());
+                .writeDirection("Fly from", location);
         basePage.getBasePageForm().waitForSearchingResultsVisible();
         makeUpSearchingResultsList();
         return this;
     }
 
     public boolean isTheEnteredDataInTheSearchResults(String result){
-        boolean compare = true;
         for (int i = 0; i < makeUpSearchingResultsList().size(); i++) {
             if (!makeUpSearchingResultsList().get(i).contains(result)) {
-                compare = false;
-                break;
+                return false;
             }
         }
-        return compare;
+        return true;
     }
 
     public boolean isTripTypeOneWay() {
-        boolean result = true;
         for (int i = 0; i < basePage.getFlightsSearchPage().getFlightForms().getFlights().size(); i++) {
             if (!basePage.getFlightsSearchPage().getFlightForms().getFlightType().get(i).getText().equals("one way")) {
-                result = false;
-                break;
+                return false;
             }
         }
-        return result;
+        return true;
     }
 
     public boolean isFlyFromToDirectionCorrect(){
-        boolean result = true;
         for (int i = 0; i < basePage.getFlightsSearchPage().getFlightForms().getFlights().size(); i++) {
             String direction = basePage.getFlightsSearchPage().getFlightForms().getAirportFrom().get(i).getText() + " " +
                     basePage.getFlightsSearchPage().getFlightForms().getAirportTo().get(i).getText();
             if (!(direction.equals("MSQ - VKO") || direction.equals("MSQ - DME") || direction.equals("MSQ - SVO"))) {
-
-                result = false;
-                break;
+                return false;
             }
         }
-        return result;
+        return true;
     }
 
 

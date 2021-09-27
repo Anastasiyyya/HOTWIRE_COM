@@ -14,8 +14,10 @@ public class FlightDataTests extends BaseTest {
      */
     @Test(description = "Checks that the input field works correctly")
     public void checkInputResults() {
-        findFlightSteps.findSearchingResultsList(Objects.location);
-        Assert.assertTrue(findFlightSteps.isTheEnteredDataInTheSearchResults(Objects.location.getCity()));
+        String locationTo = "Minsk";
+
+        findFlightSteps.findSearchingResultsList(locationTo);
+        Assert.assertTrue(findFlightSteps.isTheEnteredDataInTheSearchResults(locationTo));
     }
 
     /**
