@@ -1,6 +1,5 @@
 package entities;
 
-import jdk.jshell.Snippet;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +22,6 @@ public class FlightSearch {
 
     private Passenger passenger;
 
-    private Location airportFrom;
-    private Location airportTo;
+    private String airportFrom;
+    private String airportTo;
 }
