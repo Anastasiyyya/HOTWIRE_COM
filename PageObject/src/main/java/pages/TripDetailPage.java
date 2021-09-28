@@ -25,7 +25,7 @@ public class TripDetailPage {
     private final SelenideElement reviewYourFlight = $("#fisHeader > h1");
     private final ElementsCollection totalPrice = $$(".packagePriceList .packagePriceTotal");
     private final ElementsCollection directionText = $$x("//*[@class='flex-area-primary']//*[@class='odPair']//div");
-    private final SelenideElement showDepartingDetailsButton = $("#flightDetailsToggle-1 > button");
+    private final SelenideElement showDepartingDetailsButton = $("#flightDetailsToggle-0 > button");
     private final SelenideElement showReturningDetailsButton = $("#flightDetailsToggle-1 > button");
     private final SelenideElement changeFlightsButton = $("[data-track=\"FLT.RD.ChangeFlight\"]");
 

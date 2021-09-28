@@ -9,6 +9,8 @@ import pages.TripDetailPage;
 
 import java.util.List;
 
+import static com.codeborne.selenide.Selenide.switchTo;
+
 public class FindFlightsSteps extends BaseSteps {
 
     /**
@@ -34,24 +36,28 @@ public class FindFlightsSteps extends BaseSteps {
     }
 
 
-    public FlightsSearchPage sortFlightsByAirlineAndSelectFromToFlights() {
+    public TripDetailPage sortFlightsByAirlineAndSelectFromToFlights()  {
         basePage.getBasePageForm().getPassengersInput()
                 .clickDoneButton();
         basePage.getBasePageForm()
                 .clickFindAFlightButton()
                 .waitFlightsLoaded();
         basePage.getFlightsSearchPage()
-                .chooseDepartingFlight(1);
-             //   .chooseReturningFlight(1);
-        return new FlightsSearchPage();
+                .chooseDepartingFlight(1)
+                .chooseReturningFlight(1);
+        switchTo().window(1);
+        basePage.getFlightsSearchPage().getTripDetailPage()
+                .clickShowDepartingDetails()
+                .clickShowReturningDetails();
+        return new TripDetailPage();
     }
 
     public boolean isDirectionCorrect(String directionFrom, String directionTo) {
         for (int i = 0; i < basePage.getFlightsSearchPage().getTripDetailPage().getFlights().size(); i++) {
-            if (!basePage.getFlightsSearchPage().getTripDetailPage().getLeavingFrom().get(i).getText().equals(directionFrom)
-            || !basePage.getFlightsSearchPage().getTripDetailPage().getGoingTo().get(i).getText().equals(directionTo)) {
-                System.out.println(basePage.getFlightsSearchPage().getTripDetailPage().getLeavingFrom().get(i).getText());
-                System.out.println(basePage.getFlightsSearchPage().getTripDetailPage().getGoingTo().get(i).getText());
+            if (!basePage.getFlightsSearchPage().getTripDetailPage().getLeavingFrom().get(i).getText().split(" ")[0].equals(directionFrom)
+            || !basePage.getFlightsSearchPage().getTripDetailPage().getGoingTo().get(i).getText().split(" ")[0].equals(directionTo)) {
+                System.out.println(basePage.getFlightsSearchPage().getTripDetailPage().getLeavingFrom().get(i).getText().split(" ")[0]);
+                System.out.println(basePage.getFlightsSearchPage().getTripDetailPage().getGoingTo().get(i).getText().split(" ")[0]);
                 return false;
             }
         }

@@ -73,7 +73,7 @@ public class FlightDataTests extends BaseTest {
      * and checks that the data on the Trip detail page equals to entered data
      */
     @Test(description = "Check that the entered data is displayed correctly on the Trip Detail Page")
-    public void checkEnteredDataUsingSearchingOnTheTripDetailPage() {
+    public void checkEnteredDataUsingSearchingOnTheTripDetailPage()  {
 
         String directionFrom = "Minsk";
         String directionTo = "Moscow";
@@ -81,6 +81,6 @@ public class FlightDataTests extends BaseTest {
         findFlightSteps
                 .findRoundTripFlightFromBasePage(Objects.flightSearchRoundTrip)
                 .sortFlightsByAirlineAndSelectFromToFlights();
-        //Assert.assertTrue(findFlightSteps.isDirectionCorrect(directionFrom,directionTo));
+        Assert.assertTrue(findFlightSteps.isDirectionCorrect(directionFrom,directionTo));
     }
 }
