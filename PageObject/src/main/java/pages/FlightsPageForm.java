@@ -18,15 +18,13 @@ public class FlightsPageForm extends InfoForm {
 
     @Override
     public InfoForm chooseDirectionFrom(String countryName) {
-        waitForPageLoaded();
         dropdown.selectInputDropdownOptionFromFlightsPage(leavingFromField,countryName);
         return this;
     }
 
     @Override
     public InfoForm chooseDirectionTo(String countryName) {
-        waitForPageLoaded();
-        dropdown.selectInputDropdownOptionFromFlightsPage(goingToField,countryName);
+        dropdown.selectInputDropdownOptionFlyTo(goingToField,countryName);
         findAFlightButton.shouldBe(Condition.visible);
         return this;
     }

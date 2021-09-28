@@ -115,7 +115,7 @@ public class FlightsSearchPage {
     }
 
     public FlightsSearchPage waitUntilMenuVisible(int flightOrder){
-        $(String.format(MENU_CSS,flightOrder)).shouldBe(Condition.visible);
+        $(String.format(MENU_CSS,flightOrder)).shouldBe(Condition.visible, Duration.ofSeconds(15));
         return this;
     }
 
@@ -125,8 +125,7 @@ public class FlightsSearchPage {
     }
 
     public FlightsSearchPage chooseDepartingFlight(int flightOrder){
-
-        if($(By.xpath(String.format(RULES_BUTTON_XPATH,flightOrder))).isDisplayed()){
+        if ($$(By.xpath(RULES_BUTTON_XPATH)).get(flightOrder).isDisplayed()){
             clickSelectFlightButton(flightOrder);
             waitUntilMenuVisible(flightOrder);
             clickSelectFareButton(flightOrder);
@@ -137,8 +136,8 @@ public class FlightsSearchPage {
     }
 
     public TripDetailPage chooseReturningFlight(int flightOrder){
-        waitFlightsLoaded();
-        if($(By.xpath(String.format(RULES_BUTTON_XPATH,flightOrder))).isDisplayed()){
+        $$(By.xpath(RULES_BUTTON_XPATH)).get(flightOrder).shouldBe(Condition.visible);
+        if ($$(By.xpath(RULES_BUTTON_XPATH)).get(flightOrder).isDisplayed()){
             clickSelectFlightButton(flightOrder);
             waitUntilMenuVisible(flightOrder);
             clickSelectFareButton(flightOrder);

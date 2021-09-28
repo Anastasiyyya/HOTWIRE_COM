@@ -28,6 +28,7 @@ public class TripDetailPage {
     private final SelenideElement showDepartingDetailsButton = $("#flightDetailsToggle-0 > button");
     private final SelenideElement showReturningDetailsButton = $("#flightDetailsToggle-1 > button");
     private final SelenideElement changeFlightsButton = $("[data-track=\"FLT.RD.ChangeFlight\"]");
+    private final ElementsCollection airline = $$(".airlineName");
 
 
     public String getHeaderText() {

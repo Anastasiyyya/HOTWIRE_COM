@@ -36,8 +36,14 @@ public class Dropdown {
 
     public void selectInputDropdownOptionFromFlightsPage(SelenideElement direction, String countryName) {
         direction.sendKeys(countryName);
-        $(DROPDOWN_MENU_FLIGHTS_PAGE_CSS).shouldBe(Condition.visible);
-        $$(DROPDOWN_MENU_OPTIONS_FLIGHTS_PAGE_CSS).get(0).click();
+        $(DROPDOWN_MENU_FLY_FROM_FLIGHTS_PAGE_CSS).shouldBe(Condition.visible);
+        $$(DROPDOWN_MENU_OPTIONS_FROM_FLIGHTS_PAGE_CSS).get(0).click();
+    }
+
+    public void selectInputDropdownOptionFlyTo(SelenideElement direction, String countryName) {
+        direction.sendKeys(countryName);
+        $(DROPDOWN_MENU_FLY_TO_FLIGHTS_PAGE_CSS).shouldBe(Condition.visible);
+        $$(DROPDOWN_MENU_OPTIONS_TO_FLIGHTS_PAGE_CSS).get(0).click();
     }
 
     public void selectDropdownOption() {

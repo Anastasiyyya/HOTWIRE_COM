@@ -36,15 +36,25 @@ public class FindFlightsSteps extends BaseSteps {
     }
 
 
-    public TripDetailPage sortFlightsByAirlineAndSelectFromToFlights()  {
+    public FindFlightsSteps goToFlightSearchPage()  {
         basePage.getBasePageForm().getPassengersInput()
                 .clickDoneButton();
         basePage.getBasePageForm()
                 .clickFindAFlightButton()
                 .waitFlightsLoaded();
+        return this;
+    }
+
+    public FindFlightsSteps chooseFromToFlight() {
         basePage.getFlightsSearchPage()
+                .waitFlightsLoaded()
                 .chooseDepartingFlight(1)
                 .chooseReturningFlight(1);
+        return this;
+    }
+
+    public TripDetailPage goToTripDetailPage() {
+
         switchTo().window(1);
         basePage.getFlightsSearchPage().getTripDetailPage()
                 .clickShowDepartingDetails()
@@ -52,24 +62,35 @@ public class FindFlightsSteps extends BaseSteps {
         return new TripDetailPage();
     }
 
+    public FindFlightsSteps changeFlightToAnother()  {
+        basePage.getFlightsSearchPage().getTripDetailPage()
+                .clickChangeFlights();
+        return this;
+    }
+
     public boolean isDirectionCorrect(String directionFrom, String directionTo) {
         for (int i = 0; i < basePage.getFlightsSearchPage().getTripDetailPage().getFlights().size(); i++) {
             if (!basePage.getFlightsSearchPage().getTripDetailPage().getLeavingFrom().get(i).getText().split(" ")[0].equals(directionFrom)
             || !basePage.getFlightsSearchPage().getTripDetailPage().getGoingTo().get(i).getText().split(" ")[0].equals(directionTo)) {
-                System.out.println(basePage.getFlightsSearchPage().getTripDetailPage().getLeavingFrom().get(i).getText().split(" ")[0]);
-                System.out.println(basePage.getFlightsSearchPage().getTripDetailPage().getGoingTo().get(i).getText().split(" ")[0]);
                 return false;
             }
         }
         return true;
     }
 
+    public boolean isAirlineForTheFlightToChanged(String airlineName) {
+        if (!basePage.getFlightsSearchPage().getTripDetailPage().getAirline().get(0).getText().equals(airlineName)) {
+                return false;
+            }
+            return true;
+        }
+
     /**
      * This step finds a flight using Flight page form
      * @param flightSearch
      * @return List<Flight>
      */
-    public List<Flight> findRoundTripFlightFromFlightPage(FlightSearch flightSearch) {
+    public List<Flight> findRoundTripFlightFromFlightPage(FlightSearch flightSearch) throws InterruptedException {
 
         basePage.openPage()
                 .waitForPageLoaded();
@@ -82,7 +103,8 @@ public class FindFlightsSteps extends BaseSteps {
         basePage.getFlightsPageForm().getDatepicker().getDoneButton().click();
         basePage.getFlightsPageForm().getPassengersInput()
                 .choosePassengersCount(flightSearch.getPassenger().getChildrenPassengersCount(), flightSearch.getPassenger().getChildPassenger());
-        basePage.getFlightsPageForm().clickFindAFlightButton()
+        basePage.getFlightsPageForm()
+                .clickFindAFlightButton()
                 .waitFlightsLoaded();
         return makeUpFlightsList();
     }
@@ -125,12 +147,15 @@ public class FindFlightsSteps extends BaseSteps {
         return this;
     }
 
-    public FindFlightsSteps goToFlightSearchPageAndSelectSearchingOptions(FlightSearch flightSearch) {
-        basePage.getBasePageForm().getPassengersInput()
-                .clickDoneButton();
-        basePage.getBasePageForm()
-                .clickFindAFlightButton()
+    public FindFlightsSteps selectAirlineFilter(String airline) {
+        basePage.getFlightsSearchPage()
+                .selectFilter(airline)
                 .waitFlightsLoaded();
+        return this;
+    }
+
+    public FindFlightsSteps selectSearchingOptions(FlightSearch flightSearch) {
+
         basePage.getFlightsSearchPage()
                 .selectRadioButtonOneWay()
                 .clickShowOptionsButton()

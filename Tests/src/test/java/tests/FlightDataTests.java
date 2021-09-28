@@ -2,7 +2,6 @@ package tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.FlightsSearchPage;
 import tests.objects.Objects;
 
 public class FlightDataTests extends BaseTest {
@@ -42,7 +41,7 @@ public class FlightDataTests extends BaseTest {
      * This test checks that the entered data is displayed on the 'Flight Search' page correctly.
      */
     @Test(description = "Check that the entered data is displayed correctly")
-    public void checkEnteredDataUsingFlightForm(){
+    public void checkEnteredDataUsingFlightForm() throws InterruptedException {
         findFlightSteps.findRoundTripFlightFromFlightPage(Objects.flightSearchRoundTrip);
 
     }
@@ -57,13 +56,14 @@ public class FlightDataTests extends BaseTest {
     @Test(description = "Check that the entered data is displayed correctly")
     public void checkEnteredDataUsingSearchingOnTheFlightSearchPage(){
 
-        findFlightSteps.fillOneWayTripFlightWithData(Objects.flightSearchOneWay)
-                .goToFlightSearchPageAndSelectSearchingOptions(Objects.flightSearchOneWay);
+        findFlightSteps
+                .fillOneWayTripFlightWithData(Objects.flightSearchOneWay)
+                .goToFlightSearchPage()
+                .selectSearchingOptions(Objects.flightSearchOneWay);
 
         Assert.assertTrue(findFlightSteps.isFlyFromToDirectionCorrect());
         Assert.assertTrue(findFlightSteps.isTripNonstop());
         Assert.assertTrue(findFlightSteps.isAirlineCorrect(Objects.flightSearchOneWay.getAirlineName()));
-
     }
 
     /**
@@ -80,7 +80,34 @@ public class FlightDataTests extends BaseTest {
 
         findFlightSteps
                 .findRoundTripFlightFromBasePage(Objects.flightSearchRoundTrip)
-                .sortFlightsByAirlineAndSelectFromToFlights();
+                .goToFlightSearchPage()
+                .chooseFromToFlight()
+                .goToTripDetailPage();
         Assert.assertTrue(findFlightSteps.isDirectionCorrect(directionFrom,directionTo));
+    }
+
+    /**
+     * AS-5 according to the test-cases specification
+     * https://docs.google.com/document/d/1nCM4rGxKGTkTgmzOHvTp39juojYjvtuo7xIoABjV2fo/edit?usp=sharing
+     * This test checks the possibility of changing flight to another
+     */
+    @Test(description = "Check the possibility of changing flight to another")
+    public void changeFlightToAnother()  {
+
+        String firstAirlineName = "Belavia";
+        String secondAirlineName = "Utair Aviation";
+
+        findFlightSteps
+                .findRoundTripFlightFromBasePage(Objects.flightSearchRoundTrip)
+                .goToFlightSearchPage()
+                .selectAirlineFilter(firstAirlineName)
+                .chooseFromToFlight()
+                .goToTripDetailPage()
+                .clickChangeFlights();
+        findFlightSteps
+                .selectAirlineFilter(secondAirlineName)
+                .chooseFromToFlight()
+                .goToTripDetailPage();
+        Assert.assertTrue(findFlightSteps.isAirlineForTheFlightToChanged(secondAirlineName));
     }
 }
