@@ -1,8 +1,6 @@
 package pages;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.*;
 import elements.Checkbox;
 import elements.Dropdown;
 import elements.RadioButton;
@@ -31,6 +29,10 @@ public class FlightsSearchPage {
     private SelenideElement nonStopFlightCheckboxXpath = $x("//*[@id = 'nonstop-flights']");
     private SelenideElement generalPassengersCountXpath = $x("//*[@id='advanced-options-container']//p/span");
     private SelenideElement oneWayRadioButton = $("id='oneway-flight'");
+    private SelenideElement airlineInTheInfoForm = $("#outboundFlightModule [data-test-id=\"airline-name\"]");
+    private SelenideElement directionFromInTheInfoForm = $x("//*[@id='outboundFlightModule']//*[@class='secondary-content']//span[2]");
+    private SelenideElement directionToInTheInfoForm = $x("//*[@id='outboundFlightModule']//*[@class='secondary-content']//span[4]");
+    private SelenideElement flightTypeInTheInfoForm = $x("//*[@id='outboundFlightModule']//*[@class='number-stops']");
     private FlightForms flightForms;
     private TripDetailPage tripDetailPage;
 
@@ -110,7 +112,7 @@ public class FlightsSearchPage {
 
 
     public FlightsSearchPage clickSelectFlightButton(int flightOrder){
-        $(By.xpath(String.format(RULES_BUTTON_XPATH,flightOrder))).click();
+        $x(String.format(FLIGHTS_LIST_SELECT_BUTTONS_XPATH,flightOrder)).click();
         return this;
     }
 
@@ -124,18 +126,13 @@ public class FlightsSearchPage {
         return this;
     }
 
-    public FlightsSearchPage waitUntilRulesButtonVisible(int flightOrder){
-        $$(By.xpath(RULES_BUTTON_XPATH)).get(flightOrder).shouldBe(Condition.visible);
-        return this;
-    }
-
     public FlightsSearchPage waitUntilRulesButtonUnvisible(int flightOrder){
-        $$(By.xpath(RULES_BUTTON_XPATH)).get(flightOrder).shouldNotBe(Condition.exist);
+        $(String.format(RULES_BUTTON_CSS,flightOrder)).shouldNotBe(Condition.visible);
         return this;
     }
 
     public FlightsSearchPage chooseDepartingFlight(int flightOrder){
-        if ($$(By.xpath(RULES_BUTTON_XPATH)).get(flightOrder).isDisplayed()){
+        if ($(String.format(RULES_BUTTON_CSS,flightOrder)).isDisplayed()){
             clickSelectFlightButton(flightOrder);
             waitUntilMenuVisible(flightOrder);
             clickSelectFareButton(flightOrder);
@@ -146,7 +143,8 @@ public class FlightsSearchPage {
     }
 
     public TripDetailPage chooseReturningFlight(int flightOrder){
-        if ($$(By.xpath(RULES_BUTTON_XPATH)).get(flightOrder).isDisplayed()){
+        SelenideElement element = $(String.format(RULES_BUTTON_CSS,flightOrder));
+        if (element.isDisplayed()){
             clickSelectFlightButton(flightOrder);
             waitUntilMenuVisible(flightOrder);
             clickSelectFareButton(flightOrder);

@@ -44,5 +44,6 @@ public class Checkbox {
     public void selectCheckboxFromFilter(String label){
         $x(String.format(CHECKBOX_FILTER_XPATH,label)).shouldBe(Condition.visible);
         $x(String.format(CHECKBOX_FILTER_XPATH,label)).click();
+        Selenide.sleep(2000);
     }
 }

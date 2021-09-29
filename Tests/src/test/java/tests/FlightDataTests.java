@@ -27,10 +27,14 @@ public class FlightDataTests extends BaseTest {
      */
     @Test(description = "Check that the entered data is displayed correctly")
     public void checkEnteredDataUsingBasePageForm(){
-        findFlightSteps.fillOneWayTripFlightWithData(Objects.flightSearchOneWay);
-        int passengersCount = findFlightSteps.receiveGeneralPassengersCountFromBasePage(Objects.flightSearchOneWay);
-        findFlightSteps.goToFlightSearchPageAndSelectFilterNonstop();
-        Assert.assertTrue(findFlightSteps.isFlyFromToDirectionCorrect());
+        String filter = "Nonstop";
+
+        findFlightSteps.fillOneWayTripFlightWithData(Objects.FLIGHT_SEARCH_ONE_WAY);
+        int passengersCount = findFlightSteps.receiveGeneralPassengersCountFromBasePage(Objects.FLIGHT_SEARCH_ONE_WAY);
+        findFlightSteps
+                .goToFlightSearchPage()
+                .selectFilter(filter);
+        Assert.assertTrue(findFlightSteps.isFlyFromToDirectionCorrect(Objects.DIRECTION));
         Assert.assertTrue(findFlightSteps.isPassengersCountCorrect(passengersCount));
         Assert.assertTrue(findFlightSteps.isTripTypeOneWay());
     }
@@ -41,8 +45,20 @@ public class FlightDataTests extends BaseTest {
      * This test checks that the entered data is displayed on the 'Flight Search' page correctly.
      */
     @Test(description = "Check that the entered data is displayed correctly")
-    public void checkEnteredDataUsingFlightForm() throws InterruptedException {
-        findFlightSteps.findRoundTripFlightFromFlightPage(Objects.flightSearchRoundTrip);
+    public void checkEnteredDataUsingFlightForm() {
+        String filter = "Belavia";
+
+        findFlightSteps
+                .findRoundTripFlightFromFlightPage(Objects.FLIGHT_SEARCH_ROUND_TRIP)
+                .selectFilter(filter);
+        String direction = findFlightSteps.flightDirection();
+        String airlineName = findFlightSteps.flightAirline();
+        String flightType = findFlightSteps.flightType();
+        findFlightSteps.chooseDepartingFlight();
+
+        Assert.assertTrue(findFlightSteps.isAirlineEqualToSelected(airlineName));
+        Assert.assertTrue(findFlightSteps.isDirectionEqualToSelected(direction));
+        Assert.assertTrue(findFlightSteps.isFlightTypeEqualToSelected(flightType));
 
     }
 
@@ -57,13 +73,14 @@ public class FlightDataTests extends BaseTest {
     public void checkEnteredDataUsingSearchingOnTheFlightSearchPage(){
 
         findFlightSteps
-                .fillOneWayTripFlightWithData(Objects.flightSearchOneWay)
+                .fillOneWayTripFlightWithData(Objects.FLIGHT_SEARCH_ONE_WAY)
+                .clickDoneButtonOnPassengersWindow()
                 .goToFlightSearchPage()
-                .selectSearchingOptions(Objects.flightSearchOneWay);
+                .selectSearchingOptions(Objects.FLIGHT_SEARCH_ONE_WAY);
 
-        Assert.assertTrue(findFlightSteps.isFlyFromToDirectionCorrect());
+        Assert.assertTrue(findFlightSteps.isFlyFromToDirectionCorrect(Objects.DIRECTION));
         Assert.assertTrue(findFlightSteps.isTripNonstop());
-        Assert.assertTrue(findFlightSteps.isAirlineCorrect(Objects.flightSearchOneWay.getAirlineName()));
+        Assert.assertTrue(findFlightSteps.isAirlineCorrect(Objects.FLIGHT_SEARCH_ONE_WAY.getAirlineName()));
     }
 
     /**
@@ -79,10 +96,10 @@ public class FlightDataTests extends BaseTest {
         String directionTo = "Moscow";
 
         findFlightSteps
-                .findRoundTripFlightFromBasePage(Objects.flightSearchRoundTrip)
+                .findRoundTripFlightFromBasePage(Objects.FLIGHT_SEARCH_ROUND_TRIP)
+                .clickDoneButtonOnPassengersWindow()
                 .goToFlightSearchPage()
                 .chooseDepartingFlight()
-                .waitUntilRulesButtonVisible()
                 .chooseReturningFlight()
                 .goToTripDetailPage();
         Assert.assertTrue(findFlightSteps.isDirectionCorrect(directionFrom,directionTo));
@@ -100,19 +117,20 @@ public class FlightDataTests extends BaseTest {
         String secondAirlineName = "Utair Aviation";
 
         findFlightSteps
-                .findRoundTripFlightFromBasePage(Objects.flightSearchRoundTrip)
+                .findRoundTripFlightFromBasePage(Objects.FLIGHT_SEARCH_ROUND_TRIP)
+                .clickDoneButtonOnPassengersWindow()
                 .goToFlightSearchPage()
-                .selectAirlineFilter(firstAirlineName)
-                .waitUntilRulesButtonUnvisible()
+                .selectFilter(firstAirlineName)
                 .chooseDepartingFlight()
                 .chooseReturningFlight()
                 .goToTripDetailPage()
                 .clickChangeFlights();
         findFlightSteps
-                .selectAirlineFilter(secondAirlineName)
+                .selectFilter(secondAirlineName)
                 .chooseDepartingFlight()
                 .chooseReturningFlight()
                 .goToTripDetailPage();
+
         Assert.assertTrue(findFlightSteps.isAirlineForTheFlightToChanged(secondAirlineName));
     }
 }

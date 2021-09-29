@@ -1,19 +1,14 @@
 package steps;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
-import elements.Checkbox;
 import entities.Flight;
 import entities.FlightSearch;
-import org.openqa.selenium.By;
-import pages.FlightsSearchPage;
 import pages.TripDetailPage;
 
 import java.util.List;
+import java.util.Objects;
 
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.switchTo;
-import static constants.IPagesConstants.RULES_BUTTON_XPATH;
 
 public class FindFlightsSteps extends BaseSteps {
 
@@ -24,8 +19,7 @@ public class FindFlightsSteps extends BaseSteps {
      */
     public FindFlightsSteps findRoundTripFlightFromBasePage(FlightSearch flightSearch) {
 
-        basePage.openPage()
-                .waitForPageLoaded();
+        basePage.openPage();
         basePage.getBasePageForm()
                 .chooseOptionFlights()
                 .chooseFlightType(flightSearch.getFlightType())
@@ -39,10 +33,13 @@ public class FindFlightsSteps extends BaseSteps {
         return this;
     }
 
-
-    public FindFlightsSteps goToFlightSearchPage()  {
+    public FindFlightsSteps clickDoneButtonOnPassengersWindow()  {
         basePage.getBasePageForm().getPassengersInput()
                 .clickDoneButton();
+        return this;
+    }
+
+    public FindFlightsSteps goToFlightSearchPage()  {
         basePage.getBasePageForm()
                 .clickFindAFlightButton()
                 .waitFlightsLoaded();
@@ -52,18 +49,15 @@ public class FindFlightsSteps extends BaseSteps {
     public FindFlightsSteps chooseDepartingFlight() {
         basePage.getFlightsSearchPage()
                 .waitFlightsLoaded()
-                .chooseDepartingFlight(1);
+                .chooseDepartingFlight(1)
+                .waitFlightsLoaded();
         return this;
     }
 
     public FindFlightsSteps chooseReturningFlight() {
         basePage.getFlightsSearchPage()
+                .waitFlightsLoaded()
                 .chooseReturningFlight(1);
-        return this;
-    }
-
-    public FindFlightsSteps waitUntilRulesButtonVisible(){
-        basePage.getFlightsSearchPage().waitUntilRulesButtonVisible(1);
         return this;
     }
 
@@ -74,7 +68,7 @@ public class FindFlightsSteps extends BaseSteps {
 
     public TripDetailPage goToTripDetailPage() {
 
-        switchTo().window(1);
+        switchTo().window("Trip Detail | Hotwire");
         basePage.getFlightsSearchPage().getTripDetailPage()
                 .clickShowDepartingDetails()
                 .clickShowReturningDetails();
@@ -102,17 +96,42 @@ public class FindFlightsSteps extends BaseSteps {
                 return false;
             }
             return true;
+    }
+
+    public boolean isAirlineEqualToSelected(String selectedAirlineName) {
+        System.out.println(basePage.getFlightsSearchPage().getAirlineInTheInfoForm().getText());
+        if (!basePage.getFlightsSearchPage().getAirlineInTheInfoForm().getText().equals(selectedAirlineName)) {
+            return false;
         }
+        return true;
+    }
+
+    public boolean isDirectionEqualToSelected(String selectedDirection) {
+        System.out.println(basePage.getFlightsSearchPage().getDirectionFromInTheInfoForm().getText() + " "
+                + basePage.getFlightsSearchPage().getDirectionToInTheInfoForm().getText());
+        if (!(basePage.getFlightsSearchPage().getDirectionFromInTheInfoForm().getText() + " "
+                + basePage.getFlightsSearchPage().getDirectionToInTheInfoForm().getText()).equals(selectedDirection)) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isFlightTypeEqualToSelected(String selectedFlightType) {
+        System.out.println(basePage.getFlightsSearchPage().getFlightTypeInTheInfoForm().getText());
+        if (!basePage.getFlightsSearchPage().getFlightTypeInTheInfoForm().getText().equals(selectedFlightType)) {
+            return false;
+        }
+        return true;
+    }
 
     /**
      * This step finds a flight using Flight page form
      * @param flightSearch
      * @return List<Flight>
      */
-    public List<Flight> findRoundTripFlightFromFlightPage(FlightSearch flightSearch) throws InterruptedException {
+    public FindFlightsSteps findRoundTripFlightFromFlightPage(FlightSearch flightSearch) {
 
-        basePage.openPage()
-                .waitForPageLoaded();
+        basePage.openPage();
         basePage.getHeaderPage().clickFlightButton();
         basePage.getFlightsPageForm().chooseDirectionFrom(flightSearch.getAirportFrom());
         basePage.getFlightsPageForm().chooseDirectionTo(flightSearch.getAirportTo());
@@ -121,11 +140,13 @@ public class FindFlightsSteps extends BaseSteps {
                         flightSearch.getReturningYear(), flightSearch.getReturningMonth(), flightSearch.getReturningDay());
         basePage.getFlightsPageForm().getDatepicker().getDoneButton().click();
         basePage.getFlightsPageForm().getPassengersInput()
-                .choosePassengersCount(flightSearch.getPassenger().getChildrenPassengersCount(), flightSearch.getPassenger().getChildPassenger());
+                .choosePassengersCount(flightSearch.getPassenger().getChildrenPassengersCount(), flightSearch.getPassenger().getChildPassenger())
+                .clickDoneButton()
+                .waitUntilPassengersWindowClosed();
         basePage.getFlightsPageForm()
                 .clickFindAFlightButton()
                 .waitFlightsLoaded();
-        return makeUpFlightsList();
+        return this;
     }
 
     /**
@@ -135,8 +156,7 @@ public class FindFlightsSteps extends BaseSteps {
      */
     public FindFlightsSteps fillOneWayTripFlightWithData(FlightSearch flightSearch) {
 
-        basePage.openPage()
-                .waitForPageLoaded();
+        basePage.openPage();
         basePage.getBasePageForm()
                 .chooseOptionFlights()
                 .chooseFlightType(flightSearch.getFlightType())
@@ -158,18 +178,26 @@ public class FindFlightsSteps extends BaseSteps {
         return generalCountFromBasePage;
     }
 
-    public FindFlightsSteps goToFlightSearchPageAndSelectFilterNonstop() {
-        basePage.getBasePageForm()
-                .clickFindAFlightButton()
-                .waitFlightsLoaded();
-        basePage.getFlightsSearchPage().selectFilter("Nonstop");
-        return this;
+    public String flightDirection() {
+        System.out.println("*" + basePage.getFlightsSearchPage().getFlightForms().getAirportFrom().get(0).getText() + " " +
+                basePage.getFlightsSearchPage().getFlightForms().getAirportTo().get(0).getText());
+        return basePage.getFlightsSearchPage().getFlightForms().getAirportFrom().get(0).getText() + " " +
+                    basePage.getFlightsSearchPage().getFlightForms().getAirportTo().get(0).getText();
     }
 
-    public FindFlightsSteps selectAirlineFilter(String airline) {
+    public String flightAirline() {
+        System.out.println("*" + basePage.getFlightsSearchPage().getFlightForms().getAirlineName().get(0).getText());
+        return basePage.getFlightsSearchPage().getFlightForms().getAirlineName().get(0).getText();
+    }
+
+    public String flightType() {
+        System.out.println("*" + basePage.getFlightsSearchPage().getFlightForms().getFlightType().get(0).getText());
+        return basePage.getFlightsSearchPage().getFlightForms().getNonstop().get(0).getText();
+    }
+
+    public FindFlightsSteps selectFilter(String filter) {
         basePage.getFlightsSearchPage()
-                .selectFilter(airline)
-                .waitFlightsLoaded();
+                .selectFilter(filter);
         return this;
     }
 
@@ -191,8 +219,7 @@ public class FindFlightsSteps extends BaseSteps {
      * This gets finds flights searching results list
      */
     public FindFlightsSteps findSearchingResultsList(String location) {
-        basePage.openPage()
-                .waitForPageLoaded();
+        basePage.openPage();
         basePage.getBasePageForm()
                 .chooseOptionFlights()
                 .getOneWayTripButton().click();
@@ -230,11 +257,11 @@ public class FindFlightsSteps extends BaseSteps {
         return true;
     }
 
-    public boolean isFlyFromToDirectionCorrect(){
+    public boolean isFlyFromToDirectionCorrect(List<String> list){
         for (int i = 0; i < basePage.getFlightsSearchPage().getFlightForms().getFlights().size(); i++) {
             String direction = basePage.getFlightsSearchPage().getFlightForms().getAirportFrom().get(i).getText() + " " +
                     basePage.getFlightsSearchPage().getFlightForms().getAirportTo().get(i).getText();
-            if (!(direction.equals("MSQ - VKO") || direction.equals("MSQ - DME") || direction.equals("MSQ - SVO"))) {
+            if (!list.contains(direction)) {
                 return false;
             }
         }

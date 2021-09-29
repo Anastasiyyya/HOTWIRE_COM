@@ -6,6 +6,9 @@ import com.codeborne.selenide.SelenideElement;
 import java.time.Duration;
 import java.util.Objects;
 
+import static com.codeborne.selenide.Selenide.$;
+import static constants.IPagesConstants.PASSENGERS_WINDOW_CSS;
+
 public abstract class PassengersInput {
 
     protected SelenideElement passengersCountButton;
@@ -35,6 +38,11 @@ public abstract class PassengersInput {
             }
         } while (true);
         waitUntilChooseButtonVisible();
+        return this;
+    }
+
+    public PassengersInput waitUntilPassengersWindowClosed() {
+        $(PASSENGERS_WINDOW_CSS).shouldNotBe(Condition.visible);
         return this;
     }
 

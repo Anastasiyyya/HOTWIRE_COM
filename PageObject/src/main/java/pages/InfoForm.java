@@ -25,11 +25,6 @@ public abstract class InfoForm {
         this.dropdown = new Dropdown();
     }
 
-    public InfoForm waitForPageLoaded() {
-        Selenide.Wait().withTimeout(Duration.ofSeconds(10));
-        return this;
-    }
-
     public InfoForm chooseFlightType(String flightType){
         if(flightType.equals("Round-trip")){
             roundTripButton.click();

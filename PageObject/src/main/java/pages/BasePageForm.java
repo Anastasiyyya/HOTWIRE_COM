@@ -38,14 +38,12 @@ public class BasePageForm extends InfoForm {
 
     @Override
     public InfoForm chooseDirectionFrom(String countryName) {
-        waitForPageLoaded();
         dropdown.selectInputDropdownOptionFromBasePage("Fly from",countryName);
         return this;
     }
 
     @Override
     public InfoForm chooseDirectionTo(String countryName) {
-        waitForPageLoaded();
         dropdown.selectInputDropdownOptionFromBasePage("Fly to",countryName);
         return this;
     }

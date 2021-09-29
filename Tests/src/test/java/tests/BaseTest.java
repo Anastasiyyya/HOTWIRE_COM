@@ -12,6 +12,7 @@ import steps.FindFlightsSteps;
 import tests.objects.Objects;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class BaseTest implements IPagesConstants {
 
@@ -41,6 +42,7 @@ public class BaseTest implements IPagesConstants {
         Configuration.timeout = 15000;
         Configuration.holdBrowserOpen = true;
         Configuration.headless = false;
+        Configuration.pageLoadTimeout = 30000;
         initPages();
     }
 
