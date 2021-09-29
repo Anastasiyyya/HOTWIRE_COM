@@ -124,6 +124,16 @@ public class FlightsSearchPage {
         return this;
     }
 
+    public FlightsSearchPage waitUntilRulesButtonVisible(int flightOrder){
+        $$(By.xpath(RULES_BUTTON_XPATH)).get(flightOrder).shouldBe(Condition.visible);
+        return this;
+    }
+
+    public FlightsSearchPage waitUntilRulesButtonUnvisible(int flightOrder){
+        $$(By.xpath(RULES_BUTTON_XPATH)).get(flightOrder).shouldNotBe(Condition.exist);
+        return this;
+    }
+
     public FlightsSearchPage chooseDepartingFlight(int flightOrder){
         if ($$(By.xpath(RULES_BUTTON_XPATH)).get(flightOrder).isDisplayed()){
             clickSelectFlightButton(flightOrder);
@@ -136,7 +146,6 @@ public class FlightsSearchPage {
     }
 
     public TripDetailPage chooseReturningFlight(int flightOrder){
-        $$(By.xpath(RULES_BUTTON_XPATH)).get(flightOrder).shouldBe(Condition.visible);
         if ($$(By.xpath(RULES_BUTTON_XPATH)).get(flightOrder).isDisplayed()){
             clickSelectFlightButton(flightOrder);
             waitUntilMenuVisible(flightOrder);

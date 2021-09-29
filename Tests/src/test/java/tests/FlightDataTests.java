@@ -81,7 +81,9 @@ public class FlightDataTests extends BaseTest {
         findFlightSteps
                 .findRoundTripFlightFromBasePage(Objects.flightSearchRoundTrip)
                 .goToFlightSearchPage()
-                .chooseFromToFlight()
+                .chooseDepartingFlight()
+                .waitUntilRulesButtonVisible()
+                .chooseReturningFlight()
                 .goToTripDetailPage();
         Assert.assertTrue(findFlightSteps.isDirectionCorrect(directionFrom,directionTo));
     }
@@ -101,12 +103,15 @@ public class FlightDataTests extends BaseTest {
                 .findRoundTripFlightFromBasePage(Objects.flightSearchRoundTrip)
                 .goToFlightSearchPage()
                 .selectAirlineFilter(firstAirlineName)
-                .chooseFromToFlight()
+                .waitUntilRulesButtonUnvisible()
+                .chooseDepartingFlight()
+                .chooseReturningFlight()
                 .goToTripDetailPage()
                 .clickChangeFlights();
         findFlightSteps
                 .selectAirlineFilter(secondAirlineName)
-                .chooseFromToFlight()
+                .chooseDepartingFlight()
+                .chooseReturningFlight()
                 .goToTripDetailPage();
         Assert.assertTrue(findFlightSteps.isAirlineForTheFlightToChanged(secondAirlineName));
     }

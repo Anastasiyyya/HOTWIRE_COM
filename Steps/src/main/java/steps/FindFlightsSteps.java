@@ -1,15 +1,19 @@
 package steps;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import elements.Checkbox;
 import entities.Flight;
 import entities.FlightSearch;
+import org.openqa.selenium.By;
 import pages.FlightsSearchPage;
 import pages.TripDetailPage;
 
 import java.util.List;
 
+import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.switchTo;
+import static constants.IPagesConstants.RULES_BUTTON_XPATH;
 
 public class FindFlightsSteps extends BaseSteps {
 
@@ -45,11 +49,26 @@ public class FindFlightsSteps extends BaseSteps {
         return this;
     }
 
-    public FindFlightsSteps chooseFromToFlight() {
+    public FindFlightsSteps chooseDepartingFlight() {
         basePage.getFlightsSearchPage()
                 .waitFlightsLoaded()
-                .chooseDepartingFlight(1)
+                .chooseDepartingFlight(1);
+        return this;
+    }
+
+    public FindFlightsSteps chooseReturningFlight() {
+        basePage.getFlightsSearchPage()
                 .chooseReturningFlight(1);
+        return this;
+    }
+
+    public FindFlightsSteps waitUntilRulesButtonVisible(){
+        basePage.getFlightsSearchPage().waitUntilRulesButtonVisible(1);
+        return this;
+    }
+
+    public FindFlightsSteps waitUntilRulesButtonUnvisible(){
+        basePage.getFlightsSearchPage().waitUntilRulesButtonUnvisible(1);
         return this;
     }
 
