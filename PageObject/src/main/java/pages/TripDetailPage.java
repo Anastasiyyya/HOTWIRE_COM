@@ -3,6 +3,7 @@ package pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import com.fasterxml.jackson.core.JsonPointer;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.Duration;
 import static com.codeborne.selenide.Selenide.*;
+import static constants.IPagesConstants.*;
 
 @Data
 @Getter
@@ -28,6 +30,7 @@ public class TripDetailPage {
     private final SelenideElement showDepartingDetailsButton = $("#flightDetailsToggle-0 > button");
     private final SelenideElement showReturningDetailsButton = $("#flightDetailsToggle-1 > button");
     private final SelenideElement changeFlightsButton = $("[data-track=\"FLT.RD.ChangeFlight\"]");
+    private final SelenideElement currencyPrice = $(".currentPrice");
     private final ElementsCollection airline = $$(".airlineName");
 
 
@@ -64,5 +67,18 @@ public class TripDetailPage {
     public FlightsSearchPage clickChangeFlights() {
         $(changeFlightsButton).click();
         return new FlightsSearchPage();
+    }
+
+    public FlightsSearchPage changeFlightByPrice(String flightName) {
+        $x(String.format(CHANGE_FLIGHT_TYPE_BY_PRICE_TRIP_DETAIL_XPATH, flightName)).click();
+        return new FlightsSearchPage();
+    }
+
+    public Double checkFlightPriceWithType(String flightTypeName) {
+        String priceWithDollar = $x(String.format(FLIGHT_TYPE_PRICE_FIRST_PART,flightTypeName)).getText();
+        String priceWithoutDollar = priceWithDollar.replace(" $","");
+        System.out.println(priceWithoutDollar);
+        Double price = Double.parseDouble(priceWithoutDollar);
+        return price;
     }
 }
