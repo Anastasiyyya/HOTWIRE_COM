@@ -10,7 +10,6 @@ import org.openqa.selenium.By;;
 import java.time.Duration;
 import java.util.Locale;
 import java.util.Objects;
-
 import static com.codeborne.selenide.Selenide.*;
 import static constants.IPagesConstants.*;
 
@@ -127,11 +126,6 @@ public class FlightsSearchPage {
         return this;
     }
 
-    public FlightsSearchPage waitUntilRulesButtonUnvisible(int flightOrder){
-        $(String.format(RULES_BUTTON_CSS,flightOrder)).shouldNotBe(Condition.visible);
-        return this;
-    }
-
     public FlightsSearchPage chooseDepartingFlight(int flightOrder){
         if ($(String.format(RULES_BUTTON_CSS,flightOrder)).isDisplayed()){
             clickSelectFlightButton(flightOrder);
@@ -169,7 +163,7 @@ public class FlightsSearchPage {
 
     public double checkAdditionallyPrice(int flightOrder){
         String addPrice = $$(By.xpath(ADDITIONAL_PRICE_XPATH)).get(flightOrder).getText();
-        String addPriceWithoutDollar = addPrice.replace("+ $", "");
+        String addPriceWithoutDollar = addPrice.replace("+ $", "").replace("$","");
         return Double.parseDouble(addPriceWithoutDollar);
     }
 

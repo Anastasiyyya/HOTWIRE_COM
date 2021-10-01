@@ -3,12 +3,9 @@ package pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import com.fasterxml.jackson.core.JsonPointer;
-import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import java.time.Duration;
 import static com.codeborne.selenide.Selenide.*;
 import static constants.IPagesConstants.*;
@@ -43,9 +40,8 @@ public class TripDetailPage {
         return continueBookingButton.isDisplayed();
     }
 
-    public TripDetailPage waitUntilContinueBookingButtonDisplayed() {
+    public void waitUntilContinueBookingButtonDisplayed() {
         continueBookingButton.shouldBe(Condition.visible, Duration.ofSeconds(20));
-        return this;
     }
 
     public TripDetailPage clickShowDepartingDetails(){
@@ -53,9 +49,8 @@ public class TripDetailPage {
         return this;
     }
 
-    public TripDetailPage clickShowReturningDetails(){
+    public void clickShowReturningDetails(){
         $(showReturningDetailsButton).click();
-        return this;
     }
 
     public double returnTotalPrice() {
@@ -76,9 +71,7 @@ public class TripDetailPage {
 
     public Double checkFlightPriceWithType(String flightTypeName) {
         String priceWithDollar = $x(String.format(FLIGHT_TYPE_PRICE_FIRST_PART,flightTypeName)).getText();
-        String priceWithoutDollar = priceWithDollar.replace(" $","");
-        System.out.println(priceWithoutDollar);
-        Double price = Double.parseDouble(priceWithoutDollar);
-        return price;
+        String priceWithoutDollar = priceWithDollar.replace(" $","").replace("$","");
+        return Double.parseDouble(priceWithoutDollar);
     }
 }

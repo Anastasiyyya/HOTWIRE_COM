@@ -1,7 +1,6 @@
 package pages;
 
 import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
 import lombok.Data;
 import static com.codeborne.selenide.Selenide.*;
 

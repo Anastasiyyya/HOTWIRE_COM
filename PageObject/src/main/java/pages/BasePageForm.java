@@ -8,7 +8,6 @@ import elements.BasePassengerInput;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-
 import static com.codeborne.selenide.Selenide.*;
 
 @Data
