@@ -71,7 +71,7 @@ public class TripDetailPage {
 
     public Double checkFlightPriceWithType(String flightTypeName) {
         String priceWithDollar = $x(String.format(FLIGHT_TYPE_PRICE_FIRST_PART,flightTypeName)).getText();
-        String priceWithoutDollar = priceWithDollar.replace(" $","").replace("$","");
+        String priceWithoutDollar = priceWithDollar.replace("$","");
         return Double.parseDouble(priceWithoutDollar);
     }
 }
