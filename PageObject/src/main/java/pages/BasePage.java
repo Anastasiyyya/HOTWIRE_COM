@@ -1,6 +1,5 @@
 package pages;
 
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import constants.IConstantsURL;
 import lombok.AllArgsConstructor;
@@ -8,8 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import org.apache.commons.lang3.time.DateUtils;
 import org.openqa.selenium.Cookie;
-
-import java.time.Duration;
 import java.util.Date;
 import static com.codeborne.selenide.Selenide.open;
 
@@ -19,10 +16,14 @@ import static com.codeborne.selenide.Selenide.open;
 public class BasePage implements IConstantsURL {
 
     public BasePageForm basePageForm;
+    public HeaderPage headerPage;
+    public FlightsPageForm flightsPageForm;
     public FlightsSearchPage flightsSearchPage;
 
     public BasePage() {
         this.basePageForm = new BasePageForm();
+        this.headerPage =  new HeaderPage();
+        this.flightsPageForm = new FlightsPageForm();
         this.flightsSearchPage = new FlightsSearchPage();
     }
 
@@ -40,11 +41,6 @@ public class BasePage implements IConstantsURL {
                         "nNM5VF6r8ctfml5cytg6FuU5uS1CDb+16AyGxbFdY8Z7RJAAjLPfbBjMMz0G7MCLetfNs3v" +
                         "R5oQRwNdcJT0RyaqVBP8TS",
                 ".hotwire.com", "/", DateUtils.addHours(new Date(), 2)));
-        return this;
-    }
-
-    public BasePage waitForPageLoaded() {
-        Selenide.Wait().withTimeout(Duration.ofSeconds(10));
         return this;
     }
 }

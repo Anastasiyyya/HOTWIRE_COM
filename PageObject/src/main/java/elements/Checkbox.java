@@ -1,8 +1,8 @@
 package elements;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -40,5 +40,6 @@ public class Checkbox {
     public void selectCheckboxFromFilter(String label){
         $x(String.format(CHECKBOX_FILTER_XPATH,label)).shouldBe(Condition.visible);
         $x(String.format(CHECKBOX_FILTER_XPATH,label)).click();
+        Selenide.sleep(2000);
     }
 }

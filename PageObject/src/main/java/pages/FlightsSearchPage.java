@@ -1,18 +1,15 @@
 package pages;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.*;
 import elements.Checkbox;
 import elements.Dropdown;
+import elements.RadioButton;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.openqa.selenium.By;;
 import java.time.Duration;
 import java.util.Locale;
 import java.util.Objects;
-
 import static com.codeborne.selenide.Selenide.*;
 import static constants.IPagesConstants.*;
 
@@ -30,6 +27,12 @@ public class FlightsSearchPage {
     private SelenideElement sortFilterClearButton = $(".sort-filter-clear-button");
     private SelenideElement nonStopFlightCheckboxXpath = $x("//*[@id = 'nonstop-flights']");
     private SelenideElement generalPassengersCountXpath = $x("//*[@id='advanced-options-container']//p/span");
+    private SelenideElement oneWayRadioButton = $("id='oneway-flight'");
+    private SelenideElement airlineInTheInfoForm = $("#outboundFlightModule [data-test-id=\"airline-name\"]");
+    private SelenideElement directionFromInTheInfoForm = $x("//*[@id='outboundFlightModule']//*[@class='secondary-content']//span[2]");
+    private SelenideElement directionToInTheInfoForm = $x("//*[@id='outboundFlightModule']//*[@class='secondary-content']//span[4]");
+    private SelenideElement flightTypeInTheInfoForm = $x("//*[@id='outboundFlightModule']//*[@class='number-stops']");
+    private SelenideElement infoModalClose = $("#forcedChoiceNoThanks");
     private FlightForms flightForms;
     private TripDetailPage tripDetailPage;
 
@@ -47,6 +50,7 @@ public class FlightsSearchPage {
         $$x(DETAILS_BUTTON_XPATH).get(orderInList).click();
         return this;
     }
+
 
     public FlightsSearchPage clickFlightDetailAndBaggageFeesButton(int orderInList){
         flightDetailButton.get(orderInList).click();
@@ -106,20 +110,26 @@ public class FlightsSearchPage {
         return this;
     }
 
+
     public FlightsSearchPage clickSelectFlightButton(int flightOrder){
-        $$(By.xpath(FLIGHTS_LIST_SELECT_BUTTONS_XPATH)).get(flightOrder-1).click();
+        $x(String.format(FLIGHTS_LIST_SELECT_BUTTONS_XPATH,flightOrder)).click();
+        return this;
+    }
+
+    public FlightsSearchPage waitUntilMenuVisible(int flightOrder){
+        $(String.format(MENU_CSS,flightOrder)).shouldBe(Condition.visible, Duration.ofSeconds(15));
         return this;
     }
 
     public FlightsSearchPage clickSelectFareButton(int flightOrder){
-        $(By.xpath(String.format(SELECT_FARE_BUTTONS_XPATH,flightOrder))).click();
+        $(String.format(SELECT_FARE_BUTTONS_CSS,flightOrder)).click();
         return this;
     }
 
     public FlightsSearchPage chooseDepartingFlight(int flightOrder){
-
-        if($x(String.format(RULES_BUTTON_XPATH,flightOrder)).isDisplayed()){
+        if ($(String.format(RULES_BUTTON_CSS,flightOrder)).isDisplayed()){
             clickSelectFlightButton(flightOrder);
+            waitUntilMenuVisible(flightOrder);
             clickSelectFareButton(flightOrder);
         } else {
             clickSelectFlightButton(flightOrder);
@@ -128,9 +138,10 @@ public class FlightsSearchPage {
     }
 
     public TripDetailPage chooseReturningFlight(int flightOrder){
-
-        if($x(String.format(RULES_BUTTON_XPATH,flightOrder)).isDisplayed()){
+        SelenideElement element = $(String.format(RULES_BUTTON_CSS,flightOrder));
+        if (element.isDisplayed()){
             clickSelectFlightButton(flightOrder);
+            waitUntilMenuVisible(flightOrder);
             clickSelectFareButton(flightOrder);
         } else {
             clickSelectFlightButton(flightOrder);
@@ -144,7 +155,7 @@ public class FlightsSearchPage {
     }
 
     public double checkTotalPrice(int flightOrder){
-        $$(By.xpath(DETAILS_BUTTON_XPATH)).get(flightOrder).click();
+        $$(By.xpath(DETAILS_BUTTON_XPATH)).get(flightOrder-1).click();
         String price = $(By.xpath(TOTAL_PRICE_XPATH)).getText();
         String priceWithoutDollar = price.replace("$", "");
         return Double.parseDouble(priceWithoutDollar);
@@ -152,7 +163,7 @@ public class FlightsSearchPage {
 
     public double checkAdditionallyPrice(int flightOrder){
         String addPrice = $$(By.xpath(ADDITIONAL_PRICE_XPATH)).get(flightOrder).getText();
-        String addPriceWithoutDollar = addPrice.replace("$", "");
+        String addPriceWithoutDollar = addPrice.replace("+ $", "").replace("$","");
         return Double.parseDouble(addPriceWithoutDollar);
     }
 
@@ -167,6 +178,23 @@ public class FlightsSearchPage {
 
     public FlightsSearchPage selectFilter(String checkboxName) {
         new Checkbox().selectCheckboxFromFilter(checkboxName);
+        return this;
+    }
+
+    public FlightsSearchPage selectRadioButtonOneWay() {
+        new RadioButton("One Way").findRadioButtonAndSelect();
+        return this;
+    }
+
+    public FlightsSearchPage selectSortOption(String option) {
+        sortDropdown.click();
+        $x(String.format(SORT_DROPDOWN_OPTIONS_XPATH,option)).click();
+        Selenide.sleep(5000);
+        return this;
+    }
+
+    public FlightsSearchPage closeInfoWindow() {
+        infoModalClose.click();
         return this;
     }
 }

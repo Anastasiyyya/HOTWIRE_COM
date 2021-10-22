@@ -24,4 +24,7 @@ public class FlightSearch {
 
     private String airportFrom;
     private String airportTo;
+
+    private String airlineName;
+    private String seatingClass;
 }

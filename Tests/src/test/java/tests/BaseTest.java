@@ -10,7 +10,6 @@ import org.testng.annotations.BeforeMethod;
 import pages.*;
 import steps.FindFlightsSteps;
 import tests.objects.Objects;
-
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class BaseTest implements IPagesConstants {
@@ -18,7 +17,6 @@ public class BaseTest implements IPagesConstants {
     BasePage basePage;
     BasePageDatePicker basePageDatePicker;
     FlightsPage flightsPage;
-    FlightsSearchPage flightsSearchPage;
     HeaderPage headerPage;
     TripDetailPage tripDetailPage;
     BasePassengerInput basePassengerInput;
@@ -41,6 +39,7 @@ public class BaseTest implements IPagesConstants {
         Configuration.timeout = 15000;
         Configuration.holdBrowserOpen = true;
         Configuration.headless = false;
+        Configuration.pageLoadTimeout = 30000;
         initPages();
     }
 

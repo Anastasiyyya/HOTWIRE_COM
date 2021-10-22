@@ -3,9 +3,10 @@ package pages;
 import com.codeborne.selenide.Condition;
 import elements.*;
 import static com.codeborne.selenide.Selenide.$;
-import static constants.IPagesConstants.*;
 
 public class FlightsPageForm extends InfoForm {
+
+    private final String leavingFieldWithValue = "[aria-label='Leaving from']";
 
     public FlightsPageForm() {
         super.datepicker = new FlightsDatePicker();
@@ -17,14 +18,14 @@ public class FlightsPageForm extends InfoForm {
 
     @Override
     public InfoForm chooseDirectionFrom(String countryName) {
-        waitForPageLoaded();
         dropdown.selectInputDropdownOptionFromFlightsPage(leavingFromField,countryName);
         return this;
     }
 
     @Override
     public InfoForm chooseDirectionTo(String countryName) {
-        dropdown.selectInputDropdownOptionFromFlightsPage(goingToField,countryName);
+        dropdown.selectInputDropdownOptionFlyTo(goingToField,countryName);
+        findAFlightButton.shouldBe(Condition.visible);
         return this;
     }
 }

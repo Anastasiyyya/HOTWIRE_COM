@@ -22,8 +22,7 @@ public class Passenger {
     private int childrenPassengersCount;
 
     public static int calculateAge(LocalDate birthDate, LocalDate currentDate) {
-        int years = Period.between(birthDate, currentDate).getYears();
-        return years;
+        return Period.between(birthDate, currentDate).getYears();
     }
 
     public boolean isPassengerAdult(int years) {
@@ -32,5 +31,11 @@ public class Passenger {
 
     public String makeUpPassengerFullName(String passengerName, String passengerSurname) {
         return passengerName + " " + passengerSurname;
+    }
+
+    public void list(int passengersCount){
+        for (int i = 0; i < passengersCount; i++) {
+
+        }
     }
 }

@@ -1,9 +1,11 @@
 package elements;
 
+import lombok.NoArgsConstructor;
 import org.openqa.selenium.By;
 import static com.codeborne.selenide.Selenide.$;
 import static constants.IPagesConstants.FROM_TO_FIELD_XPATH;
 
+@NoArgsConstructor
 public class Input {
 
     private String label;
