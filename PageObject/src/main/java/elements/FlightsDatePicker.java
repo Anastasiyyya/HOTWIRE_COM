@@ -1,10 +1,7 @@
 package elements;
 
-import com.codeborne.selenide.SelenideElement;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 

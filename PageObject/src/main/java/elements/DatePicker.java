@@ -26,22 +26,28 @@ public abstract class DatePicker {
             if ($x(String.format(DATE_BASE_PAGE,departingMonth,departingDay,departingYear)).exists()) {
                 $x(String.format(DATE_BASE_PAGE,departingMonth,departingDay,departingYear)).click();
                 break;
-            } else if ($x(String.format(DATE_BASE_PAGE,departingMonth.substring(0,3),departingDay,departingYear)).exists()) {
-                $x(String.format(DATE_BASE_PAGE,departingMonth.substring(0,3),departingDay,departingYear)).click();
-                break;
             } else {
-                nextButton.click();
+                String departingDate = String.format(DATE_BASE_PAGE, departingMonth.substring(0, 3), departingDay, departingYear);
+                if ($x(departingDate).exists()) {
+                    $x(departingDate).click();
+                    break;
+                } else {
+                    nextButton.click();
+                }
             }
         }
         while(true) {
             if ($x(String.format(DATE_BASE_PAGE,returningMonth,returningDay,returningYear)).exists()) {
                 $x(String.format(DATE_BASE_PAGE,returningMonth,returningDay,returningYear)).click();
                 break;
-            } else if ($x(String.format(DATE_BASE_PAGE,returningMonth.substring(0,3),returningDay,returningYear)).exists()) {
-                $x(String.format(DATE_BASE_PAGE,returningMonth.substring(0,3),returningDay,returningYear)).click();
-                break;
             } else {
-                nextButton.click();
+                String returningDate = String.format(DATE_BASE_PAGE, returningMonth.substring(0, 3), returningDay, returningYear);
+                if ($x(returningDate).exists()) {
+                    $x(returningDate).click();
+                    break;
+                } else {
+                    nextButton.click();
+                }
             }
         }
         return this;

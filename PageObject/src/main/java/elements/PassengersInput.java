@@ -5,7 +5,6 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import java.time.Duration;
 import java.util.Objects;
-
 import static com.codeborne.selenide.Selenide.$;
 import static constants.IPagesConstants.PASSENGERS_WINDOW_CSS;
 
@@ -41,14 +40,12 @@ public abstract class PassengersInput {
         return this;
     }
 
-    public PassengersInput waitUntilPassengersWindowClosed() {
+    public void waitUntilPassengersWindowClosed() {
         $(PASSENGERS_WINDOW_CSS).shouldNotBe(Condition.visible);
-        return this;
     }
 
-    public PassengersInput waitUntilChooseButtonVisible() {
+    public void waitUntilChooseButtonVisible() {
         passengersCountButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        return this;
     }
 
     public PassengersInput clickDoneButton() {

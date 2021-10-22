@@ -1,13 +1,9 @@
 package steps;
 
-import entities.Flight;
 import entities.FlightSearch;
 import pages.TripDetailPage;
-
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.switchTo;
 
 public class FindFlightsSteps extends BaseSteps {
@@ -54,6 +50,12 @@ public class FindFlightsSteps extends BaseSteps {
         return this;
     }
 
+    public FindFlightsSteps closeWindowAndGoToTripDetailPage() {
+        basePage.getFlightsSearchPage().closeInfoWindow();
+        switchTo().window("Trip Detail | Hotwire");
+        return this;
+    }
+
     public FindFlightsSteps chooseReturningFlight() {
         basePage.getFlightsSearchPage()
                 .waitFlightsLoaded()
@@ -61,9 +63,32 @@ public class FindFlightsSteps extends BaseSteps {
         return this;
     }
 
-    public FindFlightsSteps waitUntilRulesButtonUnvisible(){
-        basePage.getFlightsSearchPage().waitUntilRulesButtonUnvisible(1);
+    public FindFlightsSteps chooseSortDropdownOptions(String sortOption) {
+        basePage.getFlightsSearchPage().selectSortOption(sortOption);
         return this;
+    }
+
+    public List<Double> getPriceListFromSearchingPage() {
+        List<Double> pricesList =  new ArrayList<>();
+        for (int i = 0; i < basePage.getFlightsSearchPage().getFlightForms().getFlights().size(); i++) {
+            pricesList.add(basePage.getFlightsSearchPage().checkAdditionallyPrice(i));
+        }
+        return pricesList;
+    }
+
+    public boolean isPriceListSortedByHighest(List<Double> priceList) {
+        Double price = priceList.get(0);
+        for (Double aDouble : priceList) {
+            if (aDouble > price) {
+                return false;
+            }
+            price = aDouble;
+        }
+        return true;
+    }
+
+    public boolean isPriceListsTheSame(List<Double> pricesListBeforeSorting, List<Double> pricesListAfterSorting) {
+        return pricesListAfterSorting.containsAll(pricesListBeforeSorting);
     }
 
     public TripDetailPage goToTripDetailPage() {
@@ -92,14 +117,10 @@ public class FindFlightsSteps extends BaseSteps {
     }
 
     public boolean isAirlineForTheFlightToChanged(String airlineName) {
-        if (!basePage.getFlightsSearchPage().getTripDetailPage().getAirline().get(0).getText().equals(airlineName)) {
-                return false;
-            }
-            return true;
+        return basePage.getFlightsSearchPage().getTripDetailPage().getAirline().get(0).getText().equals(airlineName);
     }
 
     public boolean isAirlineEqualToSelected(String selectedAirlineName) {
-        System.out.println(basePage.getFlightsSearchPage().getAirlineInTheInfoForm().getText());
         if (!basePage.getFlightsSearchPage().getAirlineInTheInfoForm().getText().equals(selectedAirlineName)) {
             return false;
         }
@@ -179,20 +200,26 @@ public class FindFlightsSteps extends BaseSteps {
     }
 
     public String flightDirection() {
-        System.out.println("*" + basePage.getFlightsSearchPage().getFlightForms().getAirportFrom().get(0).getText() + " " +
-                basePage.getFlightsSearchPage().getFlightForms().getAirportTo().get(0).getText());
         return basePage.getFlightsSearchPage().getFlightForms().getAirportFrom().get(0).getText() + " " +
                     basePage.getFlightsSearchPage().getFlightForms().getAirportTo().get(0).getText();
     }
 
     public String flightAirline() {
-        System.out.println("*" + basePage.getFlightsSearchPage().getFlightForms().getAirlineName().get(0).getText());
         return basePage.getFlightsSearchPage().getFlightForms().getAirlineName().get(0).getText();
     }
 
     public String flightType() {
-        System.out.println("*" + basePage.getFlightsSearchPage().getFlightForms().getFlightType().get(0).getText());
         return basePage.getFlightsSearchPage().getFlightForms().getNonstop().get(0).getText();
+    }
+
+    public boolean isFlightsSortedByAirportsCorrectly(String filterAirport){
+        for (int i = 0; i < basePage.getFlightsSearchPage().getFlightForms().getFlights().size(); i++) {
+            String airportTo = basePage.getFlightsSearchPage().getFlightForms().getAirportTo().get(i).getText();
+            if (!airportTo.equals(filterAirport)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public FindFlightsSteps selectFilter(String filter) {
@@ -280,11 +307,48 @@ public class FindFlightsSteps extends BaseSteps {
     public boolean isPassengersCountCorrect(int generalCountFromBasePage) {
         boolean result;
         int generalCount = basePage.getFlightsSearchPage().checkGeneralPassengersCount();
-        if (generalCount == generalCountFromBasePage) {
-            result = true;
-        } else {
-            result = false;
-        }
+        result = generalCount == generalCountFromBasePage;
         return result;
+    }
+
+    public Double getSearchedFlightPrice() {
+        return basePage.getFlightsSearchPage().checkTotalPrice(1);
+    }
+
+    public Double getAdditionallyPrice() {
+        Double additionallyPrice = basePage.getFlightsSearchPage().checkAdditionallyPrice(1);
+        if (!(basePage.getFlightsSearchPage().checkAdditionallyPrice(1) == 0)) {
+            additionallyPrice = getSearchedFlightPrice();
+        }
+        return additionallyPrice;
+    }
+
+    public boolean isPriceOnTripDetailCorrectForRoundTrip(Double roundTripPrice, Double additionallyPrice) {
+        double totalPrice = basePage.getFlightsSearchPage().getTripDetailPage().returnTotalPrice();
+        if (basePage.getFlightsSearchPage().getTripDetailPage().getCurrencyPrice().exists()) {
+            double changedPrice = Double.parseDouble(basePage.getFlightsSearchPage().getTripDetailPage().getCurrencyPrice().getText().replace("$",""));
+            return totalPrice == changedPrice;
+        } else {
+            return totalPrice == roundTripPrice + additionallyPrice;
+        }
+    }
+
+    public boolean isPriceOnTripDetailCorrectForOneWayTrip(Double oneWaySearchedPrice) {
+        double totalPrice = basePage.getFlightsSearchPage().getTripDetailPage().returnTotalPrice();
+        return totalPrice == oneWaySearchedPrice;
+    }
+
+    public boolean isTotalPriceChangedAfterChangingFlightType(String flightTypeName) {
+        double totalPrice = basePage.getFlightsSearchPage().getTripDetailPage().returnTotalPrice();
+        double newPrice = basePage.getFlightsSearchPage().getTripDetailPage().checkFlightPriceWithType(flightTypeName);
+        if (!(totalPrice == newPrice)) {
+            return false;
+        }
+        return true;
+    }
+
+    public FindFlightsSteps changeFlightPrice(String flightTypeName) {
+        basePage.getFlightsSearchPage().getTripDetailPage().changeFlightByPrice(flightTypeName);
+        return this;
     }
 }

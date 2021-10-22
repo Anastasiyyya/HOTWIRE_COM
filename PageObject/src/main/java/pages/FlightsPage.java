@@ -12,5 +12,4 @@ import lombok.NoArgsConstructor;
 public class FlightsPage {
 
     private FlightsPageForm flightsPageForm;
-
 }

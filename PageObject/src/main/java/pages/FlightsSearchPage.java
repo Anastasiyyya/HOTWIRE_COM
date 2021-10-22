@@ -10,7 +10,6 @@ import org.openqa.selenium.By;;
 import java.time.Duration;
 import java.util.Locale;
 import java.util.Objects;
-
 import static com.codeborne.selenide.Selenide.*;
 import static constants.IPagesConstants.*;
 
@@ -33,6 +32,7 @@ public class FlightsSearchPage {
     private SelenideElement directionFromInTheInfoForm = $x("//*[@id='outboundFlightModule']//*[@class='secondary-content']//span[2]");
     private SelenideElement directionToInTheInfoForm = $x("//*[@id='outboundFlightModule']//*[@class='secondary-content']//span[4]");
     private SelenideElement flightTypeInTheInfoForm = $x("//*[@id='outboundFlightModule']//*[@class='number-stops']");
+    private SelenideElement infoModalClose = $("#forcedChoiceNoThanks");
     private FlightForms flightForms;
     private TripDetailPage tripDetailPage;
 
@@ -126,11 +126,6 @@ public class FlightsSearchPage {
         return this;
     }
 
-    public FlightsSearchPage waitUntilRulesButtonUnvisible(int flightOrder){
-        $(String.format(RULES_BUTTON_CSS,flightOrder)).shouldNotBe(Condition.visible);
-        return this;
-    }
-
     public FlightsSearchPage chooseDepartingFlight(int flightOrder){
         if ($(String.format(RULES_BUTTON_CSS,flightOrder)).isDisplayed()){
             clickSelectFlightButton(flightOrder);
@@ -160,7 +155,7 @@ public class FlightsSearchPage {
     }
 
     public double checkTotalPrice(int flightOrder){
-        $$(By.xpath(DETAILS_BUTTON_XPATH)).get(flightOrder).click();
+        $$(By.xpath(DETAILS_BUTTON_XPATH)).get(flightOrder-1).click();
         String price = $(By.xpath(TOTAL_PRICE_XPATH)).getText();
         String priceWithoutDollar = price.replace("$", "");
         return Double.parseDouble(priceWithoutDollar);
@@ -168,7 +163,7 @@ public class FlightsSearchPage {
 
     public double checkAdditionallyPrice(int flightOrder){
         String addPrice = $$(By.xpath(ADDITIONAL_PRICE_XPATH)).get(flightOrder).getText();
-        String addPriceWithoutDollar = addPrice.replace("$", "");
+        String addPriceWithoutDollar = addPrice.replace("+ $", "").replace("$","");
         return Double.parseDouble(addPriceWithoutDollar);
     }
 
@@ -191,4 +186,15 @@ public class FlightsSearchPage {
         return this;
     }
 
+    public FlightsSearchPage selectSortOption(String option) {
+        sortDropdown.click();
+        $x(String.format(SORT_DROPDOWN_OPTIONS_XPATH,option)).click();
+        Selenide.sleep(5000);
+        return this;
+    }
+
+    public FlightsSearchPage closeInfoWindow() {
+        infoModalClose.click();
+        return this;
+    }
 }
