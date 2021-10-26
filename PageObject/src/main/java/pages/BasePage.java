@@ -5,7 +5,7 @@ import constants.IConstantsURL;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.apache.commons.lang3.time.DateUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.openqa.selenium.Cookie;
 import java.util.Date;
 import static com.codeborne.selenide.Selenide.open;
