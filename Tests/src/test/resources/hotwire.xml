@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Hotwire Test Suite" >
+    <test name="FilterTests">
+        <classes>
+            <class name="tests.FilterTests" />
+        </classes>
+    </test>
+    <test name="FlightDataTests">
+        <classes>
+            <class name="tests.FlightDataTests" />
+        </classes>
+    </test>
+    <test name="PricesTests">
+        <classes>
+            <class name="tests.PricesTests" />
+        </classes>
+    </test>
+</suite>
