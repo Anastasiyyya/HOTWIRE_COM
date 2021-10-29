@@ -21,7 +21,7 @@ pipeline {
             // Run Maven on a Unix agent.
             //sh "mvn clean test"
             // To run Maven on a Windows agent, use
-            bat "mvn clean test"
+            bat "mvn clean install test"
          }
 
          post {
