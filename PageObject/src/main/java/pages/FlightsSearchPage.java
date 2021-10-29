@@ -138,8 +138,7 @@ public class FlightsSearchPage {
     }
 
     public TripDetailPage chooseReturningFlight(int flightOrder){
-        SelenideElement element = $(String.format(RULES_BUTTON_CSS,flightOrder));
-        if (element.isDisplayed()){
+        if ($(String.format(RULES_BUTTON_CSS,flightOrder)).isDisplayed()){
             clickSelectFlightButton(flightOrder);
             waitUntilMenuVisible(flightOrder);
             clickSelectFareButton(flightOrder);

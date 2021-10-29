@@ -1,4 +1,4 @@
-package tests;
+package tests.tests;
 
 import com.codeborne.selenide.Configuration;
 import constants.IPagesConstants;
@@ -7,11 +7,15 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import pages.*;
 import steps.FindFlightsSteps;
 import tests.objects.Objects;
+import tests.utils.TestListener;
+
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
+@Listeners(TestListener.class)
 public class BaseTest implements IPagesConstants {
 
     BasePage basePage;

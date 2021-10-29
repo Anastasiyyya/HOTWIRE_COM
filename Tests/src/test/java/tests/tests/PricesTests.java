@@ -1,9 +1,10 @@
-package tests;
+package tests.tests;
 
 import io.qameta.allure.Link;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import tests.objects.Objects;
+import tests.utils.Retry;
 
 public class PricesTests extends BaseTest {
 
@@ -13,7 +14,7 @@ public class PricesTests extends BaseTest {
      * in the 'Flight Search' pages and Total price in the Trip Detail page are the same
      */
     @Link(value = "AS-8 Test-case Link", url = "https://docs.google.com/document/d/1nCM4rGxKGTkTgmzOHvTp39juojYjvtuo7xIoABjV2fo/edit#heading=h.c5dqknlja8r7")
-    @Test(testName = "AS-8 Check total price")
+    @Test(testName = "AS-8 Check total price", retryAnalyzer = Retry.class)
     public void checkTotalPrice() {
 
         findFlightSteps
@@ -38,7 +39,7 @@ public class PricesTests extends BaseTest {
      * 'Select your fare' then Trip total price will change in the section  Trip Summary
      */
     @Link(value = "AS-10 Test-case Link", url = "https://docs.google.com/document/d/1nCM4rGxKGTkTgmzOHvTp39juojYjvtuo7xIoABjV2fo/edit#heading=h.p84pexhvlxmw")
-    @Test(testName = "AS-10 Change total price")
+    @Test(testName = "AS-10 Change total price", retryAnalyzer = Retry.class)
     public void changeFlightPrice() {
 
         String FlightType = "Economy Classic";
