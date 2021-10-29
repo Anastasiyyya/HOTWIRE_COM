@@ -19,7 +19,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <testng.version>7.4.0</testng.version>
-        <restassured.version>4.4.0</restassured.version>
+        <restassured.version>4.3.3</restassured.version>
         <lombok.version>1.18.20</lombok.version>
         <allure.version>2.13.9</allure.version>
         <aspectj.version>1.9.5</aspectj.version>
@@ -35,7 +35,6 @@
         <allure-maven.version>2.10.0</allure-maven.version>
         <allure-testng.version>2.7.0</allure-testng.version>
         <allureplugin.version>2.10.0</allureplugin.version>
-        <allure-selenide.version>2.14.0</allure-selenide.version>
     </properties>
 
     <dependencies>
@@ -115,12 +114,6 @@
             <artifactId>rest-assured</artifactId>
             <version>${restassured.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-selenide -->
-        <dependency>
-            <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-selenide</artifactId>
-            <version>${allure-selenide.version}</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -128,11 +121,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
+                <version>3.0.0-M3</version>
                 <configuration>
                     <testFailureIgnore>true</testFailureIgnore>
                     <argLine>
-                        -Xmx512m -Dtestng.dtd.http=true -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar
+                        -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/1.9.6/aspectjweaver-1.9.6.jar -Xmx256m
                     </argLine>
                     <suiteXmlFiles>
                         <suiteXmlFile>src/test/resources/hotwire.xml</suiteXmlFile>
@@ -156,18 +149,37 @@
                 <artifactId>allure-maven</artifactId>
                 <version>${allure-maven.version}</version>
             </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+
     <reporting>
         <excludeDefaults>true</excludeDefaults>
         <plugins>
-            <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-maven -->
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
-                <version>${allure-maven.version}</version>
+                <version>${allureplugin.version}</version>
                 <configuration>
-                    <reportVersion>${allure-maven.version}</reportVersion>
+                    <reportVersion>${allure.version}</reportVersion>
                 </configuration>
             </plugin>
         </plugins>
