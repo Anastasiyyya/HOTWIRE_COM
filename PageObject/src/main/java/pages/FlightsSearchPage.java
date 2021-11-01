@@ -117,6 +117,7 @@ public class FlightsSearchPage {
     }
 
     public FlightsSearchPage waitUntilMenuVisible(int flightOrder){
+        Selenide.Wait().withTimeout(Duration.ofSeconds(10));
         $(String.format(MENU_CSS,flightOrder)).shouldBe(Condition.visible, Duration.ofSeconds(15));
         return this;
     }

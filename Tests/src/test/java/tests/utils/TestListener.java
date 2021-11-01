@@ -16,22 +16,22 @@ import java.util.concurrent.TimeUnit;
 public class TestListener implements ITestListener {
 
     public void onTestStart(ITestResult iTestResult) {
-        log.info((String.format("======================================== STARTING TEST %s ========================================", iTestResult.getName())));
+        log.info((String.format("================== STARTING TEST %s ==================", iTestResult.getName())));
     }
 
     public void onTestSuccess(ITestResult iTestResult) {
-        log.info(String.format("======================================== FINISHED TEST %s Duration: %ss ========================================", iTestResult.getName(),
+        log.info(String.format("================== FINISHED TEST %s Duration: %ss ==================", iTestResult.getName(),
                 getExecutionTime(iTestResult)));
     }
 
     public void onTestFailure(ITestResult iTestResult) {
-        log.info(String.format("======================================== FAILED TEST %s Duration: %ss ========================================", iTestResult.getName(),
+        log.info(String.format("================== FAILED TEST %s Duration: %ss ==================", iTestResult.getName(),
                 getExecutionTime(iTestResult)));
         takeScreenshot(iTestResult);
     }
 
     public void onTestSkipped(ITestResult iTestResult) {
-        log.info(String.format("======================================== SKIPPING TEST %s ========================================", iTestResult.getName()));
+        log.info(String.format("================== SKIPPING TEST %s ==================", iTestResult.getName()));
         takeScreenshot(iTestResult);
     }
 
