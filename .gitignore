@@ -1,3 +1,7 @@
 /target/
 .idea
 *.iml
+/Tests/target/
+/Steps/target/
+/PageObject/target/
+/OOP/target/
