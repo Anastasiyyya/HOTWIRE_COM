@@ -12,7 +12,6 @@ import pages.*;
 import steps.FindFlightsSteps;
 import tests.objects.Objects;
 import tests.utils.TestListener;
-
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 @Listeners(TestListener.class)
@@ -49,10 +48,11 @@ public class BaseTest implements IPagesConstants {
 
     /**
      * This method executed after test methods and closes browser.
+     */
     @AfterMethod
     public void closeBrowser(){
         getWebDriver().quit();
-    }*/
+    }
 
     /**
      * This method inits pages for our project
