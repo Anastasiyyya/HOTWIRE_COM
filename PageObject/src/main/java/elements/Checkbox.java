@@ -38,8 +38,8 @@ public class Checkbox {
     }
 
     public void selectCheckboxFromFilter(String label){
-        $x(String.format(CHECKBOX_FILTER_XPATH,label)).shouldBe(Condition.visible);
-        $x(String.format(CHECKBOX_FILTER_XPATH,label)).click();
+        $x(String.format(CHECKBOX_FILTER_XPATH,label)).scrollIntoView(true).shouldBe(Condition.visible);
+        $x(String.format(CHECKBOX_FILTER_XPATH,label)).scrollIntoView(true).click();
         Selenide.sleep(2000);
     }
 }
