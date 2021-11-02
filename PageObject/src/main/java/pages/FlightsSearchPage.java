@@ -142,6 +142,7 @@ public class FlightsSearchPage {
         if ($(String.format(RULES_BUTTON_CSS,flightOrder)).isDisplayed()){
             clickSelectFlightButton(flightOrder);
             waitUntilMenuVisible(flightOrder);
+            Selenide.sleep(5000);
             clickSelectFareButton(flightOrder);
         } else {
             clickSelectFlightButton(flightOrder);
