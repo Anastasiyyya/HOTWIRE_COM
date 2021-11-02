@@ -1,4 +1,4 @@
-package tests.tests;
+package tests;
 
 import com.codeborne.selenide.Configuration;
 import constants.IPagesConstants;

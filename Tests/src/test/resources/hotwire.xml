@@ -3,17 +3,17 @@
 <suite name="Hotwire Test Suite" >
     <test name="FilterTests">
         <classes>
-            <class name="tests.tests.FilterTests"/>
+            <class name="tests.FilterTests"/>
         </classes>
     </test>
     <test name="FlightDataTests">
         <classes>
-            <class name="tests.tests.FlightDataTests"/>
+            <class name="tests.FlightDataTests"/>
         </classes>
     </test>
     <test name="PricesTests">
         <classes>
-            <class name="tests.tests.PricesTests"/>
+            <class name="tests.PricesTests"/>
         </classes>
     </test>
 </suite>
