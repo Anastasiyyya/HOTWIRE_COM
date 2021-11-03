@@ -91,7 +91,7 @@ public class FlightDataTests extends BaseTest {
      * and checks that the data on the Trip detail page equals to entered data
      */
     @Link(value = "AS-4 Test-case Link", url = "https://docs.google.com/document/d/1nCM4rGxKGTkTgmzOHvTp39juojYjvtuo7xIoABjV2fo/edit#heading=h.hbqamx5cv5rk")
-    @Test(testName = "AS-4 Check that the entered data is displayed correctly on the Trip Detail Page")
+    @Test(testName = "AS-4 Check that the entered data is displayed correctly on the Trip Detail Page", retryAnalyzer = Retry.class)
     public void checkEnteredDataUsingSearchingOnTheTripDetailPage()  {
 
         String directionFrom = "Minsk";
@@ -117,7 +117,7 @@ public class FlightDataTests extends BaseTest {
     public void changeFlightToAnother()  {
 
         String firstAirlineName = "Belavia";
-        String secondAirlineName = "Utair Aviation";
+        String secondAirlineName = "Aeroflot-Russian Airlines";
 
         findFlightSteps
                 .findRoundTripFlightFromBasePage(Objects.FLIGHT_SEARCH_ROUND_TRIP)
