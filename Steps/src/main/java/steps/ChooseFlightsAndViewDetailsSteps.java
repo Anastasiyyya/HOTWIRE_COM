@@ -4,6 +4,7 @@ import constants.IPagesConstants;
 import entities.Flight;
 import entities.FlightFilter;
 import entities.FlightSearch;
+import io.qameta.allure.Step;
 import java.util.List;
 import static com.codeborne.selenide.Selenide.switchTo;
 
@@ -16,6 +17,7 @@ public class ChooseFlightsAndViewDetailsSteps extends BaseSteps implements IPage
      * @param flightOrder
      * @return List<Flight>
      */
+    @Step("Choose round-trip flight with parameters")
     public List<Flight> chooseRoundTripFlightsWithParameters(FlightFilter flightFilter, FlightSearch flightSearch, int flightOrder){
 
         basePage.getFlightsSearchPage()
@@ -43,6 +45,7 @@ public class ChooseFlightsAndViewDetailsSteps extends BaseSteps implements IPage
      * @param flightOrder
      * @return List<Flight>
      */
+    @Step("Choose one-way trip flight with parameters")
     public List<Flight> chooseOneWayTripFlightsWithParameters(FlightFilter flightFilter, FlightSearch flightSearch, int flightOrder){
 
         basePage.getFlightsSearchPage()

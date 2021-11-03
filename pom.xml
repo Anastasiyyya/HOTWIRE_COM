@@ -26,12 +26,12 @@
         <selenium-java.version>4.0.0</selenium-java.version>
         <testng.version>7.4.0</testng.version>
         <aspectjweaver.version>1.9.6</aspectjweaver.version>
+        <aspectj.version>1.9.5</aspectj.version>
         <lombok.version>1.18.20</lombok.version>
         <allure.version>2.13.9</allure.version>
         <allure-maven.version>2.10.0</allure-maven.version>
         <allure-testng.version>2.7.0</allure-testng.version>
         <allureplugin.version>2.10.0</allureplugin.version>
-        <aspectj.version>1.9.5</aspectj.version>
     </properties>
 
     <dependencies>
@@ -104,8 +104,7 @@
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
-            <version>2.15.0</version>
-            <scope>test</scope>
+            <version>2.16.0</version>
         </dependency>
     </dependencies>
 

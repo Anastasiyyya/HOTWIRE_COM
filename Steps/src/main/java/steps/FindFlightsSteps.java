@@ -1,6 +1,7 @@
 package steps;
 
 import entities.FlightSearch;
+import io.qameta.allure.Step;
 import pages.TripDetailPage;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ public class FindFlightsSteps extends BaseSteps {
      * @param flightSearch
      * @return List<Flight>
      */
+    @Step("Find round trip flight from Base Page")
     public FindFlightsSteps findRoundTripFlightFromBasePage(FlightSearch flightSearch) {
 
         basePage.openPage();
@@ -29,12 +31,14 @@ public class FindFlightsSteps extends BaseSteps {
         return this;
     }
 
+    @Step("Click on the done button in the passengers window")
     public FindFlightsSteps clickDoneButtonOnPassengersWindow()  {
         basePage.getBasePageForm().getPassengersInput()
                 .clickDoneButton();
         return this;
     }
 
+    @Step("Switch to Flight Search Page")
     public FindFlightsSteps goToFlightSearchPage()  {
         basePage.getBasePageForm()
                 .clickFindAFlightButton()
@@ -42,6 +46,7 @@ public class FindFlightsSteps extends BaseSteps {
         return this;
     }
 
+    @Step("Choose departing flight")
     public FindFlightsSteps chooseDepartingFlight() {
         basePage.getFlightsSearchPage()
                 .waitFlightsLoaded()
@@ -50,12 +55,14 @@ public class FindFlightsSteps extends BaseSteps {
         return this;
     }
 
+    @Step("Close existent window and switch to Trip Detail Page")
     public FindFlightsSteps closeWindowAndGoToTripDetailPage() {
         basePage.getFlightsSearchPage().closeInfoWindow();
         switchTo().window("Trip Detail | Hotwire");
         return this;
     }
 
+    @Step("Choose returning flight")
     public FindFlightsSteps chooseReturningFlight() {
         basePage.getFlightsSearchPage()
                 .waitFlightsLoaded()
@@ -63,11 +70,13 @@ public class FindFlightsSteps extends BaseSteps {
         return this;
     }
 
+    @Step("Choose sort dropdown options")
     public FindFlightsSteps chooseSortDropdownOptions(String sortOption) {
         basePage.getFlightsSearchPage().selectSortOption(sortOption);
         return this;
     }
 
+    @Step("Get price list from Searching page")
     public List<Double> getPriceListFromSearchingPage() {
         List<Double> pricesList =  new ArrayList<>();
         for (int i = 0; i < basePage.getFlightsSearchPage().getFlightForms().getFlights().size(); i++) {
@@ -76,6 +85,7 @@ public class FindFlightsSteps extends BaseSteps {
         return pricesList;
     }
 
+    @Step("Check that price list has been correctly sorted")
     public boolean isPriceListSortedByHighest(List<Double> priceList) {
         Double price = priceList.get(0);
         for (Double aDouble : priceList) {
@@ -87,10 +97,12 @@ public class FindFlightsSteps extends BaseSteps {
         return true;
     }
 
+    @Step("Check that price lists before/after sorting are the same")
     public boolean isPriceListsTheSame(List<Double> pricesListBeforeSorting, List<Double> pricesListAfterSorting) {
         return pricesListAfterSorting.containsAll(pricesListBeforeSorting);
     }
 
+    @Step("Switch to Trip Detail page")
     public TripDetailPage goToTripDetailPage() {
 
         switchTo().window("Trip Detail | Hotwire");
@@ -100,12 +112,14 @@ public class FindFlightsSteps extends BaseSteps {
         return new TripDetailPage();
     }
 
+    @Step("Change flight to another")
     public FindFlightsSteps changeFlightToAnother()  {
         basePage.getFlightsSearchPage().getTripDetailPage()
                 .clickChangeFlights();
         return this;
     }
 
+    @Step("Check that direction is correct")
     public boolean isDirectionCorrect(String directionFrom, String directionTo) {
         for (int i = 0; i < basePage.getFlightsSearchPage().getTripDetailPage().getFlights().size(); i++) {
             if (!basePage.getFlightsSearchPage().getTripDetailPage().getLeavingFrom().get(i).getText().split(" ")[0].equals(directionFrom)
@@ -116,10 +130,12 @@ public class FindFlightsSteps extends BaseSteps {
         return true;
     }
 
+    @Step("Check that the airline for the departing flight is correct")
     public boolean isAirlineForTheFlightToChanged(String airlineName) {
         return basePage.getFlightsSearchPage().getTripDetailPage().getAirline().get(0).getText().equals(airlineName);
     }
 
+    @Step("Check that airline is equals to selected on the Search page")
     public boolean isAirlineEqualToSelected(String selectedAirlineName) {
         if (!basePage.getFlightsSearchPage().getAirlineInTheInfoForm().getText().equals(selectedAirlineName)) {
             return false;
@@ -127,22 +143,18 @@ public class FindFlightsSteps extends BaseSteps {
         return true;
     }
 
+    @Step("Check that direction is equals to selected on the Search page")
     public boolean isDirectionEqualToSelected(String selectedDirection) {
         System.out.println(basePage.getFlightsSearchPage().getDirectionFromInTheInfoForm().getText() + " "
                 + basePage.getFlightsSearchPage().getDirectionToInTheInfoForm().getText());
-        if (!(basePage.getFlightsSearchPage().getDirectionFromInTheInfoForm().getText() + " "
-                + basePage.getFlightsSearchPage().getDirectionToInTheInfoForm().getText()).equals(selectedDirection)) {
-            return false;
-        }
-        return true;
+        return (basePage.getFlightsSearchPage().getDirectionFromInTheInfoForm().getText() + " "
+                + basePage.getFlightsSearchPage().getDirectionToInTheInfoForm().getText()).equals(selectedDirection);
     }
 
+    @Step("Check that flight type is equals to selected on the Search page")
     public boolean isFlightTypeEqualToSelected(String selectedFlightType) {
         System.out.println(basePage.getFlightsSearchPage().getFlightTypeInTheInfoForm().getText());
-        if (!basePage.getFlightsSearchPage().getFlightTypeInTheInfoForm().getText().equals(selectedFlightType)) {
-            return false;
-        }
-        return true;
+        return basePage.getFlightsSearchPage().getFlightTypeInTheInfoForm().getText().equals(selectedFlightType);
     }
 
     /**
@@ -150,6 +162,7 @@ public class FindFlightsSteps extends BaseSteps {
      * @param flightSearch
      * @return List<Flight>
      */
+    @Step("Find round-trip flight from Flight page ")
     public FindFlightsSteps findRoundTripFlightFromFlightPage(FlightSearch flightSearch) {
 
         basePage.openPage();
@@ -175,6 +188,7 @@ public class FindFlightsSteps extends BaseSteps {
      * @param flightSearch
      * @return List<Flight>
      */
+    @Step("Fill one-way trip flight with data")
     public FindFlightsSteps fillOneWayTripFlightWithData(FlightSearch flightSearch) {
 
         basePage.openPage();
@@ -190,6 +204,7 @@ public class FindFlightsSteps extends BaseSteps {
         return this;
     }
 
+    @Step("Get general passengers count from Base page")
     public int receiveGeneralPassengersCountFromBasePage(FlightSearch flightSearch) {
         int adultPassengerCount = basePage.getBasePageForm().getPassengersInput().receiveExistPassengersCountFromPage(flightSearch.getPassenger().getAdultPassenger());
         int childrenPassengerCount = basePage.getBasePageForm().getPassengersInput().receiveExistPassengersCountFromPage(flightSearch.getPassenger().getChildPassenger());
@@ -199,19 +214,23 @@ public class FindFlightsSteps extends BaseSteps {
         return generalCountFromBasePage;
     }
 
-    public String flightDirection() {
+    @Step("Get flight direction")
+    public String getFlightDirection() {
         return basePage.getFlightsSearchPage().getFlightForms().getAirportFrom().get(0).getText() + " " +
                     basePage.getFlightsSearchPage().getFlightForms().getAirportTo().get(0).getText();
     }
 
-    public String flightAirline() {
+    @Step("Get flight airline")
+    public String getFlightAirline() {
         return basePage.getFlightsSearchPage().getFlightForms().getAirlineName().get(0).getText();
     }
 
-    public String flightType() {
+    @Step("Get flight type")
+    public String getFlightType() {
         return basePage.getFlightsSearchPage().getFlightForms().getNonstop().get(0).getText();
     }
 
+    @Step("Check that flights has been sorted by airline correctly")
     public boolean isFlightsSortedByAirportsCorrectly(String filterAirport){
         for (int i = 0; i < basePage.getFlightsSearchPage().getFlightForms().getFlights().size(); i++) {
             String airportTo = basePage.getFlightsSearchPage().getFlightForms().getAirportTo().get(i).getText();
@@ -222,12 +241,14 @@ public class FindFlightsSteps extends BaseSteps {
         return true;
     }
 
+    @Step("Select filter")
     public FindFlightsSteps selectFilter(String filter) {
         basePage.getFlightsSearchPage()
                 .selectFilter(filter);
         return this;
     }
 
+    @Step("Select searching options")
     public FindFlightsSteps selectSearchingOptions(FlightSearch flightSearch) {
 
         basePage.getFlightsSearchPage()
@@ -245,6 +266,7 @@ public class FindFlightsSteps extends BaseSteps {
     /**
      * This gets finds flights searching results list
      */
+    @Step("Find searching results list")
     public FindFlightsSteps findSearchingResultsList(String location) {
         basePage.openPage();
         basePage.getBasePageForm()
@@ -257,6 +279,7 @@ public class FindFlightsSteps extends BaseSteps {
         return this;
     }
 
+    @Step("Check that the entered data is in the search results")
     public boolean isTheEnteredDataInTheSearchResults(String result){
         for (int i = 0; i < makeUpSearchingResultsList().size(); i++) {
             if (!makeUpSearchingResultsList().get(i).contains(result)) {
@@ -266,6 +289,7 @@ public class FindFlightsSteps extends BaseSteps {
         return true;
     }
 
+    @Step("Check that trip is one-way")
     public boolean isTripTypeOneWay() {
         for (int i = 0; i < basePage.getFlightsSearchPage().getFlightForms().getFlights().size(); i++) {
             if (!basePage.getFlightsSearchPage().getFlightForms().getFlightType().get(i).getText().equals("one way")) {
@@ -275,6 +299,7 @@ public class FindFlightsSteps extends BaseSteps {
         return true;
     }
 
+    @Step("Check that trip is nonstop")
     public boolean isTripNonstop() {
         for (int i = 0; i < basePage.getFlightsSearchPage().getFlightForms().getFlights().size(); i++) {
             if (!basePage.getFlightsSearchPage().getFlightForms().getNonstop().get(i).getText().trim().equals("(Nonstop)")) {
@@ -284,6 +309,7 @@ public class FindFlightsSteps extends BaseSteps {
         return true;
     }
 
+    @Step("Check that fly from direction is correct")
     public boolean isFlyFromToDirectionCorrect(List<String> list){
         for (int i = 0; i < basePage.getFlightsSearchPage().getFlightForms().getFlights().size(); i++) {
             String direction = basePage.getFlightsSearchPage().getFlightForms().getAirportFrom().get(i).getText() + " " +
@@ -295,6 +321,7 @@ public class FindFlightsSteps extends BaseSteps {
         return true;
     }
 
+    @Step("Check that airline is correct")
     public boolean isAirlineCorrect(String airlineName) {
         for (int i = 0; i < basePage.getFlightsSearchPage().getFlightForms().getFlights().size(); i++) {
             if (!basePage.getFlightsSearchPage().getFlightForms().getAirlineName().get(i).getText().trim().equals(airlineName)) {
@@ -304,6 +331,7 @@ public class FindFlightsSteps extends BaseSteps {
         return true;
     }
 
+    @Step("Check that passengers count is correct")
     public boolean isPassengersCountCorrect(int generalCountFromBasePage) {
         boolean result;
         int generalCount = basePage.getFlightsSearchPage().checkGeneralPassengersCount();
@@ -311,10 +339,12 @@ public class FindFlightsSteps extends BaseSteps {
         return result;
     }
 
+    @Step("Get flight price after searching")
     public Double getSearchedFlightPrice() {
         return basePage.getFlightsSearchPage().checkTotalPrice(1);
     }
 
+    @Step("Get additionally price")
     public Double getAdditionallyPrice() {
         Double additionallyPrice = basePage.getFlightsSearchPage().checkAdditionallyPrice(1);
         if (!(basePage.getFlightsSearchPage().checkAdditionallyPrice(1) == 0)) {
@@ -323,6 +353,7 @@ public class FindFlightsSteps extends BaseSteps {
         return additionallyPrice;
     }
 
+    @Step("Check that the price on the Trip detail page is correct for round-trip flight")
     public boolean isPriceOnTripDetailCorrectForRoundTrip(Double roundTripPrice, Double additionallyPrice) {
         double totalPrice = basePage.getFlightsSearchPage().getTripDetailPage().returnTotalPrice();
         if (basePage.getFlightsSearchPage().getTripDetailPage().getCurrencyPrice().exists()) {
@@ -333,11 +364,13 @@ public class FindFlightsSteps extends BaseSteps {
         }
     }
 
+    @Step("Check that the price on the Trip detail page is correct for one-way trip")
     public boolean isPriceOnTripDetailCorrectForOneWayTrip(Double oneWaySearchedPrice) {
         double totalPrice = basePage.getFlightsSearchPage().getTripDetailPage().returnTotalPrice();
         return totalPrice == oneWaySearchedPrice;
     }
 
+    @Step("Check that total price has been changed after changing flight type on the Trip Detail Page")
     public boolean isTotalPriceChangedAfterChangingFlightType(String flightTypeName) {
         double totalPrice = basePage.getFlightsSearchPage().getTripDetailPage().returnTotalPrice();
         double newPrice = basePage.getFlightsSearchPage().getTripDetailPage().checkFlightPriceWithType(flightTypeName);
@@ -347,6 +380,7 @@ public class FindFlightsSteps extends BaseSteps {
         return true;
     }
 
+    @Step("Change flight price on the Trip Detail Page")
     public FindFlightsSteps changeFlightPrice(String flightTypeName) {
         basePage.getFlightsSearchPage().getTripDetailPage().changeFlightByPrice(flightTypeName);
         return this;

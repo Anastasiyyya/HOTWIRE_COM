@@ -53,9 +53,9 @@ public class FlightDataTests extends BaseTest {
         findFlightSteps
                 .findRoundTripFlightFromFlightPage(Objects.FLIGHT_SEARCH_ROUND_TRIP)
                 .selectFilter(filter);
-        String direction = findFlightSteps.flightDirection();
-        String airlineName = findFlightSteps.flightAirline();
-        String flightType = findFlightSteps.flightType();
+        String direction = findFlightSteps.getFlightDirection();
+        String airlineName = findFlightSteps.getFlightAirline();
+        String flightType = findFlightSteps.getFlightType();
         findFlightSteps.chooseDepartingFlight();
 
         Assert.assertTrue(findFlightSteps.isAirlineEqualToSelected(airlineName));
