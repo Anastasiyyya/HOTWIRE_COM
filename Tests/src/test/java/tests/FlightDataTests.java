@@ -91,7 +91,7 @@ public class FlightDataTests extends BaseTest {
      * and checks that the data on the Trip detail page equals to entered data
      */
     @Link(value = "AS-4 Test-case Link", url = "https://docs.google.com/document/d/1nCM4rGxKGTkTgmzOHvTp39juojYjvtuo7xIoABjV2fo/edit#heading=h.hbqamx5cv5rk")
-    @Test(testName = "AS-4 Check that the entered data is displayed correctly on the Trip Detail Page", retryAnalyzer = Retry.class)
+    @Test(testName = "AS-4 Check that the entered data is displayed correctly on the Trip Detail Page")
     public void checkEnteredDataUsingSearchingOnTheTripDetailPage()  {
 
         String directionFrom = "Minsk";
@@ -113,7 +113,7 @@ public class FlightDataTests extends BaseTest {
      * This test checks the possibility of changing flight to another
      */
     @Link(value = "AS-9 Test-case Link", url = "https://docs.google.com/document/d/1nCM4rGxKGTkTgmzOHvTp39juojYjvtuo7xIoABjV2fo/edit#heading=h.hylcpt1td46y")
-    @Test(testName = "AS-9 Check the possibility of changing flight to another", retryAnalyzer = Retry.class)
+    @Test(testName = "AS-9 Check the possibility of changing flight to another")
     public void changeFlightToAnother()  {
 
         String firstAirlineName = "Belavia";
