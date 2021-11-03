@@ -43,7 +43,7 @@ public interface IPagesConstants {
 
     String DETAILS_BUTTON_XPATH = "//*[@class='custom-col-r-margin link-style']";
     String TOTAL_PRICE_XPATH = "//*[@class='total-price-message']//strong";
-    String ADDITIONAL_PRICE_XPATH = "//*[@class = 'primary-content   custom-primary-padding']//span";
+    String ADDITIONAL_PRICE_XPATH = "//*[@class='full-bold no-wrap']";
 
     String SORT_DROPDOWN_OPTIONS_XPATH = "//*[@id='sortDropdown']//option[contains(text(),'%s')]";
     String CHANGE_FLIGHT_TYPE_BY_PRICE_TRIP_DETAIL_XPATH = "//*[contains(text(),'%s')]/ancestor::*[@class='main hitArea']//input";
