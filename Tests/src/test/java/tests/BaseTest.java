@@ -43,6 +43,7 @@ public class BaseTest implements IPagesConstants {
         Configuration.holdBrowserOpen = true;
         Configuration.headless = false;
         Configuration.pageLoadTimeout = 30000;
+        Configuration.browserSize = "1920x1080";
         initPages();
     }
 
