@@ -2,6 +2,7 @@ package pages;
 
 import com.codeborne.selenide.WebDriverRunner;
 import constants.IConstantsURL;
+import constants.IPagesConstants;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +14,7 @@ import static com.codeborne.selenide.Selenide.open;
 @Data
 @AllArgsConstructor
 @Builder
-public class BasePage implements IConstantsURL {
+public class BasePage implements IConstantsURL, IPagesConstants {
 
     public BasePageForm basePageForm;
     public HeaderPage headerPage;
