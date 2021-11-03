@@ -8,11 +8,13 @@ import elements.BasePassengerInput;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.extern.log4j.Log4j2;
 import static com.codeborne.selenide.Selenide.*;
 
 @Data
 @Builder
 @AllArgsConstructor
+@Log4j2
 public class BasePageForm extends InfoForm {
 
      private SelenideElement fareFinderFlights;
@@ -31,18 +33,21 @@ public class BasePageForm extends InfoForm {
     }
 
     public BasePageForm chooseOptionFlights() {
-        fareFinderFlights.click();
-        return this;
+         log.info("Option 'Flights' was selected ");
+         fareFinderFlights.click();
+         return this;
     }
 
     @Override
     public InfoForm chooseDirectionFrom(String countryName) {
-        dropdown.selectInputDropdownOptionFromBasePage("Fly from",countryName);
-        return this;
+         log.info(String.format("Enter direction from: '%s' in Login field.", countryName));
+         dropdown.selectInputDropdownOptionFromBasePage("Fly from",countryName);
+         return this;
     }
 
     @Override
     public InfoForm chooseDirectionTo(String countryName) {
+        log.info(String.format("Enter direction to: '%s' in Login field.", countryName));
         dropdown.selectInputDropdownOptionFromBasePage("Fly to",countryName);
         return this;
     }

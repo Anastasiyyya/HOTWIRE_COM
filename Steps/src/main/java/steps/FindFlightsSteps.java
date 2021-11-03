@@ -255,7 +255,7 @@ public class FindFlightsSteps extends BaseSteps {
                 .selectRadioButtonOneWay()
                 .clickShowOptionsButton()
                 .chooseAdultsCount(flightSearch.getPassenger().getAdultPassengersCount())
-                .chooseChildrenCountAndAge(flightSearch.getPassenger().getChildrenPassengersCount())
+                .chooseChildrenCountAndRandomAge(flightSearch.getPassenger().getChildrenPassengersCount())
                 .chooseAirlineByName(flightSearch.getAirlineName())
                 .chooseSeatingClassByName(flightSearch.getSeatingClass())
                 .selectNonStopCheckbox()

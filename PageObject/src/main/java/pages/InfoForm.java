@@ -3,9 +3,11 @@ package pages;
 import com.codeborne.selenide.SelenideElement;
 import elements.*;
 import lombok.*;
+import lombok.extern.log4j.Log4j2;
 
 @Data
 @AllArgsConstructor
+@Log4j2
 public abstract class InfoForm {
 
     protected SelenideElement leavingFromField;
@@ -37,11 +39,13 @@ public abstract class InfoForm {
     public abstract InfoForm chooseDirectionTo(String countryName);
 
     public FlightsSearchPage clickFindAFlightButton() {
+        log.info("Click 'Find a flight' button");
         findAFlightButton.click();
         return new FlightsSearchPage();
     }
 
     public InfoForm writeDirection(String direction, String countryName) {
+        log.info(String.format("Enter %s: '%s'", direction, countryName));
         new Input(direction).writeTextInDropdownField(countryName);
         return this;
     }

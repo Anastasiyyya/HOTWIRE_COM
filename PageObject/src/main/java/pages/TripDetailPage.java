@@ -6,6 +6,7 @@ import com.codeborne.selenide.SelenideElement;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import java.time.Duration;
 import static com.codeborne.selenide.Selenide.*;
 import static constants.IPagesConstants.*;
@@ -13,6 +14,7 @@ import static constants.IPagesConstants.*;
 @Data
 @Getter
 @NoArgsConstructor
+@Log4j2
 public class TripDetailPage {
 
     private final SelenideElement returningDate = $x("//*[@class = 'flex-card flex-tile details OD0']//*[@class='departureDate type-500']");
@@ -45,11 +47,13 @@ public class TripDetailPage {
     }
 
     public TripDetailPage clickShowDepartingDetails(){
+        log.info("Click on the 'Show departing details' button");
         $(showDepartingDetailsButton).click();
         return this;
     }
 
     public void clickShowReturningDetails(){
+        log.info("Click on the 'Show returning details' button");
         $(showReturningDetailsButton).click();
     }
 
@@ -60,11 +64,13 @@ public class TripDetailPage {
     }
 
     public FlightsSearchPage clickChangeFlights() {
+        log.info("Click on the 'Change flight' link");
         $(changeFlightsButton).click();
         return new FlightsSearchPage();
     }
 
     public FlightsSearchPage changeFlightByPrice(String flightName) {
+        log.info(String.format("Change flight name to %s",flightName));
         $x(String.format(CHANGE_FLIGHT_TYPE_BY_PRICE_TRIP_DETAIL_XPATH, flightName)).click();
         return new FlightsSearchPage();
     }

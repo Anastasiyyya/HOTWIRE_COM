@@ -6,6 +6,7 @@ import elements.Dropdown;
 import elements.RadioButton;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;;
 import java.time.Duration;
 import java.util.Locale;
@@ -15,6 +16,7 @@ import static constants.IPagesConstants.*;
 
 @Data
 @AllArgsConstructor
+@Log4j2
 public class FlightsSearchPage {
 
     private SelenideElement selectThisFareButton = $x("//*[@id = 'basic-economy-tray-content-%s']//button");
@@ -42,27 +44,32 @@ public class FlightsSearchPage {
     }
 
     public FlightsSearchPage clickShowOptionsButton(){
+        log.info("Click on 'Show options' button");
         showOptionsButton.click();
         return this;
     }
 
     public FlightsSearchPage clickDetailsButton(int orderInList){
+        log.info(String.format("Click on the 'Details and baggage fees' button with order number %s", orderInList));
         $$x(DETAILS_BUTTON_XPATH).get(orderInList).click();
         return this;
     }
 
 
     public FlightsSearchPage clickFlightDetailAndBaggageFeesButton(int orderInList){
+        log.info(String.format("Click on the 'Details and baggage fees' button with order number %s", orderInList));
         flightDetailButton.get(orderInList).click();
         return this;
     }
 
     public FlightsSearchPage chooseAdultsCount(int count) {
+        log.info(String.format("Choose adult count: %s", count));
         new Dropdown(ADULT_COUNT_DROPDOWN_XPATH, ADULT_COUNT_DROPDOWN_MENU_XPATH, count-1).selectDropdownOption();
         return this;
     }
 
-    public FlightsSearchPage chooseChildrenCountAndAge(int count) {
+    public FlightsSearchPage chooseChildrenCountAndRandomAge(int count) {
+        log.info(String.format("Choose children count: %s", count));
         new Dropdown(CHILDREN_COUNT_DROPDOWN_XPATH, CHILDREN_COUNT_DROPDOWN_MENU_XPATH, count).selectDropdownOption();
         for (int i = 1; i <= count; i++) {
             int childAge = generateRandomAge();
@@ -86,6 +93,7 @@ public class FlightsSearchPage {
     }
 
     public FlightsSearchPage chooseAirlineByName(String airline) {
+        log.info(String.format("Choose airline with name: %s", airline));
         new Dropdown(AIRLINE_DROPDOWN_XPATH, String.format(AIRLINE_DROPDOWN_OPTION_XPATH,airline)).findDropdownOptionAndSelect();
         return this;
     }
@@ -96,6 +104,7 @@ public class FlightsSearchPage {
     }
 
     public FlightsSearchPage chooseSeatingClassByName(String seatingClassName) {
+        log.info(String.format("Choose seating class: %s", seatingClassName));
         new Dropdown(SEATING_CLASS_DROPDOWN_XPATH, String.format(SEATING_CLASS_DROPDOWN_OPTION_XPATH,seatingClassName)).findDropdownOptionAndSelect();
         return this;
     }
@@ -112,6 +121,7 @@ public class FlightsSearchPage {
 
 
     public FlightsSearchPage clickSelectFlightButton(int flightOrder){
+        log.info(String.format("Click 'Select' button for flight with order %s", flightOrder));
         $x(String.format(FLIGHTS_LIST_SELECT_BUTTONS_XPATH,flightOrder)).click();
         return this;
     }
@@ -123,11 +133,13 @@ public class FlightsSearchPage {
     }
 
     public FlightsSearchPage clickSelectFareButton(int flightOrder){
+        log.info(String.format("Click 'Select this fare' button for flight with order %s", flightOrder));
         $(String.format(SELECT_FARE_BUTTONS_CSS,flightOrder)).click();
         return this;
     }
 
     public FlightsSearchPage chooseDepartingFlight(int flightOrder){
+        log.info(String.format("Choose departing flight for flight with order %s", flightOrder));
         if ($(String.format(RULES_BUTTON_CSS,flightOrder)).isDisplayed()){
             clickSelectFlightButton(flightOrder);
             waitUntilMenuVisible(flightOrder);
@@ -139,6 +151,7 @@ public class FlightsSearchPage {
     }
 
     public TripDetailPage chooseReturningFlight(int flightOrder){
+        log.info(String.format("Choose returning flight for flight with order %s", flightOrder));
         if ($(String.format(RULES_BUTTON_CSS,flightOrder)).isDisplayed()){
             clickSelectFlightButton(flightOrder);
             waitUntilMenuVisible(flightOrder);
@@ -151,6 +164,7 @@ public class FlightsSearchPage {
     }
 
     public FlightsSearchPage clickSearchButton() {
+        log.info("Click 'Search' button");
         $(searchButton).click();
         return this;
     }
@@ -178,16 +192,19 @@ public class FlightsSearchPage {
     }
 
     public FlightsSearchPage selectFilter(String checkboxName) {
+        log.info(String.format("Select checkbox %s", checkboxName));
         new Checkbox().selectCheckboxFromFilter(checkboxName);
         return this;
     }
 
     public FlightsSearchPage selectRadioButtonOneWay() {
+        log.info("Select radiobutton 'One-way'");
         new RadioButton("One Way").findRadioButtonAndSelect();
         return this;
     }
 
     public FlightsSearchPage selectSortOption(String option) {
+        log.info(String.format("Select sort option %s", option));
         sortDropdown.click();
         $x(String.format(SORT_DROPDOWN_OPTIONS_XPATH,option)).click();
         Selenide.sleep(5000);
